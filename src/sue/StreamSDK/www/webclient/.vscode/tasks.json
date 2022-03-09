@@ -1,0 +1,138 @@
+{
+  "version": "2.0.0",
+  "inputs": [
+    {
+      "id": "machine",
+      "default": "stream1832primevoice",
+      "type": "pickString",
+      "description": "Machine name.",
+      "options": [
+        "vmwaredemo",
+        "stream810x44prime",
+        "stream810x44primevoice",
+        "stream810x44primegva",
+        "stream1832prime",
+        "stream1832primenoncast",
+        "stream1832primevoice",
+        "stream1832primevoicedspc",
+        "stream1832primegva",
+        "stream1955nand-music",
+        "stream1955nand-voice",
+        "stream1955nand-gva",
+        "stream1955music",
+        "stream1955voice",
+        "stream1955gva",
+        "stream1955music3d",
+        "stream1955voice3d",
+        "stream1955gva3d",
+        "streamdemo",
+        "streamhighenddemo",
+        "pc"
+      ]
+    },
+    {
+      "default": "10.1.19.158",
+      "id": "device_address",
+      "type": "promptString",
+      "description": "Adress of the device."
+    },
+    {
+      "default": "10.1.19.158",
+      "id": "webclient_address",
+      "type": "promptString",
+      "description": "Adress of the device."
+    }
+  ],
+  "tasks": [
+    {
+      "label": "Configure",
+      "type": "shell",
+      "options": {
+        "cwd": "/home/timon/src/sue/StreamSDK"
+      },
+      "command": "./run_configure.py ${input:machine}",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "scp_to_board",
+      "type": "shell",
+      "options": {
+        "cwd": "/home/timon/src/sue/StreamSDK"
+      },
+      "command": "tools/scp_to_board ${input:machine} -s ${input:device_address}",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "problemMatcher": [],
+      "dependsOrder": "sequence",
+      "dependsOn": ["Configure"]
+    },
+    {
+      "label": "connect_local_webclient_to_device",
+      "type": "npm",
+      "script": "serve:device",
+      "problemMatcher": [],
+      "detail": "webpack serve --config ./webpack.config.js --remote-debugging-port=9222 --env API_URL=http://${input:device_address} --env LOG_API=true --port 8100 --mode development"
+    },
+    {
+      "label": "open_local_webclient_in_browser",
+      "type": "shell",
+      "command": "chromium --remote-debugging-port=9222 --disable-web-security --user-data-dir=/home/timon/unsecure-google-user-data-dir http://localhost:8100/",
+      "problemMatcher": []
+    },
+    {
+      "label": "open_remote_webclient_in_browser",
+      "type": "shell",
+      "command": "chromium --remote-debugging-port=9222 --user-data-dir=/home/timon/unsecure-google-user-data-dir ${input:webclient_address}/webclient",
+      "problemMatcher": []
+    },
+    {
+      "label": "open_remote_web_configuration_in_browser",
+      "type": "shell",
+      "command": "chromium --remote-debugging-port=9222 --user-data-dir=/home/timon/unsecure-google-user-data-dir ${input:webclient_address}",
+      "problemMatcher": []
+    },
+    {
+      "label": "Build StreamSDK",
+      "options": {
+        "cwd": "/home/timon/src/sue/StreamSDK/.build-${input:machine}"
+      },
+      "type": "shell",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "command": "make -j8",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Configure"]
+    },
+    {
+      "label": "Run StreamSDK @ PC",
+      "options": {
+        "cwd": "/home/timon/src/sue/StreamSDK/src/core"
+      },
+      "type": "shell",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "command": "./nSDK-run-stream800.sh",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Build StreamSDK"],
+      "problemMatcher": []
+    }
+  ]
+}

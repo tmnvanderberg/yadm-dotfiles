@@ -1,0 +1,12 @@
+{
+  "configurations": [
+    {
+      "type": "pwa-chrome",
+      "name": "Attach to local webclient @ Chrome",
+      "request": "attach",
+      "port": 9222,
+      "urlFilter": "*localhost:8100/*",
+      "webroot": "${workspaceFolder}"
+    }
+  ]
+}
