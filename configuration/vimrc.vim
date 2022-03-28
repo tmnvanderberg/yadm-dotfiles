@@ -112,6 +112,7 @@ Plug 'tpope/vim-surround'
 " add-ons
 Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-fugitive'
+Plug 'idanarye/vim-merginal'
 Plug 'preservim/nerdtree'
 
 " snips
@@ -158,22 +159,19 @@ nnoremap <silent> <Leader>vr :source ~/configuration/vimrc.vim<CR>
 
 " --- Search Commands
 " current buffer
-nnoremap <silent> <Leader>b :Buffer<CR>
 nnoremap <silent> <C-b> :Buffer<CR>
 " git files
 nnoremap <silent> <Leader>sg :GFiles?<CR>
 nnoremap <silent> <C-p> :GFiles<CR>
 nnoremap <silent> <Leader>gh :0Gclog<CR>
-" fuzzy search resursively from cwd
-nnoremap <silent> <Leader><C-F> :Ag <CR>
-" lines in current buffer
-nnoremap <silent> <Leader><C-f> :BLines <CR>
+" search current buffer for current word
+nnoremap <silent> <Leader><C-f> :BLines <C-R><C-W><CR>
 " fuzzy search files in cwd
 nnoremap <silent> <Leader>sf :Files<CR>
 nnoremap <silent> <Leader><C-p> :Files<CR>
 " fuzzy search current word
-nnoremap <silent> <Leader>sw :Ag <C-R><C-W><CR>
-" fuzzy search contents of " buffer
+nnoremap <silent> <Leader>F :Ag <C-R><C-W><CR>
+" fuzzy global search contents of " buffer
 nnoremap <silent> <Leader>ss :Ag <C-R>"<CR>
 " search vim commands
 nnoremap <silent> <Leader>sc :Commands <C-R>"<CR>
@@ -243,47 +241,6 @@ set colorcolumn=+1
 
 " set textwidth
 set textwidth=100
-
-" youcompleteme keys
-" let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>']
-" set completeopt-=preview
-
-" airline
-" let g:airline_powerline_fonts = 1
-
-" if !exists('g:airline_symbols')
-"     let g:airline_symbols = {}
-" endif
-
-" let g:airline_theme='solarized'
-
-" unicode symbols
-" let g:airline_left_sep = '»'
-" let g:airline_left_sep = '▶'
-" let g:airline_right_sep = '«'
-" let g:airline_right_sep = '◀'
-" let g:airline_symbols.linenr = '␊'
-" let g:airline_symbols.linenr = '␤'
-" let g:airline_symbols.linenr = '¶'
-" let g:airline_symbols.branch = '⎇'
-" let g:airline_symbols.paste = 'ρ'
-" let g:airline_symbols.paste = 'Þ'
-" let g:airline_symbols.paste = '∥'
-" let g:airline_symbols.whitespace = 'Ξ'
-
-" airline symbols
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
-" let g:airline_symbols.branch = ''
-" let g:airline_symbols.readonly = ''
-" let g:airline_symbols.linenr = ''
-
-" snippets
-" let g:UltiSnipsExpandTrigger="<c-j>"
-" let g:UltiSnipsListSnippets="<c-l>"
 
 " nerdtree bindings
 nnoremap <leader>nt :NERDTreeToggle<CR>
