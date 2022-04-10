@@ -249,4 +249,5 @@ nnoremap <leader>nh :NERDTreeCWD<CR>
 let g:NERDTreeWinSize=60
 
 " coc conf
+let g:coc_global_extensions = ['coc-conjure', 'coc-prettier', 'coc-eslint', 'coc-json', 'coc-css']
 source ~/configuration/coc.vim
