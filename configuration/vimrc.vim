@@ -239,4 +239,5 @@ let g:NERDTreeWinSize=60
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 
 " coc configuration
+let g:coc_global_extensions = ['coc-conjure', 'coc-prettier', 'coc-eslint', 'coc-json', 'coc-css']
 source ~/configuration/coc.vim
