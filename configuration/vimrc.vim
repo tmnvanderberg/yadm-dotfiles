@@ -101,33 +101,31 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " search
+" note: we need both fzf commands
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'jremmen/vim-ripgrep'
+" Plug 'jremmen/vim-ripgrep'
 
 " general
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-flagship'
+Plug 'tpope/vim-abolish'
 
 " add-ons
-Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-fugitive'
 Plug 'idanarye/vim-merginal'
 Plug 'preservim/nerdtree'
 
-" snips
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
-
-" language specific plugins
-Plug 'kergoth/vim-bitbake'
-" Plug 'rhysd/vim-clang-format'
-Plug 'sheerun/vim-polyglot'
-Plug 'ludovicchabant/vim-gutentags'
+" language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'prettier/vim-prettier'
+Plug 'kergoth/vim-bitbake'
+Plug 'sheerun/vim-polyglot'
+Plug 'honza/vim-snippets'
+Plug 'mlaursen/vim-react-snippets'
 
-" color schemes & co
+" color schemes
 Plug 'YorickPeterse/vim-paper'
 Plug 'axvr/photon.vim'
 Plug 'NLKNguyen/papercolor-theme'
@@ -139,7 +137,7 @@ call plug#end()
 " set colorscheme
 set t_Co=256
 set background=light
-colorscheme PaperColor
+colorscheme=seoul256
 
 " Enable per-command history
 " - History files will be stored in the specified directory
@@ -147,37 +145,29 @@ colorscheme PaperColor
 "   'previous-history' instead of 'down' and 'up'.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-" configure cmake build
-" let g:make_arguments = '-j11'
-
 " header/source switch using related filenames 
-nnoremap <silent> <Leader>o :call altr#back()<CR>
+nnoremap <silent> <C-h> :CocCommand clangd.switchSourceHeader<CR>
 
 " edit this file
 nnoremap <silent> <Leader>ve :e ~/configuration/vimrc.vim<CR>
+" reload this file
 nnoremap <silent> <Leader>vr :source ~/configuration/vimrc.vim<CR>
 
-" --- Search Commands
 " current buffer
 nnoremap <silent> <C-b> :Buffer<CR>
-" git files
-nnoremap <silent> <Leader>sg :GFiles?<CR>
-nnoremap <silent> <C-p> :GFiles<CR>
-nnoremap <silent> <Leader>gh :0Gclog<CR>
+
+" files
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <Leader><C-p> :GFiles<CR>
+
 " search current buffer for current word
 nnoremap <silent> <Leader><C-f> :BLines <C-R><C-W><CR>
-" fuzzy search files in cwd
-nnoremap <silent> <Leader>sf :Files<CR>
-nnoremap <silent> <Leader><C-p> :Files<CR>
-" fuzzy search current word
-nnoremap <silent> <Leader>F :Ag <C-R><C-W><CR>
-" fuzzy global search contents of " buffer
-nnoremap <silent> <Leader>ss :Ag <C-R>"<CR>
-" search vim commands
-nnoremap <silent> <Leader>sc :Commands <C-R>"<CR>
 
-" clang format on file
-" nnoremap <silent> <Leader>fc :ClangFormat <CR>
+" search current word in all files
+nnoremap <silent> <Leader>F :Ag <C-R><C-W><CR>
+
+" fuzzy global search contents of default buffer
+nnoremap <silent> <Leader>ss :Ag <C-R>"<CR>
 
 " explore current wd
 nnoremap <silent> <Leader>x :Explore <CR>
@@ -185,10 +175,7 @@ nnoremap <silent> <Leader>x :Explore <CR>
 " wrap current line
 nnoremap <silent> <Leader>w :gqq<CR>
 
-"open terminal
-nnoremap <silent> <Leader>t :!konsole& <CR>
-
-" copy paste
+" system clipboard interaction
 noremap <Leader>y "*y
 noremap <Leader>p "*p
 noremap <Leader>Y "+y
@@ -209,7 +196,7 @@ noremap <Leader>st :call FzfTagsCurrentWord()<CR>
 " look here and up for local tags
 set tag=./tags,tags;
 
-" Customize fzf colors to match your color scheme
+" Customize fzf colors to match color scheme
 " - fzf#wrap translates this to a set of `--color` options
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -248,5 +235,8 @@ nnoremap <leader>nf :NERDTreeFind<CR>
 nnoremap <leader>nh :NERDTreeCWD<CR>
 let g:NERDTreeWinSize=60
 
-" coc conf
+" format current document using prettier
+command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
+
+" coc configuration
 source ~/configuration/coc.vim
