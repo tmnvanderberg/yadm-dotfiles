@@ -137,7 +137,7 @@ call plug#end()
 " set colorscheme
 set t_Co=256
 set background=light
-colorscheme=seoul256
+colorscheme seoul256
 
 " Enable per-command history
 " - History files will be stored in the specified directory
