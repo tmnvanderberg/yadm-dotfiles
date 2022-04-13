@@ -73,9 +73,6 @@ set history=1000
 " show line numbers
 set number
 
-" highlight current line
-set cursorline
-
 " Enable auto completion menu after pressing TAB.
 "set wildmenu
 
@@ -113,6 +110,9 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-flagship'
 Plug 'tpope/vim-abolish'
 
+" motion
+Plug 'easymotion/vim-easymotion'
+
 " add-ons
 Plug 'tpope/vim-fugitive'
 Plug 'idanarye/vim-merginal'
@@ -130,14 +130,21 @@ Plug 'YorickPeterse/vim-paper'
 Plug 'axvr/photon.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'junegunn/seoul256.vim'
+Plug 'andreasvc/vim-256noir'
 
 " Initialize plugin system
 call plug#end()
 
 " set colorscheme
 set t_Co=256
-set background=light
+set background=dark
 colorscheme seoul256
+
+" Change highlighting of cursor line when entering/leaving Insert Mode
+set cursorline
+highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
+autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#1c1c1c
+autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
 
 " Enable per-command history
 " - History files will be stored in the specified directory
@@ -239,5 +246,5 @@ let g:NERDTreeWinSize=60
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 
 " coc configuration
-let g:coc_global_extensions = ['coc-conjure', 'coc-prettier', 'coc-eslint', 'coc-json', 'coc-css']
+let g:coc_global_extensions = ['coc-conjure', 'coc-prettier', 'coc-eslint', 'coc-json', 'coc-css', 'coc-thrift-syntax-support', 'coc-snippets', 'coc-tsserver', 'coc-tslint-plugin']
 source ~/configuration/coc.vim
