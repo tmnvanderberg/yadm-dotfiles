@@ -257,7 +257,7 @@ let g:coc_global_extensions = [
       \'coc-css', 
       \'coc-thrift-syntax-support',
       \'coc-snippets',
-      \'coc-tsserver'
+      \'coc-tsserver',
       \'coc-tslint-plugin'
       \]
 
