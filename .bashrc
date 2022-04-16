@@ -46,6 +46,10 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# use vim
+export VISUAL=vim;
+export EDITOR=vim;
+
 # Path to the bash it configuration
 export BASH_IT="/home/timon/.bash_it"
 
