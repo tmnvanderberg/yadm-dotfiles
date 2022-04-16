@@ -121,6 +121,9 @@ Plug 'preservim/nerdtree'
 " language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'kergoth/vim-bitbake'
+Plug 'tpope/vim-fireplace'
+
+" snippets
 Plug 'sheerun/vim-polyglot'
 Plug 'honza/vim-snippets'
 Plug 'mlaursen/vim-react-snippets'
@@ -246,5 +249,16 @@ let g:NERDTreeWinSize=60
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 
 " coc configuration
-let g:coc_global_extensions = ['coc-conjure', 'coc-prettier', 'coc-eslint', 'coc-json', 'coc-css', 'coc-thrift-syntax-support', 'coc-snippets', 'coc-tsserver', 'coc-tslint-plugin']
+let g:coc_global_extensions = [
+      \'coc-conjure', 
+      \'coc-prettier', 
+      \'coc-eslint', 
+      \'coc-json', 
+      \'coc-css', 
+      \'coc-thrift-syntax-support',
+      \'coc-snippets',
+      \'coc-tsserver'
+      \'coc-tslint-plugin'
+      \]
+
 source ~/configuration/coc.vim
