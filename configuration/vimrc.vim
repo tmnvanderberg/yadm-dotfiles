@@ -140,14 +140,9 @@ call plug#end()
 
 " set colorscheme
 set t_Co=256
-set background=dark
-colorscheme seoul256
-
-" Change highlighting of cursor line when entering/leaving Insert Mode
-set cursorline
-highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
-autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#1c1c1c
-autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
+set background=light
+" colorscheme seoul256
+colorscheme PaperColor
 
 " Enable per-command history
 " - History files will be stored in the specified directory
