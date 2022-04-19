@@ -73,9 +73,6 @@ set history=1000
 " show line numbers
 set number
 
-" Enable auto completion menu after pressing TAB.
-"set wildmenu
-
 " Make wildmenu behave like similar to Bash completion.
 " set wildmode=list:longest
 "set confirm
@@ -117,6 +114,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'idanarye/vim-merginal'
 Plug 'preservim/nerdtree'
+Plug 'vimwiki/vimwiki'
 
 " language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
