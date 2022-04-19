@@ -36,18 +36,20 @@
   },
   "editor.formatOnSave": true,
   "clangd.path": "/home/timon/.config/Code/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/12.0.1/clangd_12.0.1/bin/clangd",
-  "workbench.colorTheme": "Tokyo Night Light",
+  "workbench.colorTheme": "Ayu Adapta",
   "debug.javascript.autoAttachFilter": "smart",
   "debug.allowBreakpointsEverywhere": true,
   "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": false,
+    "editor.formatOnType": false
   },
   "editor.renderWhitespace": "all",
   "workbench.startupEditor": "none",
   "[dart]": {
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
-    "editor.rulers": [80],
+    "editor.rulers": [100],
     "editor.selectionHighlight": false,
     "editor.suggest.snippetsPreventQuickSuggestions": false,
     "editor.suggestSelection": "first",
