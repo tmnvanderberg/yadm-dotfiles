@@ -1,8 +1,0 @@
-{
-  "cmake.configureOnOpen": false,
-  "files.exclude": {
-    "**/.git": true, // default value
-    "**/.DS_Store": true, // default value
-    "**/node_modules": true
-  }
-}

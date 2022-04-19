@@ -119,6 +119,9 @@ Plug 'vimwiki/vimwiki'
 " language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'kergoth/vim-bitbake'
+Plug 'tpope/vim-fireplace'
+
+" snippets
 Plug 'sheerun/vim-polyglot'
 Plug 'honza/vim-snippets'
 Plug 'mlaursen/vim-react-snippets'
@@ -135,14 +138,9 @@ call plug#end()
 
 " set colorscheme
 set t_Co=256
-set background=dark
-colorscheme seoul256
-
-" Change highlighting of cursor line when entering/leaving Insert Mode
-set cursorline
-highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
-autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#1c1c1c
-autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
+set background=light
+" colorscheme seoul256
+colorscheme PaperColor
 
 " Enable per-command history
 " - History files will be stored in the specified directory
@@ -244,5 +242,16 @@ let g:NERDTreeWinSize=60
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 
 " coc configuration
-let g:coc_global_extensions = ['coc-conjure', 'coc-prettier', 'coc-eslint', 'coc-json', 'coc-css', 'coc-thrift-syntax-support', 'coc-snippets', 'coc-tsserver', 'coc-tslint-plugin']
+let g:coc_global_extensions = [
+      \'coc-conjure', 
+      \'coc-prettier', 
+      \'coc-eslint', 
+      \'coc-json', 
+      \'coc-css', 
+      \'coc-thrift-syntax-support',
+      \'coc-snippets',
+      \'coc-tsserver',
+      \'coc-tslint-plugin'
+      \]
+
 source ~/configuration/coc.vim
