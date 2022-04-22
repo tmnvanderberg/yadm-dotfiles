@@ -151,6 +151,20 @@ colorscheme seoul256
 "   'previous-history' instead of 'down' and 'up'.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
+" Preview window on the upper side of the window with 40% height,
+" hidden by default, ctrl-/ to toggle
+let g:fzf_preview_window = ['up:40%', 'ctrl-/']
+
+" Default fzf layout
+" - Popup window (center of the screen)
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
 " header/source switch using related filenames 
 nnoremap <silent> <C-h> :CocCommand clangd.switchSourceHeader<CR>
 
@@ -160,7 +174,7 @@ nnoremap <silent> <Leader>ve :e ~/configuration/vimrc.vim<CR>
 nnoremap <silent> <Leader>vr :source ~/configuration/vimrc.vim<CR>
 
 " current buffer
-nnoremap <silent> <Le<Leader>bb :Buffer<CR>
+nnoremap <silent> <Leader>bb :Buffers<CR>
 
 " files
 nnoremap <silent> <C-p> :Files<CR>
