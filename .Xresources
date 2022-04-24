@@ -19,3 +19,4 @@ xterm*color14:     rgb:71/be/be
 xterm*color15:    rgb:ff/ff/ff
 
 xterm*cursorColor: #d6d6d6
+XTerm*allowBoldFonts:       false

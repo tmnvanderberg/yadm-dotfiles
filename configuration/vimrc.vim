@@ -73,9 +73,6 @@ set history=1000
 " show line numbers
 set number
 
-" Enable auto completion menu after pressing TAB.
-"set wildmenu
-
 " Make wildmenu behave like similar to Bash completion.
 " set wildmode=list:longest
 "set confirm
@@ -115,8 +112,13 @@ Plug 'easymotion/vim-easymotion'
 
 " add-ons
 Plug 'tpope/vim-fugitive'
+Plug 'junkblocker/git-time-lapse'
 Plug 'idanarye/vim-merginal'
 Plug 'preservim/nerdtree'
+Plug 'vimwiki/vimwiki'
+Plug 'rhysd/git-messenger.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'aacunningham/vim-fuzzy-stash'
 
 " language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -140,15 +142,28 @@ call plug#end()
 
 " set colorscheme
 set t_Co=256
-set background=light
-" colorscheme seoul256
-colorscheme PaperColor
+set background=dark
+colorscheme seoul256
 
 " Enable per-command history
 " - History files will be stored in the specified directory
 " - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
 "   'previous-history' instead of 'down' and 'up'.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+" Preview window on the upper side of the window with 40% height,
+" hidden by default, ctrl-/ to toggle
+let g:fzf_preview_window = ['up:40%', 'ctrl-/']
+
+" Default fzf layout
+" - Popup window (center of the screen)
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
 " header/source switch using related filenames 
 nnoremap <silent> <C-h> :CocCommand clangd.switchSourceHeader<CR>
@@ -159,7 +174,7 @@ nnoremap <silent> <Leader>ve :e ~/configuration/vimrc.vim<CR>
 nnoremap <silent> <Leader>vr :source ~/configuration/vimrc.vim<CR>
 
 " current buffer
-nnoremap <silent> <C-b> :Buffer<CR>
+nnoremap <silent> <Leader>bb :Buffers<CR>
 
 " files
 nnoremap <silent> <C-p> :Files<CR>
@@ -257,3 +272,7 @@ let g:coc_global_extensions = [
       \]
 
 source ~/configuration/coc.vim
+
+" always show signcolumn to prevent gitgutter from collapsing the line numbers
+" at the bottom because it was getting overritten by coc for some reason...
+set signcolumn=yes
