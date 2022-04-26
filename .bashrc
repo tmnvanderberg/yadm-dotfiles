@@ -61,3 +61,4 @@ export BASH_IT_THEME='easy'
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
 
+alias tmux='tmux -2'

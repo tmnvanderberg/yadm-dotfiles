@@ -268,11 +268,10 @@ let g:coc_global_extensions = [
       \'coc-thrift-syntax-support',
       \'coc-snippets',
       \'coc-tsserver',
-      \'coc-tslint-plugin'
+      \'coc-tslint-plugin',
+      \'coc-python'
       \]
 
 source ~/configuration/coc.vim
 
 " always show signcolumn to prevent gitgutter from collapsing the line numbers
-" at the bottom because it was getting overritten by coc for some reason...
-set signcolumn=yes
