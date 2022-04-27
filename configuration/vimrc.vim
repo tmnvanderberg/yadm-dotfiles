@@ -137,6 +137,7 @@ Plug 'axvr/photon.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'junegunn/seoul256.vim'
 Plug 'andreasvc/vim-256noir'
+Plug 'morhetz/gruvbox'
 
 " Initialize plugin system
 call plug#end()
@@ -144,7 +145,7 @@ call plug#end()
 " set colorscheme
 set t_Co=256
 set background=dark
-colorscheme seoul256
+colorscheme gruvbox
 
 " Enable per-command history
 " - History files will be stored in the specified directory
@@ -192,15 +193,6 @@ nnoremap <silent> <Leader>ss :Ag <C-R>"<CR>
 
 " explore current wd
 nnoremap <silent> <Leader>x :Explore <CR>
-
-" wrap current line
-nnoremap <silent> <Leader>w :gqq<CR>
-
-" system clipboard interaction
-noremap <Leader>y "*y
-noremap <Leader>p "*p
-noremap <Leader>Y "+y
-noremap <Leader>P "+p
 
 " search current word in tags
 function! FzfTagsCurrentWord()
