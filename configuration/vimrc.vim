@@ -7,7 +7,7 @@ runtime macros/matchit.vim
 
 " remap the leader to space
 nnoremap <SPACE> <Nop>
-let mapleader=""
+let mapleader=" "
 
 " set font for GVIM
 set guifont=Iosevka\ Term\ 10
@@ -17,6 +17,9 @@ set nocompatible
 
 " Enable type file detection. Vim will be able to try to detect the type of file in use.
 filetype on
+
+" highlight current line
+set cursorline
 
 " Enable plugins and load plugin for the detected file type.
 filetype plugin on
@@ -169,6 +172,9 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
+" match current line
+:nnoremap <silent> <Leader>ml :execute 'match Search /\%'.line('.').'l/'<CR>
+
 " header/source switch using related filenames 
 nnoremap <silent> <C-h> :CocCommand clangd.switchSourceHeader<CR>
 
@@ -225,7 +231,7 @@ let g:fzf_colors =
   \ 'bg+':     ['bg', 'Normal'],
   \ 'hl+':     ['fg', 'Statement'],
   \ 'info':    ['fg', 'Normal'],
-  \ 'border':  ['fg', 'Ignore'],
+  \ 'border':  ['fg', 'Error'],
   \ 'prompt':  ['fg', 'Conditional'],
   \ 'pointer': ['fg', 'Exception'],
   \ 'marker':  ['fg', 'Keyword'],
