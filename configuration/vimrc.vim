@@ -119,6 +119,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'rhysd/git-messenger.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'aacunningham/vim-fuzzy-stash'
+Plug 'eliba2/vim-node-inspect'
 
 " language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
