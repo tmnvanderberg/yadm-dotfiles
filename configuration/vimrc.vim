@@ -183,21 +183,11 @@ nnoremap <silent> <Leader>ve :e ~/configuration/vimrc.vim<CR>
 " reload this file
 nnoremap <silent> <Leader>vr :source ~/configuration/vimrc.vim<CR>
 
-" current buffer
-nnoremap <silent> <Leader>bb :Buffers<CR>
-
 " files
 nnoremap <silent> <C-p> :Files<CR>
-nnoremap <silent> <Leader><C-p> :GFiles<CR>
-
-" search current buffer for current word
-nnoremap <silent> <Leader><C-f> :BLines <C-R><C-W><CR>
 
 " search current word in all files
 nnoremap <silent> <Leader>F :Ag <C-R><C-W><CR>
-
-" fuzzy global search contents of default buffer
-nnoremap <silent> <Leader>ss :Ag <C-R>"<CR>
 
 " explore current wd
 nnoremap <silent> <Leader>x :Explore <CR>
@@ -205,18 +195,6 @@ nnoremap <silent> <Leader>x :Explore <CR>
 " use whichkey overlay
 nnoremap <silent> <leader> :WhichKey ','<CR>
 nnoremap <silent> <Space> :WhichKey '<Space>'<CR>
-
-" search current word in tags
-function! FzfTagsCurrentWord()
-  let l:word = expand('<cword>')
-  let l:list = taglist(l:word)
-  if len(l:list) == 1
-    execute ':tag ' . l:word
-  else
-    call fzf#vim#tags(l:word)
-  endif
-endfunction
-noremap <Leader>st :call FzfTagsCurrentWord()<CR>
 
 " look here and up for local tags
 set tag=./tags,tags;
