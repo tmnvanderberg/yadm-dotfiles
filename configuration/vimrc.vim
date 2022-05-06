@@ -7,7 +7,7 @@ runtime macros/matchit.vim
 
 " remap the leader to space
 nnoremap <SPACE> <Nop>
-let mapleader=" "
+let mapleader=""
 
 " set font for GVIM
 set guifont=Iosevka\ Term\ 10
@@ -121,6 +121,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'aacunningham/vim-fuzzy-stash'
 Plug 'junegunn/vim-peekaboo'
 Plug 'sharat87/roast.vim' 
+Plug 'rhysd/vim-clang-format'
 
 " language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -156,11 +157,11 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " Preview window on the upper side of the window with 40% height,
 " hidden by default, ctrl-/ to toggle
-let g:fzf_preview_window = ['up:40%', 'ctrl-/']
+let g:fzf_preview_window = ['up:50%', 'ctrl-/']
 
 " Default fzf layout
 " - Popup window (center of the screen)
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 
 " This is the default extra key bindings
 let g:fzf_action = {
@@ -272,5 +273,9 @@ let g:coc_global_extensions = [
       \]
 
 source ~/configuration/coc.vim
+
+" clang-format
+let g:clang_format#enable_fallback_style=0
+let g:clang_format#detect_style_file=1
 
 " always show signcolumn to prevent gitgutter from collapsing the line numbers
