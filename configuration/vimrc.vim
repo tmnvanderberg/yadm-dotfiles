@@ -7,9 +7,9 @@ runtime macros/matchit.vim
 
 " remap the leader to space
 nnoremap <SPACE> <Nop>
-let mapleader=","
+let mapleader=" "
 
-" set font
+" set font for GVIM
 set guifont=Iosevka\ Term\ 10
 
 " Disable compatibility with vi which can cause unexpected issues.
@@ -98,7 +98,6 @@ call plug#begin('~/.vim/plugged')
 " note: we need both fzf commands
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-" Plug 'jremmen/vim-ripgrep'
 
 " general
 Plug 'tpope/vim-commentary'
@@ -106,6 +105,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-flagship'
 Plug 'tpope/vim-abolish'
+Plug 'liuchengxu/vim-which-key'
 
 " motion
 Plug 'easymotion/vim-easymotion'
@@ -120,6 +120,7 @@ Plug 'rhysd/git-messenger.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'aacunningham/vim-fuzzy-stash'
 Plug 'junegunn/vim-peekaboo'
+Plug 'sharat87/roast.vim' 
 
 " language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -194,6 +195,10 @@ nnoremap <silent> <Leader>ss :Ag <C-R>"<CR>
 " explore current wd
 nnoremap <silent> <Leader>x :Explore <CR>
 
+" use whichkey overlay
+nnoremap <silent> <leader> :WhichKey ','<CR>
+nnoremap <silent> <Space> :WhichKey '<Space>'<CR>
+
 " search current word in tags
 function! FzfTagsCurrentWord()
   let l:word = expand('<cword>')
@@ -250,6 +255,7 @@ let g:NERDTreeWinSize=60
 
 " format current document using prettier
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
+command! -nargs=0 FormatDocument :CocCommand editor.action.formatDocument
 
 " coc configuration
 let g:coc_global_extensions = [

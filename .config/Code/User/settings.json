@@ -1,6 +1,8 @@
 {
   "[cpp]": {
-    "editor.defaultFormatter": "xaver.clang-format"
+    "editor.defaultFormatter": "xaver.clang-format",
+    "editor.formatOnSave": false,
+    "editor.formatOnType": false
   },
   "editor": {
     "rulers": [100],
@@ -202,5 +204,8 @@
   "vim.handleKeys": {
     "<C-a>": false,
     "<C-f>": false
+  },
+  "[c]": {
+    "editor.defaultFormatter": "xaver.clang-format"
   }
 }
