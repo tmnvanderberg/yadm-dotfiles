@@ -172,9 +172,6 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
-" match current line
-:nnoremap <silent> <Leader>ml :execute 'match Search /\%'.line('.').'l/'<CR>
-
 " header/source switch using related filenames 
 nnoremap <silent> <C-h> :CocCommand clangd.switchSourceHeader<CR>
 
@@ -230,7 +227,7 @@ let &t_ut=''
 set colorcolumn=+1
 
 " set textwidth
-set textwidth=100
+set textwidth=160
 
 " nerdtree bindings
 nnoremap <leader>nt :NERDTreeToggle<CR>
