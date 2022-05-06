@@ -149,8 +149,6 @@ call plug#end()
 
 " set colorscheme
 function! GruvboxTheme()
-  let g:gruvbox_italic=1
-  let g:gruvbox_bold=1
   let $BAT_THEME='gruvbox-dark'
   colorscheme gruvbox
 endfunction
