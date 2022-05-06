@@ -7,9 +7,9 @@ runtime macros/matchit.vim
 
 " remap the leader to space
 nnoremap <SPACE> <Nop>
-let mapleader=","
+let mapleader=" "
 
-" set font
+" set font for GVIM
 set guifont=Iosevka\ Term\ 10
 
 " Disable compatibility with vi which can cause unexpected issues.
@@ -17,6 +17,9 @@ set nocompatible
 
 " Enable type file detection. Vim will be able to try to detect the type of file in use.
 filetype on
+
+" highlight current line
+set cursorline
 
 " Enable plugins and load plugin for the detected file type.
 filetype plugin on
@@ -98,7 +101,6 @@ call plug#begin('~/.vim/plugged')
 " note: we need both fzf commands
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-" Plug 'jremmen/vim-ripgrep'
 
 " general
 Plug 'tpope/vim-commentary'
@@ -106,6 +108,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-flagship'
 Plug 'tpope/vim-abolish'
+Plug 'liuchengxu/vim-which-key'
 
 " motion
 Plug 'easymotion/vim-easymotion'
@@ -119,7 +122,9 @@ Plug 'vimwiki/vimwiki'
 Plug 'rhysd/git-messenger.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'aacunningham/vim-fuzzy-stash'
-Plug 'eliba2/vim-node-inspect'
+Plug 'junegunn/vim-peekaboo'
+Plug 'sharat87/roast.vim' 
+Plug 'rhysd/vim-clang-format'
 
 " language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -137,14 +142,22 @@ Plug 'axvr/photon.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'junegunn/seoul256.vim'
 Plug 'andreasvc/vim-256noir'
+Plug 'morhetz/gruvbox'
 
 " Initialize plugin system
 call plug#end()
 
 " set colorscheme
+function! GruvboxTheme()
+  let g:gruvbox_italic=1
+  let g:gruvbox_bold=1
+  let $BAT_THEME='gruvbox-dark'
+  colorscheme gruvbox
+endfunction
+
 set t_Co=256
 set background=dark
-colorscheme seoul256
+call GruvboxTheme()
 
 " Enable per-command history
 " - History files will be stored in the specified directory
@@ -154,11 +167,13 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " Preview window on the upper side of the window with 40% height,
 " hidden by default, ctrl-/ to toggle
-let g:fzf_preview_window = ['up:40%', 'ctrl-/']
+let g:fzf_preview_window = ['up:50%', 'ctrl-/']
 
 " Default fzf layout
 " - Popup window (center of the screen)
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
+
+
 
 " This is the default extra key bindings
 let g:fzf_action = {
@@ -174,45 +189,18 @@ nnoremap <silent> <Leader>ve :e ~/configuration/vimrc.vim<CR>
 " reload this file
 nnoremap <silent> <Leader>vr :source ~/configuration/vimrc.vim<CR>
 
-" current buffer
-nnoremap <silent> <Leader>bb :Buffers<CR>
-
 " files
 nnoremap <silent> <C-p> :Files<CR>
-nnoremap <silent> <Leader><C-p> :GFiles<CR>
-
-" search current buffer for current word
-nnoremap <silent> <Leader><C-f> :BLines <C-R><C-W><CR>
 
 " search current word in all files
 nnoremap <silent> <Leader>F :Ag <C-R><C-W><CR>
 
-" fuzzy global search contents of default buffer
-nnoremap <silent> <Leader>ss :Ag <C-R>"<CR>
-
 " explore current wd
 nnoremap <silent> <Leader>x :Explore <CR>
 
-" wrap current line
-nnoremap <silent> <Leader>w :gqq<CR>
-
-" system clipboard interaction
-noremap <Leader>y "*y
-noremap <Leader>p "*p
-noremap <Leader>Y "+y
-noremap <Leader>P "+p
-
-" search current word in tags
-function! FzfTagsCurrentWord()
-  let l:word = expand('<cword>')
-  let l:list = taglist(l:word)
-  if len(l:list) == 1
-    execute ':tag ' . l:word
-  else
-    call fzf#vim#tags(l:word)
-  endif
-endfunction
-noremap <Leader>st :call FzfTagsCurrentWord()<CR>
+" use whichkey overlay
+nnoremap <silent> <leader> :WhichKey ','<CR>
+nnoremap <silent> <Space> :WhichKey '<Space>'<CR>
 
 " look here and up for local tags
 set tag=./tags,tags;
@@ -227,7 +215,7 @@ let g:fzf_colors =
   \ 'bg+':     ['bg', 'Normal'],
   \ 'hl+':     ['fg', 'Statement'],
   \ 'info':    ['fg', 'Normal'],
-  \ 'border':  ['fg', 'Ignore'],
+  \ 'border':  ['fg', 'Error'],
   \ 'prompt':  ['fg', 'Conditional'],
   \ 'pointer': ['fg', 'Exception'],
   \ 'marker':  ['fg', 'Keyword'],
@@ -248,7 +236,7 @@ let &t_ut=''
 set colorcolumn=+1
 
 " set textwidth
-set textwidth=100
+set textwidth=160
 
 " nerdtree bindings
 nnoremap <leader>nt :NERDTreeToggle<CR>
@@ -258,6 +246,7 @@ let g:NERDTreeWinSize=60
 
 " format current document using prettier
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
+command! -nargs=0 FormatDocument :CocCommand editor.action.formatDocument
 
 " coc configuration
 let g:coc_global_extensions = [
@@ -269,11 +258,14 @@ let g:coc_global_extensions = [
       \'coc-thrift-syntax-support',
       \'coc-snippets',
       \'coc-tsserver',
-      \'coc-tslint-plugin'
+      \'coc-tslint-plugin',
+      \'coc-python'
       \]
 
 source ~/configuration/coc.vim
 
+" clang-format
+let g:clang_format#enable_fallback_style=0
+let g:clang_format#detect_style_file=1
+
 " always show signcolumn to prevent gitgutter from collapsing the line numbers
-" at the bottom because it was getting overritten by coc for some reason...
-set signcolumn=yes
