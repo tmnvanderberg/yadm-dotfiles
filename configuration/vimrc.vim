@@ -108,7 +108,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-flagship'
 Plug 'tpope/vim-abolish'
-Plug 'liuchengxu/vim-which-key'
 
 " motion
 Plug 'easymotion/vim-easymotion'
@@ -198,10 +197,6 @@ nnoremap <silent> <Leader>F :Ag <C-R><C-W><CR>
 
 " explore current wd
 nnoremap <silent> <Leader>x :Explore <CR>
-
-" use whichkey overlay
-nnoremap <silent> <leader> :WhichKey ','<CR>
-nnoremap <silent> <Space> :WhichKey '<Space>'<CR>
 
 " look here and up for local tags
 set tag=./tags,tags;
