@@ -190,7 +190,7 @@ nnoremap <silent> <Leader>vr :source ~/configuration/vimrc.vim<CR>
 nnoremap <silent> <C-p> :Files<CR>
 
 " commands
-nnoremap <silent> <C-P> :Commands<CR>
+nnoremap <silent> <Leader><C-p> :Commands<CR>
 
 " search current word in all files
 nnoremap <silent> <Leader>F :Ag <C-R><C-W><CR>
