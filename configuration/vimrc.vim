@@ -190,6 +190,9 @@ nnoremap <silent> <Leader>vr :source ~/configuration/vimrc.vim<CR>
 " files
 nnoremap <silent> <C-p> :Files<CR>
 
+" commands
+nnoremap <silent> <C-P> :Commands<CR>
+
 " search current word in all files
 nnoremap <silent> <Leader>F :Ag <C-R><C-W><CR>
 
@@ -267,3 +270,4 @@ let g:clang_format#enable_fallback_style=0
 let g:clang_format#detect_style_file=1
 
 " always show signcolumn to prevent gitgutter from collapsing the line numbers
+set signcolumn=yes
