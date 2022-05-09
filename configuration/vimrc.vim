@@ -132,6 +132,7 @@ Plug 'tpope/vim-fireplace'
 
 " snippets
 Plug 'sheerun/vim-polyglot'
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'mlaursen/vim-react-snippets'
 
@@ -148,7 +149,7 @@ call plug#end()
 
 " set colorscheme
 function! GruvboxTheme()
-  let $BAT_THEME='gruvbox-dark'
+  let $BAT_THEME='zenburn'
   colorscheme gruvbox
 endfunction
 
@@ -170,7 +171,8 @@ let g:fzf_preview_window = ['up:50%', 'ctrl-/']
 " - Popup window (center of the screen)
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 
-
+" Override git log to show authors
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h %an: %s%d %C(black)%C(bold)%cr"'
 
 " This is the default extra key bindings
 let g:fzf_action = {
@@ -188,6 +190,9 @@ nnoremap <silent> <Leader>vr :source ~/configuration/vimrc.vim<CR>
 
 " files
 nnoremap <silent> <C-p> :Files<CR>
+
+" buffers
+nnoremap <silent> <Leader>l :Buffers<CR>
 
 " commands
 nnoremap <silent> <Leader><C-p> :Commands<CR>
