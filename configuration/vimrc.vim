@@ -132,7 +132,6 @@ Plug 'tpope/vim-fireplace'
 
 " snippets
 Plug 'sheerun/vim-polyglot'
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'mlaursen/vim-react-snippets'
 
@@ -191,6 +190,12 @@ nnoremap <silent> <Leader>vr :source ~/configuration/vimrc.vim<CR>
 " files
 nnoremap <silent> <C-p> :Files<CR>
 
+" History
+nnoremap <silent> <Leader>b :History<CR>
+
+" Marks
+nnoremap <silent> <Leader>m :Marks<CR>
+
 " buffers
 nnoremap <silent> <Leader>l :Buffers<CR>
 
@@ -244,6 +249,9 @@ nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>nf :NERDTreeFind<CR>
 nnoremap <leader>nh :NERDTreeCWD<CR>
 let g:NERDTreeWinSize=60
+
+" unsearch
+nnoremap <leader>u :nohl <CR>
 
 " format current document using prettier
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
