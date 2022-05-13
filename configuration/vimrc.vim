@@ -74,7 +74,7 @@ set hlsearch
 set history=1000
 
 " show line numbers
-set number
+set number relativenumber
 
 " Make wildmenu behave like similar to Bash completion.
 " set wildmode=list:longest
@@ -106,7 +106,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-flagship'
+Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-abolish'
 
 " motion
@@ -179,6 +179,9 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
+" only
+nnoremap <silent> <Leader>i :only <CR>
+
 " header/source switch using related filenames 
 nnoremap <silent> <C-h> :CocCommand clangd.switchSourceHeader<CR>
 
@@ -207,6 +210,9 @@ nnoremap <silent> <Leader>F :Ag <C-R><C-W><CR>
 
 " explore current wd
 nnoremap <silent> <Leader>x :Explore <CR>
+
+" Git
+nnoremap <silent> <Leader>G :Git <CR>
 
 " look here and up for local tags
 set tag=./tags,tags;
