@@ -74,7 +74,7 @@ set hlsearch
 set history=1000
 
 " show line numbers
-set number
+set number relativenumber
 
 " Make wildmenu behave like similar to Bash completion.
 " set wildmode=list:longest
@@ -106,7 +106,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-flagship'
+Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-abolish'
 
 " motion
@@ -149,7 +149,7 @@ call plug#end()
 
 " set colorscheme
 function! GruvboxTheme()
-  let $BAT_THEME='gruvbox-dark'
+  let $BAT_THEME='zenburn'
   colorscheme gruvbox
 endfunction
 
@@ -171,13 +171,17 @@ let g:fzf_preview_window = ['up:50%', 'ctrl-/']
 " - Popup window (center of the screen)
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 
-
+" Override git log to show authors
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h %an: %s%d %C(black)%C(bold)%cr"'
 
 " This is the default extra key bindings
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
+
+" only
+nnoremap <silent> <Leader>i :only <CR>
 
 " header/source switch using related filenames 
 nnoremap <silent> <C-h> :CocCommand clangd.switchSourceHeader<CR>
@@ -190,6 +194,15 @@ nnoremap <silent> <Leader>vr :source ~/configuration/vimrc.vim<CR>
 " files
 nnoremap <silent> <C-p> :Files<CR>
 
+" History
+nnoremap <silent> <Leader>b :History<CR>
+
+" Marks
+nnoremap <silent> <Leader>m :Marks<CR>
+
+" buffers
+nnoremap <silent> <Leader>l :Buffers<CR>
+
 " commands
 nnoremap <silent> <Leader><C-p> :Commands<CR>
 
@@ -198,6 +211,9 @@ nnoremap <silent> <Leader>F :Ag <C-R><C-W><CR>
 
 " explore current wd
 nnoremap <silent> <Leader>x :Explore <CR>
+
+" Git
+nnoremap <silent> <Leader>G :Git <CR>
 
 " look here and up for local tags
 set tag=./tags,tags;
@@ -240,6 +256,9 @@ nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>nf :NERDTreeFind<CR>
 nnoremap <leader>nh :NERDTreeCWD<CR>
 let g:NERDTreeWinSize=60
+
+" unsearch
+nnoremap <leader>u :nohl <CR>
 
 " format current document using prettier
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
