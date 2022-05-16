@@ -124,6 +124,7 @@ Plug 'aacunningham/vim-fuzzy-stash'
 Plug 'junegunn/vim-peekaboo'
 Plug 'sharat87/roast.vim' 
 Plug 'rhysd/vim-clang-format'
+Plug 'jpalardy/vim-slime'
 
 " language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -285,3 +286,6 @@ let g:clang_format#detect_style_file=1
 
 " always show signcolumn to prevent gitgutter from collapsing the line numbers
 set signcolumn=yes
+
+" set up vim slime
+let g:slime_target = "tmux"
