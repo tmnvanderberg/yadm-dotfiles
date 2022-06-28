@@ -74,7 +74,7 @@ set hlsearch
 set history=1000
 
 " show line numbers
-set number relativenumber
+set number
 
 " Make wildmenu behave like similar to Bash completion.
 " set wildmode=list:longest
@@ -120,7 +120,6 @@ Plug 'preservim/nerdtree'
 Plug 'vimwiki/vimwiki'
 Plug 'rhysd/git-messenger.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'aacunningham/vim-fuzzy-stash'
 Plug 'junegunn/vim-peekaboo'
 Plug 'sharat87/roast.vim' 
 Plug 'rhysd/vim-clang-format'
@@ -130,6 +129,7 @@ Plug 'jpalardy/vim-slime'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'kergoth/vim-bitbake'
 Plug 'tpope/vim-fireplace'
+Plug 'liuchengxu/vista.vim'
 
 " snippets
 Plug 'sheerun/vim-polyglot'
@@ -148,14 +148,14 @@ Plug 'morhetz/gruvbox'
 call plug#end()
 
 " set colorscheme
-function! GruvboxTheme()
+function! SetThemes()
   let $BAT_THEME='zenburn'
+  set background=dark
   colorscheme gruvbox
 endfunction
 
 set t_Co=256
-set background=dark
-call GruvboxTheme()
+call SetThemes()
 
 " Enable per-command history
 " - History files will be stored in the specified directory
@@ -214,6 +214,8 @@ nnoremap <silent> <Leader>x :Explore <CR>
 
 " Git
 nnoremap <silent> <Leader>G :Git <CR>
+nnoremap <silent> <Leader>M :Merginal <CR>
+
 
 " look here and up for local tags
 set tag=./tags,tags;
@@ -228,7 +230,7 @@ let g:fzf_colors =
   \ 'bg+':     ['bg', 'Normal'],
   \ 'hl+':     ['fg', 'Statement'],
   \ 'info':    ['fg', 'Normal'],
-  \ 'border':  ['fg', 'Error'],
+  \ 'border':  ['fg', 'Conditional'],
   \ 'prompt':  ['fg', 'Conditional'],
   \ 'pointer': ['fg', 'Exception'],
   \ 'marker':  ['fg', 'Keyword'],
@@ -289,3 +291,7 @@ set signcolumn=yes
 
 " set up vim slime
 let g:slime_target = "tmux"
+
+" deal with unsaved files.
+set nohidden
+set confirm
