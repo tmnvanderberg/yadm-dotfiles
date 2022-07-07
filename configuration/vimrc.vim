@@ -124,6 +124,10 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'sharat87/roast.vim' 
 Plug 'rhysd/vim-clang-format'
 Plug 'jpalardy/vim-slime'
+Plug 'mbbill/undotree'
+Plug 'rbong/vim-flog'
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-git-status.vim'
 
 " language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -151,7 +155,7 @@ call plug#end()
 function! SetThemes()
   let $BAT_THEME='zenburn'
   set background=dark
-  colorscheme gruvbox
+  colorscheme seoul256
 endfunction
 
 set t_Co=256
@@ -216,6 +220,14 @@ nnoremap <silent> <Leader>x :Explore <CR>
 nnoremap <silent> <Leader>G :Git <CR>
 nnoremap <silent> <Leader>M :Merginal <CR>
 
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " look here and up for local tags
 set tag=./tags,tags;
@@ -253,11 +265,15 @@ set colorcolumn=+1
 " set textwidth
 set textwidth=160
 
-" nerdtree bindings
-nnoremap <leader>nt :NERDTreeToggle<CR>
-nnoremap <leader>nf :NERDTreeFind<CR>
-nnoremap <leader>nh :NERDTreeCWD<CR>
-let g:NERDTreeWinSize=60
+" fern settings & bindings (starting with n because it used to be nerdtree)
+nnoremap <leader>nt :Fern . -drawer -toggle -width=60<CR><C-w>
+nnoremap <leader>nf :Fern %:h -reveal=% -drawer -width=60<CR><C-w>
+nnoremap <leader>nh :Fern ~ -drawer -width=60 -toggle<CR><C-w>
+
+" fern git status
+let g:fern_git_status#disable_ignored    = 1
+let g:fern_git_status#disable_untracked  = 1
+let g:fern_git_status#disable_submodules = 1
 
 " unsearch
 nnoremap <leader>u :nohl <CR>
@@ -295,3 +311,13 @@ let g:slime_target = "tmux"
 " deal with unsaved files.
 set nohidden
 set confirm
+
+" mergetool settings
+let g:mergetool_layout = 'mr'
+let g:mergetool_prefer_revision = 'local'
+
+" undotree
+let g:undotree_HighlightChangedWithSign = 0
+let g:undotree_WindowLayout             = 4
+let g:undotree_SetFocusWhenToggle       = 1
+nnoremap <Leader>U :UndotreeToggle<CR>
