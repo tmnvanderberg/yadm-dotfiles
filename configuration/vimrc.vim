@@ -106,7 +106,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
-Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-abolish'
 
 " motion
@@ -118,22 +117,20 @@ Plug 'junkblocker/git-time-lapse'
 Plug 'idanarye/vim-merginal'
 Plug 'preservim/nerdtree'
 Plug 'vimwiki/vimwiki'
-Plug 'rhysd/git-messenger.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/vim-peekaboo'
-Plug 'sharat87/roast.vim' 
 Plug 'rhysd/vim-clang-format'
 Plug 'jpalardy/vim-slime'
 Plug 'mbbill/undotree'
-Plug 'rbong/vim-flog'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-git-status.vim'
+Plug 'whiteinge/diffconflicts'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'kergoth/vim-bitbake'
-Plug 'tpope/vim-fireplace'
-Plug 'liuchengxu/vista.vim'
 
 " snippets
 Plug 'sheerun/vim-polyglot'
@@ -153,9 +150,11 @@ call plug#end()
 
 " set colorscheme
 function! SetThemes()
-  let $BAT_THEME='zenburn'
-  set background=dark
-  colorscheme seoul256
+  " let $BAT_THEME='OneHalfLight'
+  let $BAT_THEME='GitHub'
+  set background=light
+  colorscheme seoul256-light
+  let g:airline_theme='sol'
 endfunction
 
 set t_Co=256
@@ -219,6 +218,10 @@ nnoremap <silent> <Leader>x :Explore <CR>
 " Git
 nnoremap <silent> <Leader>G :Git <CR>
 nnoremap <silent> <Leader>M :Merginal <CR>
+nnoremap <silent> <Leader>gag :G log --all --graph --pretty=format:"[%h] %<(140,trunc)%s [%ad] %><(13,trunc)(%an) %d" --date=short --expand-tabs <CR>
+nnoremap <silent> <Leader>gg :G log --graph --pretty=format:"[%h] %<(140,trunc)%s [%ad] %><(13,trunc)(%an) %d" --date=short --expand-tabs<CR>
+nnoremap <silent> <Leader>t :G cherry-pick <C-R><C-W><CR>
+nnoremap <silent> <Leader>gfh :G log -- % <CR>
 
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -232,17 +235,15 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " look here and up for local tags
 set tag=./tags,tags;
 
-" Customize fzf colors to match color scheme
-" - fzf#wrap translates this to a set of `--color` options
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
+  \ 'hl':      ['fg', 'CursorLine'],
   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
   \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'Normal'],
-  \ 'border':  ['fg', 'Conditional'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
   \ 'prompt':  ['fg', 'Conditional'],
   \ 'pointer': ['fg', 'Exception'],
   \ 'marker':  ['fg', 'Keyword'],
@@ -250,7 +251,7 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 " customize Ag to have better (the same as above) colors.
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "1;36"', fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;38;5;202" --color-match "3;11" --color-line-number="0"', fzf#vim#with_preview(), <bang>0)
 
 " vim hardcodes background color erase even if the terminfo file does
 " not contain bce (not to mention that libvte based terminals
@@ -293,7 +294,8 @@ let g:coc_global_extensions = [
       \'coc-snippets',
       \'coc-tsserver',
       \'coc-tslint-plugin',
-      \'coc-python'
+      \'coc-python',
+      \'coc-clangd'
       \]
 
 source ~/configuration/coc.vim
@@ -321,3 +323,9 @@ let g:undotree_HighlightChangedWithSign = 0
 let g:undotree_WindowLayout             = 4
 let g:undotree_SetFocusWhenToggle       = 1
 nnoremap <Leader>U :UndotreeToggle<CR>
+
+" merginal
+let g:merginal_windowWidth = 50
+
+" diff options
+:set diffopt=vertical
