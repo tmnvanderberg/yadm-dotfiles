@@ -12,5 +12,3 @@ vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
 -- always show sign column
 vim.cmd [[set signcolumn=yes]]
-
-

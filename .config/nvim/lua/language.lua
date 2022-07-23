@@ -1,9 +1,9 @@
 require('map')
 
--- Switch header/source 
-map(
-	"n", 
-	"<C-h>", 
+-- Switch header/source
+Map(
+	"n",
+	"<C-h>",
 	":ClangdSwitchSourceHeader<CR>",
 	{ silent = true }
 )
@@ -13,10 +13,16 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local lspconfig = require('lspconfig')
+local lspinstall = require('nvim-lsp-installer')
+
+-- register lspinstall hooks
+lspinstall.setup {
+  automatic_installation = true, -- auto detect based on lsp config setup
+}
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local set_buffer_maps = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -41,14 +47,33 @@ local on_attach = function(client, bufnr)
 end
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
+local servers = {
+	'clangd',
+	'pyright',
+	'tsserver',
+	'sumneko_lua',
+}
+
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
     capabilities = capabilities,
-    on_attach = on_attach
+    on_attach = set_buffer_maps
   }
 end
+
+lspconfig.sumneko_lua.setup {
+  capabilities = capabilities,
+  on_attach = set_buffer_maps,
+  settings = {
+	  Lua = {
+		  diagnostics = {
+			  globals = {
+				  'vim'
+			  }
+		  }
+	  }
+  }
+}
 
 -- luasnip setup
 local luasnip = require 'luasnip'
