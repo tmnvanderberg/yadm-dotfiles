@@ -1,6 +1,7 @@
 " REQUIREMENTS
 " packer
 " fzf
+" sumneko lua (at least on nix)
 
 lua require('plugins')
 lua require('basic')

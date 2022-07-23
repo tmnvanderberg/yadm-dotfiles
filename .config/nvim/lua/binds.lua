@@ -20,14 +20,14 @@ Map(
 Map(
 	"n",
 	"<Leader>nh",
-	":Fern .<CR>",
+	":Fern . -drawer -toggle -width=60<CR>",
 	{ silent = true }
 )
 
--- open file browser cwd
+-- open file browser cwd with focus on current buffer
 Map(
 	"n",
 	"<Leader>nf",
-	":Fern .<CR>",
+	":Fern . -drawer -width=60 -reveal=%<CR>",
 	{ silent = true }
 )

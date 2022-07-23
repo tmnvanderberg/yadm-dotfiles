@@ -42,6 +42,7 @@ return require('packer').startup(function(use)
 	use 'junegunn/vim-peekaboo' -- register pane
 	use 'jpalardy/vim-slime'-- sends text to tmux panes
 	use 'nvim-lualine/lualine.nvim' -- lightweight status line
+	use 'vimwiki/vimwiki' -- wiki inside vim
 
 	-- THEME
 	use 'junegunn/seoul256.vim' -- excellent color scheme from creator of fzf
@@ -51,3 +52,4 @@ return require('packer').startup(function(use)
 		require('packer').sync()
 	end
 end)
+
