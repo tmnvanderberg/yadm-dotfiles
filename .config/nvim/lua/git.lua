@@ -26,19 +26,19 @@ Map(
 	{ silent = true }
 )
 
+-- current file commits
+Map(
+	"n",
+	"<Leader>gfg",
+	":G log -- %<CR>", 
+	{ silent = true }
+)
+
 -- cherry-pick current word
 Map(
 	"n",
 	"<Leader>t",
 	":G cherry-pick <C-R><C-W><CR>",
-	{ silent = true }
-)
-
--- file history
-Map(
-	"n",
-	"<Leader>t",
-	":G log -- %<CR>",
 	{ silent = true }
 )
 

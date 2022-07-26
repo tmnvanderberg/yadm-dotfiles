@@ -12,3 +12,8 @@ vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
 -- always show sign column
 vim.cmd [[set signcolumn=yes]]
+
+-- disable diagnostics inline (use <space>e instead)
+vim.diagnostic.config({
+  virtual_text = false,
+})

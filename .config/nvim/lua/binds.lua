@@ -31,3 +31,19 @@ Map(
 	":Fern . -drawer -width=60 -reveal=%<CR>",
 	{ silent = true }
 )
+
+-- reveal the config
+Map(
+	"n",
+	"<Leader>ve",
+	":Fern ~/.config/nvim -drawer -width=60 -reveal=~/.config/nvim/init.vim<CR>",
+	{ silent = true }
+)
+
+-- toggle blankline
+Map(
+	"n",
+	"<Leader>bl",
+	":IndentBlanklineToggle!<CR>",
+	{ silent = true }
+)

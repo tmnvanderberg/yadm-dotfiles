@@ -55,3 +55,19 @@ Map(
 	":FzfLua files <C-R><C-W><CR>",
 	{ silent = true }
 )
+
+-- search buffers
+Map(
+	"n",
+	"<Leader>l",
+	":FzfLua buffers <CR>",
+	{ silent = true }
+)
+
+-- search with spectre
+Map(
+	"n",
+	"<Leader><C-R>",
+	"<cmd>lua require('spectre').open()<CR>",
+	{ silent = true }
+)
