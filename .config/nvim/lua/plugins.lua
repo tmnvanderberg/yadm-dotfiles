@@ -12,14 +12,7 @@ return require('packer').startup(function(use)
 	-- GIT --
 	use 'tpope/vim-fugitive'
 	use 'idanarye/vim-merginal'
-	use {
-		'lewis6991/gitsigns.nvim',
-		config = function()
-			require('gitsigns').setup({
-				debug_mode = true
-			})
-		end
-	}
+	use 'airblade/vim-gitgutter'
 
 	-- NAV --
 	use { 'junegunn/fzf', run = './install --bin', }
@@ -38,6 +31,7 @@ return require('packer').startup(function(use)
 	use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
 	use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
 	use 'L3MON4D3/LuaSnip' -- Snippets plugin
+	use 'nvim-treesitter/nvim-treesitter' -- treesitter parses code & providers concrete syntax tree
 
 	-- ADDONS --
 	use 'junegunn/vim-peekaboo' -- register pane
