@@ -23,15 +23,6 @@ return require('packer').startup(function(use)
 	use 'lambdalisue/fern.vim' -- files browser
 	use 'lambdalisue/fern-git-status.vim' -- git status for fern
 	use 'easymotion/vim-easymotion' -- nagivate buffers with hints
-	-- use 'nvim-telescope/telescope.nvim'
-	use {
-		'nvim-telescope/telescope-fzf-native.nvim',
-		run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
-	}
-	use {
-		'nvim-telescope/telescope.nvim', tag = '0.1.0',
-		requires = { {'nvim-lua/plenary.nvim'} }
-	}
 
 	-- LANGUAGE --
 	use 'williamboman/nvim-lsp-installer' -- auto-install language servers
@@ -61,6 +52,7 @@ return require('packer').startup(function(use)
 	use 'sainnhe/sonokai'
 	use 'sainnhe/everforest'
 	use 'folke/tokyonight.nvim'
+	use 'mcchrish/zenbones.nvim'
 
 	-- BOOTSTRAP
 	if packer_bootstrap then

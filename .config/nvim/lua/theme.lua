@@ -1,6 +1,7 @@
 -- set the color scheme
-vim.cmd [[ set background=dark ]]
-local ok, _ = pcall(vim.cmd, 'colorscheme everforest')
+vim.cmd [[ set background=light ]]
+vim.cmd [[ set termguicolors ]]
+local ok, _ = pcall(vim.cmd, 'colorscheme morning')
 if not ok then
 	vim.cmd [[ colorscheme default ]]
 end
