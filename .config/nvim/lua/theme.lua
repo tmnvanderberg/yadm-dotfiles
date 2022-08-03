@@ -1,5 +1,6 @@
 -- set the color scheme
-local ok, _ = pcall(vim.cmd, 'colorscheme seoul256-light')
+vim.cmd [[ set background=dark ]]
+local ok, _ = pcall(vim.cmd, 'colorscheme everforest')
 if not ok then
 	vim.cmd [[ colorscheme default ]]
 end

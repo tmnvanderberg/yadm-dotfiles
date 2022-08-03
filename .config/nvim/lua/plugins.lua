@@ -41,6 +41,7 @@ return require('packer').startup(function(use)
 	use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
 	use 'L3MON4D3/LuaSnip' -- Snippets plugin
 	use 'nvim-treesitter/nvim-treesitter' -- treesitter parses code & providers concrete syntax tree
+	use 'solarnz/thrift.vim' -- thrift syntax
 
 	-- ADDONS --
 	use 'junegunn/vim-peekaboo' -- register pane
@@ -55,6 +56,11 @@ return require('packer').startup(function(use)
 
 	-- THEME
 	use 'junegunn/seoul256.vim' -- excellent color scheme from creator of fzf
+	use 'EdenEast/nightfox.nvim'
+	use 'savq/melange'
+	use 'sainnhe/sonokai'
+	use 'sainnhe/everforest'
+	use 'folke/tokyonight.nvim'
 
 	-- BOOTSTRAP
 	if packer_bootstrap then

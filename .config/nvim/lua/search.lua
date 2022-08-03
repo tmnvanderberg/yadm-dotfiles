@@ -11,7 +11,7 @@ Map(
 -- fuzzy search vim file history
 Map(
 	"n",
-	"<Leader>b",
+	"<Leader>bb",
 	":FzfLua oldfiles<CR>",
 	{ silent = true }
 )
@@ -69,5 +69,13 @@ Map(
 	"n",
 	"<Leader><C-R>",
 	"<cmd>lua require('spectre').open()<CR>",
+	{ silent = true }
+)
+
+-- search color schemes
+Map(
+	"n",
+	"<Leader>cs",
+	":FzfLua colorschemes<CR>",
 	{ silent = true }
 )
