@@ -22,7 +22,8 @@ return require('packer').startup(function(use)
 	}
 	use 'lambdalisue/fern.vim' -- files browser
 	use 'lambdalisue/fern-git-status.vim' -- git status for fern
-	use 'easymotion/vim-easymotion' -- nagivate buffers with hints
+	-- use 'easymotion/vim-easymotion' -- nagivate buffers with hints
+	use 'ggandor/lightspeed.nvim'
 
 	-- LANGUAGE --
 	use 'williamboman/nvim-lsp-installer' -- auto-install language servers
@@ -44,15 +45,17 @@ return require('packer').startup(function(use)
 	use 'nvim-lua/plenary.nvim' -- library of lua functions, required by spectre
 	use 'nvim-pack/nvim-spectre' -- regex search & replace in project
 	use 'tpope/vim-surround' -- parentheses plugin
+	use 'NMAC427/guess-indent.nvim'
 
 	-- THEME
 	use 'junegunn/seoul256.vim' -- excellent color scheme from creator of fzf
-	use 'EdenEast/nightfox.nvim'
-	use 'savq/melange'
-	use 'sainnhe/sonokai'
 	use 'sainnhe/everforest'
-	use 'folke/tokyonight.nvim'
-	use 'mcchrish/zenbones.nvim'
+	use 'marko-cerovac/material.nvim'
+	use 'Th3Whit3Wolf/space-nvim'
+	use 'andersevenrud/nordic.nvim'
+	use 'sainnhe/gruvbox-material'
+	use 'phha/zenburn.nvim'
+	use 'stevearc/dressing.nvim'
 
 	-- BOOTSTRAP
 	if packer_bootstrap then
