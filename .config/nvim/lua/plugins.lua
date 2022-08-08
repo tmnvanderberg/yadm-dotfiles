@@ -46,6 +46,7 @@ return require('packer').startup(function(use)
 	use 'nvim-pack/nvim-spectre' -- regex search & replace in project
 	use 'tpope/vim-surround' -- parentheses plugin
 	use 'NMAC427/guess-indent.nvim'
+	use 'nvim-orgmode/orgmode'
 
 	-- THEME
 	use 'junegunn/seoul256.vim' -- excellent color scheme from creator of fzf
