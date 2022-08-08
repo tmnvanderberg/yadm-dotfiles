@@ -1,5 +1,8 @@
 require('map')
 
+-- init leap with default maps
+require('leap').set_default_keymaps()
+
 -- remove highlight after search
 Map(
 	"n",

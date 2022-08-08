@@ -22,8 +22,7 @@ return require('packer').startup(function(use)
 	}
 	use 'lambdalisue/fern.vim' -- files browser
 	use 'lambdalisue/fern-git-status.vim' -- git status for fern
-	-- use 'easymotion/vim-easymotion' -- nagivate buffers with hints
-	use 'ggandor/lightspeed.nvim'
+	use 'ggandor/leap.nvim'
 
 	-- LANGUAGE --
 	use 'williamboman/nvim-lsp-installer' -- auto-install language servers
