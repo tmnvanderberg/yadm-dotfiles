@@ -9,6 +9,13 @@ Map(
 	{ silent = true }
 )
 
+Map(
+	"v",
+	"<C-p>",
+	"<Esc>:FzfLua<CR>",
+	{ silent = true }
+)
+
 -- search with spectre
 Map(
 	"n",
