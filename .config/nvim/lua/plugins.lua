@@ -25,7 +25,8 @@ return require('packer').startup(function(use)
 	use 'ggandor/leap.nvim'
 
 	-- LANGUAGE --
-	use 'williamboman/nvim-lsp-installer' -- auto-install language servers
+	use 'williamboman/mason.nvim' -- auto-install language servers
+	use 'williamboman/mason-lspconfig.nvim' -- lspconfig / mason bridge
 	use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
 	use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
 	use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp

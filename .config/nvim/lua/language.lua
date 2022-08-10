@@ -13,12 +13,10 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local lspconfig = require('lspconfig')
-local lspinstall = require('nvim-lsp-installer')
-
--- register lspinstall hooks
-lspinstall.setup {
-  automatic_installation = true, -- auto detect based on lsp config setup
-}
+require("mason").setup()
+require("mason-lspconfig").setup({
+	automatic_installation = true
+})
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -52,9 +50,10 @@ local servers = {
 	'pyright',
 	'sumneko_lua',
 	'bashls',
-	'eslint',
+	'tsserver',
 	'jsonls',
-	'eslint'
+	'cmake',
+	'rnix',
 }
 
 for _, lsp in ipairs(servers) do
@@ -139,6 +138,14 @@ require'nvim-treesitter.configs'.setup {
 	  "lua",
 	  "javascript",
 	  "typescript",
+	  "python",
+	  "bash",
+	  "json",
+	  "make",
+	  "cmake",
+	  "vim",
+	  "nix",
+	  "markdown",
   },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
