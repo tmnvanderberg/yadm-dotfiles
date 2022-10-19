@@ -34,6 +34,7 @@ return require('packer').startup(function(use)
 	use 'L3MON4D3/LuaSnip' -- Snippets plugin
 	use 'nvim-treesitter/nvim-treesitter' -- treesitter parses code & providers concrete syntax tree
 	use 'solarnz/thrift.vim' -- thrift syntax
+	use 'MTDL9/vim-log-highlighting' -- generic log hightighter
 
 	-- ADDONS --
 	use 'junegunn/vim-peekaboo' -- register pane
@@ -46,7 +47,7 @@ return require('packer').startup(function(use)
 	use 'nvim-pack/nvim-spectre' -- regex search & replace in project
 	use 'tpope/vim-surround' -- parentheses plugin
 	use 'NMAC427/guess-indent.nvim'
-	use 'nvim-orgmode/orgmode'
+	use 'chentoast/marks.nvim'
 
 	-- THEME
 	use 'junegunn/seoul256.vim' -- excellent color scheme from creator of fzf

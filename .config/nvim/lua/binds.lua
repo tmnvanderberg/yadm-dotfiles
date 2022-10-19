@@ -50,3 +50,6 @@ Map(
 	":IndentBlanklineToggle!<CR>",
 	{ silent = true }
 )
+
+-- use Alt-R as C-R replacement for terminal buffers (copied from FzfLua issue tracker)
+vim.keymap.set('t', '<M-r>', [['<C-\><C-N>"'.nr2char(getchar()).'pi']], { expr = true })

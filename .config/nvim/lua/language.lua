@@ -146,6 +146,7 @@ require'nvim-treesitter.configs'.setup {
 	  "vim",
 	  "nix",
 	  "markdown",
+	  "devicetree"
   },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
