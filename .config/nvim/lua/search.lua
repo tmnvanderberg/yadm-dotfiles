@@ -29,13 +29,20 @@ end
 
 function WatsonReport()
 	local buf = vim.api.nvim_create_buf(false, true)
-	-- vim.api.nvim_buf_set_lines(buf, 0, -1, true, {"test", "text"})
-	local handle = io.popen("watson report --all --no-pager")
-	if handle ~= nil then
-		local result = handle:read("*a")
-		vim.api.nvim_buf_set_text(buf, 0, 0, 0, 0, result)
-		handle:close()
+	local append_data = function(_, data)
+		print("HELLO?")
+		if data then
+			print(data)
+			vim.api.nvim_buf_set_lines(buf, -1, -1, false, data)
+		end
 	end
+	-- vim.api.jobstart({"watson", "report", "--all", "--no-pager"}, {
+	vim.api.jobstart("echo hello", {
+		stdout_buffered = true,
+		on_stdout = append_data,
+		on_stderr = append_data,
+		on_exit = print("ENDED")
+	})
 	local opts = {
 	    	relative = 'editor',
 		width = 50,
