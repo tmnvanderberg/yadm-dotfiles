@@ -35,6 +35,7 @@ return require('packer').startup(function(use)
 	use 'nvim-treesitter/nvim-treesitter' -- treesitter parses code & providers concrete syntax tree
 	use 'solarnz/thrift.vim' -- thrift syntax
 	use 'MTDL9/vim-log-highlighting' -- generic log hightighter
+	use 'kergoth/vim-bitbake'
 
 	-- ADDONS --
 	use 'junegunn/vim-peekaboo' -- register pane
