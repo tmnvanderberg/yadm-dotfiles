@@ -32,7 +32,7 @@ return require('packer').startup(function(use)
 	use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
 	use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
 	use 'L3MON4D3/LuaSnip' -- Snippets plugin
-	use 'nvim-treesitter/nvim-treesitter' -- treesitter parses code & providers concrete syntax tree
+	-- use 'nvim-treesitter/nvim-treesitter' -- treesitter parses code & providers concrete syntax tree
 	use 'solarnz/thrift.vim' -- thrift syntax
 	use 'MTDL9/vim-log-highlighting' -- generic log hightighter
 	use 'kergoth/vim-bitbake'
