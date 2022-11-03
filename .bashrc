@@ -66,6 +66,9 @@ export SRC="/home/timon/src"
 export SEC="/mnt/sec/src"
 
 # pyenv
-export PATH="$HOME/.pyenv/bin:$PATH"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+if [ -x "$(command -v pyenv)" ]; then
+	echo "pyenv found.."
+	export PATH="$HOME/.pyenv/bin:$PATH"
+	command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+	eval "$(pyenv init -)"
+fi
