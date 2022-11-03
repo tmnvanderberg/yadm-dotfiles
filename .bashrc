@@ -62,3 +62,10 @@ export BASH_IT_THEME='easy'
 source "$BASH_IT"/bash_it.sh
 
 alias tmux='tmux -2'
+export SRC="/home/timon/src"
+export SEC="/mnt/sec/src"
+
+# pyenv
+export PATH="$HOME/.pyenv/bin:$PATH"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"

@@ -22,7 +22,7 @@ return require('packer').startup(function(use)
 	}
 	use 'lambdalisue/fern.vim' -- files browser
 	use 'lambdalisue/fern-git-status.vim' -- git status for fern
-	use 'ggandor/leap.nvim'
+	use 'ggandor/leap.nvim' -- fancy motion plugin I never use
 
 	-- LANGUAGE --
 	use 'williamboman/mason.nvim' -- auto-install language servers
@@ -35,7 +35,8 @@ return require('packer').startup(function(use)
 	-- use 'nvim-treesitter/nvim-treesitter' -- treesitter parses code & providers concrete syntax tree
 	use 'solarnz/thrift.vim' -- thrift syntax
 	use 'MTDL9/vim-log-highlighting' -- generic log hightighter
-	use 'kergoth/vim-bitbake'
+	use 'kergoth/vim-bitbake' -- syntax for bb files
+	use 'nathom/filetype.nvim'
 
 	-- ADDONS --
 	use 'junegunn/vim-peekaboo' -- register pane
@@ -48,7 +49,7 @@ return require('packer').startup(function(use)
 	use 'nvim-pack/nvim-spectre' -- regex search & replace in project
 	use 'tpope/vim-surround' -- parentheses plugin
 	use 'NMAC427/guess-indent.nvim'
-	use 'chentoast/marks.nvim'
+	use 'chentoast/marks.nvim' -- show marks in status line
 
 	-- THEME
 	use 'junegunn/seoul256.vim' -- excellent color scheme from creator of fzf
@@ -59,6 +60,7 @@ return require('packer').startup(function(use)
 	use 'sainnhe/gruvbox-material'
 	use 'phha/zenburn.nvim'
 	use 'stevearc/dressing.nvim'
+	use 'ishan9299/nvim-solarized-lua'
 
 	-- BOOTSTRAP
 	if packer_bootstrap then
