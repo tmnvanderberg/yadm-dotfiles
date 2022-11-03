@@ -60,7 +60,7 @@ return require('packer').startup(function(use)
 	use 'sainnhe/gruvbox-material'
 	use 'phha/zenburn.nvim'
 	use 'stevearc/dressing.nvim'
-	use 'ishan9299/nvim-solarized-lua'
+	use 'LnL7/vim-nix'
 
 	-- BOOTSTRAP
 	if packer_bootstrap then
