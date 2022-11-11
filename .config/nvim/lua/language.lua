@@ -133,9 +133,12 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 require("filetype").setup({
     overrides = {
         literal = {
-            -- Set the filetype of files named "MyBackupFile" to lua
             ["CMakeLists_src.txt"] = "cmake",
+	    ["global-config"] = "bitbake",
         },
+	extensions = {
+	    bbappend = "bitbake",
+   	}
     },
 })
 
