@@ -50,6 +50,7 @@ return require('packer').startup(function(use)
 	use 'tpope/vim-surround' -- parentheses plugin
 	use 'NMAC427/guess-indent.nvim'
 	use 'chentoast/marks.nvim' -- show marks in status line
+	use 'tpope/vim-sleuth' -- detect indent sizes
 
 	-- THEME
 	use 'junegunn/seoul256.vim' -- excellent color scheme from creator of fzf
