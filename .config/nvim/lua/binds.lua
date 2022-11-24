@@ -1,8 +1,5 @@
 require('map')
 
--- init leap with default maps
-require('leap').set_default_keymaps()
-
 -- remove highlight after search
 Map(
 	"n",
@@ -23,7 +20,7 @@ Map(
 Map(
 	"n",
 	"<Leader>nh",
-	":Fern . -drawer -toggle -width=60<CR>",
+	":Neotree source=filesystem position=left<CR>",
 	{ silent = true }
 )
 
@@ -31,7 +28,7 @@ Map(
 Map(
 	"n",
 	"<Leader>nf",
-	":Fern . -drawer -width=60 -reveal=%<CR>",
+	":Neotree source=filesystem reveal=true position=left<CR>",
 	{ silent = true }
 )
 
@@ -39,7 +36,23 @@ Map(
 Map(
 	"n",
 	"<Leader>ve",
-	":Fern ~/.config/nvim -drawer -width=60 -reveal=~/.config/nvim/init.vim<CR>",
+	":Neotree source=filesystem position=left dir=/home/timon/.config/nvim/lua/<CR>",
+	{ silent = true }
+)
+
+-- show buffers
+Map(
+	"n",
+	"<Leader>nb",
+	":Neotree source=buffers position=right<CR>",
+	{ silent = true }
+)
+
+-- show git
+Map(
+	"n",
+	"<Leader>ng",
+	":Neotree source=git_status position=right<CR>",
 	{ silent = true }
 )
 
@@ -53,3 +66,4 @@ Map(
 
 -- use Alt-R as C-R replacement for terminal buffers (copied from FzfLua issue tracker)
 vim.keymap.set('t', '<M-r>', [['<C-\><C-N>"'.nr2char(getchar()).'pi']], { expr = true })
+

@@ -20,9 +20,18 @@ return require('packer').startup(function(use)
 	  -- optional for icon support
 	  requires = { 'kyazdani42/nvim-web-devicons' }
 	}
-	use 'lambdalisue/fern.vim' -- files browser
-	use 'lambdalisue/fern-git-status.vim' -- git status for fern
-	use 'ggandor/leap.nvim' -- fancy motion plugin I never use
+
+	-- Unless you are still migrating, remove the deprecated commands from v1.x
+	vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+	use {
+	"nvim-neo-tree/neo-tree.nvim",
+	  branch = "v2.x",
+	  requires = {
+	    "nvim-lua/plenary.nvim",
+	    "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+	    "MunifTanjim/nui.nvim",
+	  }
+	}
 
 	-- LANGUAGE --
 	use 'williamboman/mason.nvim' -- auto-install language servers
@@ -48,7 +57,6 @@ return require('packer').startup(function(use)
 	use 'nvim-lua/plenary.nvim' -- library of lua functions, required by spectre
 	use 'nvim-pack/nvim-spectre' -- regex search & replace in project
 	use 'tpope/vim-surround' -- parentheses plugin
-	use 'NMAC427/guess-indent.nvim'
 	use 'chentoast/marks.nvim' -- show marks in status line
 	use 'tpope/vim-sleuth' -- detect indent sizes
 
