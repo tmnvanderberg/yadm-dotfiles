@@ -36,7 +36,7 @@ Map(
 Map(
 	"n",
 	"<Leader>ve",
-	":Neotree source=filesystem position=left dir=/home/timon/.config/nvim/lua/<CR>",
+	":Neotree source=filesystem position=left dir=~/.config/nvim/lua/<CR>",
 	{ silent = true }
 )
 
