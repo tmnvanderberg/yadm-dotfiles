@@ -47,8 +47,8 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # use vim
-export VISUAL=vim;
-export EDITOR=vim;
+export VISUAL=nvim;
+export EDITOR=nvim;
 
 # Path to the bash it configuration
 export BASH_IT="/home/timon/.bash_it"
@@ -56,7 +56,7 @@ export BASH_IT="/home/timon/.bash_it"
 # Lock and Load a custom theme file.
 # Leave empty to disable theming.
 # location /.bash_it/themes/
-export BASH_IT_THEME='easy'
+export BASH_IT_THEME='tbe'
 
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
