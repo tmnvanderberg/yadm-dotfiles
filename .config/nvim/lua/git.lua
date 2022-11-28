@@ -14,7 +14,8 @@ Map(
 Map(
 	"n",
 	"<Leader>gag",
-	":G log --all --graph --pretty=format:\"[%h] %<(140,trunc)%s [%ad] %><(13,trunc)(%an) %d\" --date=short --expand-tabs <CR>",
+	":G log --all --graph --pretty=format:\"[%h] %<(140,trunc)%s [%ad] %><(13,trunc)(%an) %d\" --date=short --expand-tabs <CR>"
+	,
 	{ silent = true }
 )
 
@@ -30,7 +31,7 @@ Map(
 Map(
 	"n",
 	"<Leader>gfg",
-	":G log -- %<CR>", 
+	":G log -- %<CR>",
 	{ silent = true }
 )
 

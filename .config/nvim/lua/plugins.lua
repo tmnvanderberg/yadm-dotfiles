@@ -1,8 +1,8 @@
 local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 local packer_bootstrap
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+	packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
 end
 
 return require('packer').startup(function(use)
@@ -17,20 +17,20 @@ return require('packer').startup(function(use)
 	-- NAV --
 	use { 'junegunn/fzf', run = './install --bin', }
 	use { 'ibhagwan/fzf-lua',
-	  -- optional for icon support
-	  requires = { 'kyazdani42/nvim-web-devicons' }
+		-- optional for icon support
+		requires = { 'kyazdani42/nvim-web-devicons' }
 	}
 
 	-- Unless you are still migrating, remove the deprecated commands from v1.x
 	vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 	use {
-	"nvim-neo-tree/neo-tree.nvim",
-	  branch = "v2.x",
-	  requires = {
-	    "nvim-lua/plenary.nvim",
-	    "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-	    "MunifTanjim/nui.nvim",
-	  }
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v2.x",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+		}
 	}
 
 	-- LANGUAGE --
@@ -49,7 +49,7 @@ return require('packer').startup(function(use)
 
 	-- ADDONS --
 	use 'junegunn/vim-peekaboo' -- register pane
-	use 'jpalardy/vim-slime'-- sends text to tmux panes
+	use 'jpalardy/vim-slime' -- sends text to tmux panes
 	use 'nvim-lualine/lualine.nvim' -- lightweight status line
 	use 'vimwiki/vimwiki' -- wiki inside vim
 	use 'tpope/vim-commentary' -- comment and uncomment things
@@ -76,4 +76,3 @@ return require('packer').startup(function(use)
 		require('packer').sync()
 	end
 end)
-
