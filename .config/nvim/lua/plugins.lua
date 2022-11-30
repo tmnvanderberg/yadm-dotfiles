@@ -11,8 +11,7 @@ return require('packer').startup(function(use)
 
 	-- GIT --
 	use 'tpope/vim-fugitive'
-	use 'idanarye/vim-merginal'
-	use 'airblade/vim-gitgutter'
+	use 'junegunn/gv.vim'
 
 	-- NAV --
 	use { 'junegunn/fzf', run = './install --bin', }
@@ -41,11 +40,10 @@ return require('packer').startup(function(use)
 	use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
 	use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
 	use 'L3MON4D3/LuaSnip' -- Snippets plugin
-	-- use 'nvim-treesitter/nvim-treesitter' -- treesitter parses code & providers concrete syntax tree
 	use 'solarnz/thrift.vim' -- thrift syntax
 	use 'MTDL9/vim-log-highlighting' -- generic log hightighter
 	use 'kergoth/vim-bitbake' -- syntax for bb files
-	use 'nathom/filetype.nvim'
+	use 'nathom/filetype.nvim' -- customize filetype detection
 
 	-- ADDONS --
 	use 'junegunn/vim-peekaboo' -- register pane
@@ -57,19 +55,10 @@ return require('packer').startup(function(use)
 	use 'nvim-lua/plenary.nvim' -- library of lua functions, required by spectre
 	use 'nvim-pack/nvim-spectre' -- regex search & replace in project
 	use 'tpope/vim-surround' -- parentheses plugin
-	use 'chentoast/marks.nvim' -- show marks in status line
 	use 'tpope/vim-sleuth' -- detect indent sizes
 
 	-- THEME
-	use 'junegunn/seoul256.vim' -- excellent color scheme from creator of fzf
-	use 'sainnhe/everforest'
-	use 'marko-cerovac/material.nvim'
-	use 'Th3Whit3Wolf/space-nvim'
-	use 'andersevenrud/nordic.nvim'
 	use 'sainnhe/gruvbox-material'
-	use 'phha/zenburn.nvim'
-	use 'stevearc/dressing.nvim'
-	use 'LnL7/vim-nix'
 
 	-- BOOTSTRAP
 	if packer_bootstrap then

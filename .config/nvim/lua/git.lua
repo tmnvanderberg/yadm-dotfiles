@@ -10,31 +10,6 @@ Map(
 	{ silent = true }
 )
 
--- git graph of all branches
-Map(
-	"n",
-	"<Leader>gag",
-	":G log --all --graph --pretty=format:\"[%h] %<(140,trunc)%s [%ad] %><(13,trunc)(%an) %d\" --date=short --expand-tabs <CR>"
-	,
-	{ silent = true }
-)
-
--- git graph of current branch
-Map(
-	"n",
-	"<Leader>gg",
-	":G log --graph --pretty=format:\"[%h] %<(140,trunc)%s [%ad] %><(13,trunc)(%an) %d\" --date=short --expand-tabs <CR>",
-	{ silent = true }
-)
-
--- current file commits
-Map(
-	"n",
-	"<Leader>gfg",
-	":G log -- %<CR>",
-	{ silent = true }
-)
-
 -- cherry-pick current word
 Map(
 	"n",
