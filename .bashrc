@@ -79,3 +79,26 @@ if command -v fzf-share >/dev/null; then
 fi
 
 set -o vi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+bind '"\t":menu-complete'
+bind '"\e[Z": menu-complete-backward'
+bind "TAB:menu-complete"
+bind "set show-all-if-ambiguous on"
+bind "set completion-ignore-case on"
+bind "set menu-complete-display-prefix on"
+
+function cdup
+{
+    amt=$1
+    cmd=""
+    i=0
+    while [ "$i" -lt "$amt" ]
+    do
+            cmd=$cmd"../"
+            let i=$i+1
+    done
+
+    cd $cmd
+}
