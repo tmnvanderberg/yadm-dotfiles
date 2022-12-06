@@ -10,10 +10,13 @@ vim.wo.number = true
 -- enable autocomplete
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
--- always show sign column
+-- always show sign colum
 vim.cmd [[set signcolumn=no]]
 
 -- disable diagnostics inline (use <space>e instead)
 vim.diagnostic.config({
   virtual_text = false,
 })
+
+-- set tab width
+vim.cmd [[set tabstop=2]]
