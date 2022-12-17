@@ -51,7 +51,7 @@ export VISUAL=nvim;
 export EDITOR=nvim;
 
 # Path to the bash it configuration
-export BASH_IT="/home/timon/.bash_it"
+export BASH_IT="$HOME/.bash_it"
 
 # Lock and Load a custom theme file.
 # Leave empty to disable theming.
@@ -62,8 +62,8 @@ export BASH_IT_THEME='tbe'
 source "$BASH_IT"/bash_it.sh
 
 alias tmux='tmux -2'
-export SRC="/home/timon/src"
-export SEC="/mnt/sec/src"
+export SRC="~/src"
+export SEC="mnt/sec/src"
 
 # pyenv
 if [ -x "$(command -v pyenv)" ]; then
