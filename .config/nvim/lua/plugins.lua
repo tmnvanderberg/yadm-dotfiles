@@ -59,6 +59,7 @@ return require('packer').startup(function(use)
 
 	-- THEME
 	use 'sainnhe/gruvbox-material'
+	use 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
 
 	-- BOOTSTRAP
 	if packer_bootstrap then
