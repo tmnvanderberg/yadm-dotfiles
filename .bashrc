@@ -102,3 +102,5 @@ function cdup
 
     cd $cmd
 }
+
+. /home/timon/.nix-profile/etc/profile.d/nix.sh
