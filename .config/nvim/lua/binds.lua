@@ -16,6 +16,13 @@ Map(
 	{ silent = true }
 )
 
+Map(
+	"n",
+	"<Leader>t",
+	":tab term<CR>",
+	{ silent = true }
+)
+
 -- open file browser cwd
 Map(
 	"n",
