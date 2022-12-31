@@ -52,6 +52,7 @@ return require('packer').startup(function(use)
     }
   end
 }
+	use 'LnL7/vim-nix' -- nix language support
 
 	-- ADDONS --
 	-- use 'junegunn/vim-peekaboo' -- register pane
