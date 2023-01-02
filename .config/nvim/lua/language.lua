@@ -55,7 +55,8 @@ local servers = {
 	'cmake',
 	'rnix',
 	'rust_analyzer',
-	'html'
+	'html',
+	'ocamllsp',
 }
 
 for _, lsp in ipairs(servers) do
