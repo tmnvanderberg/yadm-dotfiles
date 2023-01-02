@@ -45,13 +45,12 @@ return require('packer').startup(function(use)
 	use 'kergoth/vim-bitbake' -- syntax for bb files
 	use 'nathom/filetype.nvim' -- customize filetype detection
 	use {
-  "folke/trouble.nvim",
-  requires = "kyazdani42/nvim-web-devicons",
-  config = function()
-    require("trouble").setup {
-    }
-  end
-}
+	  "folke/trouble.nvim",
+	  requires = "kyazdani42/nvim-web-devicons",
+	  config = function()
+	    require("trouble").setup { }
+	  end
+	}
 	use 'LnL7/vim-nix' -- nix language support
 
 	-- ADDONS --
