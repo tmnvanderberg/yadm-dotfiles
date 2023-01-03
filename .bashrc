@@ -103,3 +103,5 @@ function cdup
     cd $cmd
 }
 
+NIX_PROFILE="/home/timon/.nix-profile/etc/profile.d/nix.sh"
+[ -f "$NIX_PROFILE" ] && . "$NIX_PROFILE"
