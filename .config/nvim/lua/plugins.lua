@@ -44,18 +44,28 @@ return require('packer').startup(function(use)
 	use 'MTDL9/vim-log-highlighting' -- generic log hightighter
 	use 'kergoth/vim-bitbake' -- syntax for bb files
 	use 'nathom/filetype.nvim' -- customize filetype detection
+	use {
+	  "folke/trouble.nvim",
+	  requires = "kyazdani42/nvim-web-devicons",
+	  config = function()
+	    require("trouble").setup { }
+	  end
+	}
+	use 'LnL7/vim-nix' -- nix language support
 
 	-- ADDONS --
-	use 'junegunn/vim-peekaboo' -- register pane
+	-- use 'junegunn/vim-peekaboo' -- register pane
 	use 'jpalardy/vim-slime' -- sends text to tmux panes
 	use 'nvim-lualine/lualine.nvim' -- lightweight status line
-	use 'vimwiki/vimwiki' -- wiki inside vim
+	-- use 'vimwiki/vimwiki' -- wiki inside vim
 	use 'tpope/vim-commentary' -- comment and uncomment things
-	use 'lukas-reineke/indent-blankline.nvim' -- indentation lines
+	-- use 'lukas-reineke/indent-blankline.nvim' -- indentation lines
 	use 'nvim-lua/plenary.nvim' -- library of lua functions, required by spectre
 	use 'nvim-pack/nvim-spectre' -- regex search & replace in project
-	use 'tpope/vim-surround' -- parentheses plugin
+	-- use 'tpope/vim-surround' -- parentheses plugin
 	use 'tpope/vim-sleuth' -- detect indent sizes
+	use 'lambdalisue/suda.vim' -- sudo write/read
+	use 'tpope/vim-abolish' -- cool replace
 
 	-- THEME
 	use 'sainnhe/gruvbox-material'

@@ -5,7 +5,7 @@ vim.g.mapleader = ' '
 vim.cmd [[set mouse=a]]
 
 -- enable line numbers
-vim.wo.number = true
+vim.wo.number = false
 
 -- enable autocomplete
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }

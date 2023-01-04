@@ -163,21 +163,21 @@ require'fzf-lua'.setup {
     ['--border']      = 'none',
   },
   -- fzf '--color=' options (optional)
-  --[[ fzf_colors = {
-      ["fg"]          = { "fg", "CursorLine" },
-      ["bg"]          = { "bg", "Normal" },
-      ["hl"]          = { "fg", "Comment" },
-      ["fg+"]         = { "fg", "Normal" },
-      ["bg+"]         = { "bg", "CursorLine" },
-      ["hl+"]         = { "fg", "Statement" },
-      ["info"]        = { "fg", "PreProc" },
-      ["prompt"]      = { "fg", "Conditional" },
-      ["pointer"]     = { "fg", "Exception" },
-      ["marker"]      = { "fg", "Keyword" },
-      ["spinner"]     = { "fg", "Label" },
-      ["header"]      = { "fg", "Comment" },
+  fzf_colors = {
+      -- ["fg"]          = { "fg", "CursorLine" },
+      -- ["bg"]          = { "bg", "Normal" },
+      -- ["hl"]          = { "fg", "Comment" },
+      -- ["fg+"]         = { "fg", "Normal" },
+      -- ["bg+"]         = { "bg", "CursorLine" },
+      -- ["hl+"]         = { "fg", "Statement" },
+      -- ["info"]        = { "fg", "PreProc" },
+      -- ["prompt"]      = { "fg", "Conditional" },
+      -- ["pointer"]     = { "fg", "Exception" },
+      -- ["marker"]      = { "fg", "Keyword" },
+      -- ["spinner"]     = { "fg", "Label" },
+      -- ["header"]      = { "fg", "Comment" },
       ["gutter"]      = { "bg", "Normal" },
-  }, ]]
+  },
   previewers = {
     cat = {
       cmd             = "cat",

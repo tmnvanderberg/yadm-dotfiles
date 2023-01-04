@@ -41,7 +41,7 @@ local set_buffer_maps = function(client, bufnr)
 	vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
 	vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
 	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-	vim.keymap.set('n', '<space>f', function() vim.lsp.buf.formatting { async = true } end, bufopts)
+	vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
@@ -54,6 +54,9 @@ local servers = {
 	'jsonls',
 	'cmake',
 	'rnix',
+	'rust_analyzer',
+	'html',
+	'ocamllsp',
 }
 
 for _, lsp in ipairs(servers) do
