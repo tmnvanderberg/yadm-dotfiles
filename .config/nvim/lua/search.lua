@@ -9,30 +9,6 @@ Map(
 	{ silent = true }
 )
 
--- search files
-Map(
-	"n",
-	"<C-f>",
-	":FzfLua files<CR>",
-	{ silent = true }
-)
-
--- search buffers
-Map(
-	"n",
-	"<C-l>",
-	":FzfLua buffers<CR>",
-	{ silent = true }
-)
-
--- grep
-Map(
-	"n",
-	"<C-g>",
-	":FzfLua live_grep<CR>",
-	{ silent = true }
-)
-
 -- search with spectre
 Map(
 	"n",
