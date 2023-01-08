@@ -105,3 +105,4 @@ function cdup
 
 NIX_PROFILE="/home/timon/.nix-profile/etc/profile.d/nix.sh"
 [ -f "$NIX_PROFILE" ] && . "$NIX_PROFILE"
+source ~/.bash_profile
