@@ -20,3 +20,6 @@ vim.diagnostic.config({
 
 -- set tab width
 vim.cmd [[set tabstop=2]]
+
+-- use system clipboard by default
+vim.cmd [[set clipboard=unnamedplus]]
