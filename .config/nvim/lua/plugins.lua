@@ -66,6 +66,7 @@ return require('packer').startup(function(use)
 	use 'tpope/vim-sleuth' -- detect indent sizes
 	use 'lambdalisue/suda.vim' -- sudo write/read
 	use 'tpope/vim-abolish' -- cool replace
+	use 'tpope/vim-unimpaired'
 
 	-- THEME
 	use 'sainnhe/gruvbox-material'
