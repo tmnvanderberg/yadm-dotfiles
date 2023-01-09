@@ -17,7 +17,7 @@ return require('packer').startup(function(use)
 	use { 'junegunn/fzf', run = './install --bin', }
 	use { 'ibhagwan/fzf-lua',
 		-- optional for icon support
-		requires = { 'kyazdani42/nvim-web-devicons' }
+		requires = { 'kyazdani42/nvim-web-devicons' },
 	}
 
 	-- Unless you are still migrating, remove the deprecated commands from v1.x
@@ -54,23 +54,20 @@ return require('packer').startup(function(use)
 	use 'LnL7/vim-nix' -- nix language support
 
 	-- ADDONS --
-	-- use 'junegunn/vim-peekaboo' -- register pane
 	use 'jpalardy/vim-slime' -- sends text to tmux panes
 	use 'nvim-lualine/lualine.nvim' -- lightweight status line
-	-- use 'vimwiki/vimwiki' -- wiki inside vim
 	use 'tpope/vim-commentary' -- comment and uncomment things
-	-- use 'lukas-reineke/indent-blankline.nvim' -- indentation lines
 	use 'nvim-lua/plenary.nvim' -- library of lua functions, required by spectre
 	use 'nvim-pack/nvim-spectre' -- regex search & replace in project
-	-- use 'tpope/vim-surround' -- parentheses plugin
+	use 'tpope/vim-surround' -- parentheses plugin
 	use 'tpope/vim-sleuth' -- detect indent sizes
-	use 'lambdalisue/suda.vim' -- sudo write/read
 	use 'tpope/vim-abolish' -- cool replace
 	use 'tpope/vim-unimpaired'
 
 	-- THEME
 	use 'sainnhe/gruvbox-material'
 	use 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
+	use 'projekt0n/github-nvim-theme'
 
 	-- BOOTSTRAP
 	if packer_bootstrap then
