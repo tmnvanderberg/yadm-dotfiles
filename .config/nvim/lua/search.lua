@@ -9,6 +9,13 @@ Map(
 	{ silent = true }
 )
 
+Map(
+	"n",
+	"<Leader>p",
+	":FzfLua commands<CR>",
+	{ silent = true }
+)
+
 -- search with spectre
 Map(
 	"n",
