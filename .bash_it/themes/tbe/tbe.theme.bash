@@ -5,7 +5,7 @@ function prompt_setter() {
 	local clock_prompt 
 	clock_prompt="$(clock_prompt)"
 	_save-and-reload-history 1 # Save history
-	PS1="(${clock_prompt}) [${yellow?}\w${reset_color?}] ${reset_color?} "
+	PS1="[${clock_prompt}] (\h) [${yellow?}\w${reset_color?}] ${reset_color?} \n > "
 	PS2='> '
 	PS4='+ '
 }
