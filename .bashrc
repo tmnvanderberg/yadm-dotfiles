@@ -12,8 +12,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=-1
+HISTFILESIZE=-1
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -22,6 +22,14 @@ shopt -s checkwinsize
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
+
+export HISTTIMEFORMAT="[%F %T] "
+# Change the file location because certain bash sessions truncate .bash_history file upon close.
+# http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
+export HISTFILE=~/.bash_eternal_history
+# Force prompt to write history after every command.
+# http://superuser.com/questions/20900/bash-history-loss
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -102,6 +110,26 @@ function cdup
 
     cd $cmd
 }
+
+
+cd_fzf() {
+  local dir
+  dir=$(find . -type d -maxdepth 1 -print 2>/dev/null | fzf +m) # Use fzf to select a directory
+
+  if [[ -n "$dir" ]]; then
+    cd "$dir" || return 1 
+  fi
+}
+
+function st
+{
+    local dir
+    dir=$(find `readlink -f /src/1` `readlink -f /src/2` `readlink -f /src/3` -type d -maxdepth 2 -print 2>/dev/null | sed 's/^.\///' | fzf +m) 
+    cd "$dir" || return 1 
+    ls -p --color=auto
+}
+
+alias stn="st; nvim +\":Fern . -drawer\""
 
 NIX_PROFILE="/home/timon/.nix-profile/etc/profile.d/nix.sh"
 [ -f "$NIX_PROFILE" ] && . "$NIX_PROFILE"
