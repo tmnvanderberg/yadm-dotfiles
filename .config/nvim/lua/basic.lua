@@ -23,3 +23,10 @@ vim.cmd [[set tabstop=2]]
 
 -- use system clipboard by default
 vim.cmd [[set clipboard=unnamedplus]]
+
+-- copy current file path
+vim.api.nvim_create_user_command("Cppath", function()
+    local path = vim.fn.expand("%:p")
+    vim.fn.setreg("+", path)
+    vim.notify('Copied "' .. path .. '" to the clipboard!')
+end, {}) 

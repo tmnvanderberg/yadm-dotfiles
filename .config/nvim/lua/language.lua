@@ -48,7 +48,7 @@ end
 local servers = {
 	'clangd',
 	'pyright',
-	'sumneko_lua',
+	'lua_ls',
 	'bashls',
 	'tsserver',
 	'jsonls',
@@ -56,7 +56,6 @@ local servers = {
 	'rnix',
 	'rust_analyzer',
 	'html',
-	'ocamllsp',
 }
 
 for _, lsp in ipairs(servers) do
@@ -65,20 +64,6 @@ for _, lsp in ipairs(servers) do
 		on_attach = set_buffer_maps
 	}
 end
-
-lspconfig.sumneko_lua.setup {
-	capabilities = capabilities,
-	on_attach = set_buffer_maps,
-	settings = {
-		Lua = {
-			diagnostics = {
-				globals = {
-					'vim'
-				}
-			}
-		}
-	}
-}
 
 -- luasnip setup
 local luasnip = require 'luasnip'
@@ -145,3 +130,5 @@ require("filetype").setup({
 		}
 	},
 })
+
+require('toggle_lsp_diagnostics').init()
