@@ -56,6 +56,8 @@ local servers = {
 	'rnix',
 	'rust_analyzer',
 	'html',
+	'ocamllsp',
+	'ruff_lsp'
 }
 
 for _, lsp in ipairs(servers) do
@@ -64,6 +66,20 @@ for _, lsp in ipairs(servers) do
 		on_attach = set_buffer_maps
 	}
 end
+
+lspconfig.lua_ls.setup {
+	capabilities = capabilities,
+	on_attach = set_buffer_maps,
+	settings = {
+		Lua = {
+			diagnostics = {
+				globals = {
+					'vim'
+				}
+			}
+		}
+	}
+}
 
 -- luasnip setup
 local luasnip = require 'luasnip'

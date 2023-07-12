@@ -35,18 +35,25 @@ return require('packer').startup(function(use)
 	 	'williamboman/mason.nvim', -- auto-install language servers
 	 	run = ":MasonUpdate"
 	 }
-	 use 'williamboman/mason-lspconfig.nvim' -- lspconfig / mason bridge
-	 use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
-	 use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-	 use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
-	 use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-	 use 'L3MON4D3/LuaSnip' -- Snippets plugin
-	 use 'solarnz/thrift.vim' -- thrift syntax
-	 use 'MTDL9/vim-log-highlighting' -- generic log hightighter
-	 use 'kergoth/vim-bitbake' -- syntax for bb files
-	 use 'nathom/filetype.nvim' -- customize filetype detection
-	 use 'LnL7/vim-nix' -- nix language support
-	 use 'sheerun/vim-polyglot' -- big vim language pack
+	use 'williamboman/mason-lspconfig.nvim' -- lspconfig / mason bridge
+	use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
+	use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
+	use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
+	use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
+	use 'L3MON4D3/LuaSnip' -- Snippets plugin
+	use 'solarnz/thrift.vim' -- thrift syntax
+	use 'MTDL9/vim-log-highlighting' -- generic log hightighter
+	use 'kergoth/vim-bitbake' -- syntax for bb files
+	use 'nathom/filetype.nvim' -- customize filetype detection
+	use {
+		"folke/trouble.nvim",
+		requires = "kyazdani42/nvim-web-devicons",
+		config = function()
+			require("trouble").setup {}
+		end
+	}
+	use 'LnL7/vim-nix' -- nix language support
+	use 'psf/black'
 
 	 -- ADDONS --
 	 use 'jpalardy/vim-slime' -- sends text to tmux panes
