@@ -1,5 +1,4 @@
 #!/bin/bash
-# run as root
 
 interface=$1
 
