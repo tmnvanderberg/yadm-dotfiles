@@ -56,7 +56,6 @@ local servers = {
 	'rnix',
 	'rust_analyzer',
 	'html',
-	'ocamllsp',
 	'ruff_lsp'
 }
 
