@@ -70,5 +70,28 @@ Map(
 	{ silent = false }
 )
 
+-- Disable LSP
+Map(
+	"n",
+	"<Leader>lo",
+	":LspStop<CR>",
+	{ silent = false }
+)
+
+function CopyFP()
+  local linenr = vim.api.nvim_win_get_cursor(0)[1]
+  local filepath = vim.api.nvim_buf_get_name(0)
+  local line_number_str = string.format("-%d", linenr)
+  local full_filepath = filepath .. line_number_str
+  vim.fn.setreg("+", full_filepath)
+end
+
+Map(
+	"n",
+	"<Leader>fp",
+	":lua CopyFP()<CR>",
+	{ silent = false }
+)
+
 -- use Alt-R as C-R replacement for terminal buffers (copied from FzfLua issue tracker)
 vim.keymap.set('t', '<M-r>', [['<C-\><C-N>"'.nr2char(getchar()).'pi']], { expr = true })
