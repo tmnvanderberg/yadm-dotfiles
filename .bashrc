@@ -154,5 +154,7 @@ exe() {
 
 alias stn="st; nvim +\":Fern . -drawer\""
 
+alias ssh-sue="ssh timon@timon-B550M-DS3H.x.suevie"
+
 NIX_PROFILE="/home/timon/.nix-profile/etc/profile.d/nix.sh"
 [ -f "$NIX_PROFILE" ] && . "$NIX_PROFILE"
