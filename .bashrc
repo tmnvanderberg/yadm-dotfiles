@@ -117,8 +117,10 @@ cd_fzf() {
 function uart
 {
     local dev
-    dev=$(find /dev/ -print 2>/dev/null | sed 's/^.\///' | fzf +m) 
-    picocom -b 115200 "$dev" || return 1 
+    dev=$(find /dev/tty* -print 2>/dev/null | sed 's/^.\///' | fzf +m) 
+    if [ -n "$dev" ]; then
+	picocom -b 115200 "$dev" || return 1 
+    fi
 }
 
 function st
@@ -155,6 +157,15 @@ exe() {
 alias stn="st; nvim +\":Fern . -drawer\""
 
 alias ssh-sue="ssh timon@timon-B550M-DS3H.x.suevie"
+
+alias ssh-retry="ssh_retry"
+
+function gr
+{
+    local dir
+    dir=$(git rev-parse --show-toplevel)
+    cd "$dir"
+}
 
 NIX_PROFILE="/home/timon/.nix-profile/etc/profile.d/nix.sh"
 [ -f "$NIX_PROFILE" ] && . "$NIX_PROFILE"
