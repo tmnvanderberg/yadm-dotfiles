@@ -90,13 +90,6 @@ set -o vi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-bind '"\t":menu-complete'
-bind '"\e[Z": menu-complete-backward'
-bind "TAB:menu-complete"
-bind "set show-all-if-ambiguous on"
-bind "set completion-ignore-case on"
-bind "set menu-complete-display-prefix on"
-
 function cdup
 {
     amt=$1
@@ -121,12 +114,42 @@ cd_fzf() {
   fi
 }
 
+function uart
+{
+    local dev
+    dev=$(find /dev/ -print 2>/dev/null | sed 's/^.\///' | fzf +m) 
+    picocom -b 115200 "$dev" || return 1 
+}
+
 function st
 {
     local dir
     dir=$(find `readlink -f /src/1` `readlink -f /src/2` `readlink -f /src/3` -type d -maxdepth 2 -print 2>/dev/null | sed 's/^.\///' | fzf +m) 
     cd "$dir" || return 1 
     ls -p --color=auto
+}
+
+alias cpy="xclip -selection clipboard"
+
+function dt
+{
+    local dir
+    dir=$(find '/home/timon/Documents' -type d -maxdepth 2 -print 2>/dev/null | sed 's/^.\///' | fzf +m) 
+    cd "$dir" || return 1 
+    ls -p --color=auto
+}
+
+exe() {
+  local directory="/usr/bin"
+  local executables=$(find "$directory" -type f -executable -printf "%f\n" 2>/dev/null)
+  local selected=$(echo "$executables" | fzf --prompt="Search Executables: ")
+
+  if [[ -n "$selected" ]]; then
+    echo "Executing: $selected"
+    "$directory/$selected"
+  else
+    echo "No executable selected."
+  fi
 }
 
 alias stn="st; nvim +\":Fern . -drawer\""
