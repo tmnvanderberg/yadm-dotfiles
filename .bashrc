@@ -158,7 +158,8 @@ alias stn="st; nvim +\":Fern . -drawer\""
 
 alias ssh-sue="ssh timon@timon-B550M-DS3H.x.suevie"
 
-alias ssh-retry="ssh_retry"
+alias arp-ssh="/home/timon/script/arp-ssh.sh"
+alias ssh-retry="/home/timon/script/ssh-retry.sh"
 
 function gr
 {
