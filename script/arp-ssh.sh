@@ -19,6 +19,8 @@ fi
 # Get the IP address of the selected device
 ip=$(sudo arp-scan --interface=$interface --localnet | grep "$selected" | awk '{print $1}')
 
+echo "connecting to $selected"
+
 # Connect to the device using SSH
 ssh-retry $ip
 
