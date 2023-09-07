@@ -39,21 +39,22 @@ return require('packer').startup(function(use)
 	use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
 	use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
 	use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
-	use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-	use 'L3MON4D3/LuaSnip' -- Snippets plugin
+	--  use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
+	-- use 'L3MON4D3/LuaSnip' -- Snippets plugin
 	use 'solarnz/thrift.vim' -- thrift syntax
 	use 'MTDL9/vim-log-highlighting' -- generic log hightighter
 	use 'kergoth/vim-bitbake' -- syntax for bb files
 	use 'nathom/filetype.nvim' -- customize filetype detection
-	use {
-		"folke/trouble.nvim",
-		requires = "kyazdani42/nvim-web-devicons",
-		config = function()
-			require("trouble").setup {}
-		end
-	}
+--	use {
+--		"folke/trouble.nvim",
+--		requires = "kyazdani42/nvim-web-devicons",
+--		config = function()
+--			require("trouble").setup {}
+--		end
+--	}
 	use 'LnL7/vim-nix' -- nix language support
 	use 'psf/black'
+
 
 	 -- ADDONS --
 	 use 'jpalardy/vim-slime' -- sends text to tmux panes
@@ -66,6 +67,20 @@ return require('packer').startup(function(use)
 	 use 'tpope/vim-abolish' -- cool replace
 	 use 'tpope/vim-unimpaired'
 	 use 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
+	 use {
+		'nvim-treesitter/nvim-treesitter',
+		run = ':TSUpdate'
+	}
+	 use { -- complete
+		'gelguy/wilder.nvim',
+		config = function()
+			local wilder = require('wilder')
+			wilder.setup({modes = {':', '/', '?'}})
+		end,
+	}
+	use {
+		'vimwiki/vimwiki'
+	}
 
 	 -- THEME
 	 use 'sainnhe/gruvbox-material'
