@@ -29,8 +29,15 @@ fi
 # Get the IP address of the selected device
 ip=$(sudo arp-scan --interface=$interface --localnet | grep "$selected" | awk '{print $1}')
 
-echo "connecting to $selected"
+echo "connecting to $selected" 
+echo -n "user (ENTER for root):"
+
+read user_input
+
+if [[ -z $user_input ]]; then
+  user_input="root"
+fi
 
 # Connect to the device using SSH
-ssh-retry $ip
+ssh-retry "$user_input@$ip"
 
