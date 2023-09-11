@@ -2,13 +2,12 @@
 
 # Check if IP address is provided as a command-line argument
 if [ -z "$1" ]; then
-    echo "Usage: $0 <ip_address>"
+    echo "Usage: ssh-retry <user>@<ip_address>"
     exit 1
 fi
 
 # Remote server details
 remote_host="$1"
-remote_user="root"
 remote_port="22"
 
 # SSH options
@@ -16,8 +15,8 @@ ssh_options="-o ConnectTimeout=10"
 
 # Function to attempt SSH connection
 function try_ssh {
-    echo "Attempting SSH connection to $remote_user@$remote_host..."
-    ssh $ssh_options -p $remote_port $remote_user@$remote_host
+    echo "Attempting SSH connection to $remote_host..."
+    ssh $ssh_options -p $remote_port $remote_host
     exit_status=$?
     if [ $exit_status -eq 0 ]; then
         echo "SSH connection succeeded!"
