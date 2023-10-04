@@ -44,14 +44,7 @@ return require('packer').startup(function(use)
 	use 'solarnz/thrift.vim' -- thrift syntax
 	use 'MTDL9/vim-log-highlighting' -- generic log hightighter
 	use 'kergoth/vim-bitbake' -- syntax for bb files
-	use 'nathom/filetype.nvim' -- customize filetype detection
---	use {
---		"folke/trouble.nvim",
---		requires = "kyazdani42/nvim-web-devicons",
---		config = function()
---			require("trouble").setup {}
---		end
---	}
+	-- use 'nathom/filetype.nvim' -- customize filetype detection
 	use 'LnL7/vim-nix' -- nix language support
 	use 'psf/black'
 
@@ -68,9 +61,9 @@ return require('packer').startup(function(use)
 	 use 'tpope/vim-unimpaired'
 	 use 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
 	 use {
-		'nvim-treesitter/nvim-treesitter',
-		run = ':TSUpdate'
-	}
+		 'nvim-treesitter/nvim-treesitter',
+		 run = ':TSUpdate'
+	 }
 	 use { -- complete
 		'gelguy/wilder.nvim',
 		config = function()
@@ -83,9 +76,12 @@ return require('packer').startup(function(use)
 	}
 
 	 -- THEME
-	 use 'sainnhe/gruvbox-material'
-	 use 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
-	 use 'projekt0n/github-nvim-theme'
+	use 'sainnhe/gruvbox-material'
+	use 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
+	use 'projekt0n/github-nvim-theme'
+	use 'catppuccin/nvim'
+	use 'rebelot/kanagawa.nvim'
+	use 'EdenEast/nightfox.nvim'
 
 	-- BOOTSTRAP
 	if packer_bootstrap then

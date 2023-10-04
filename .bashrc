@@ -73,14 +73,6 @@ alias tmux='tmux -2'
 export SRC="~/src"
 export SEC="mnt/sec/src"
 
-# pyenv
-if [ -x "$(command -v pyenv)" ]; then
-	echo "pyenv found.."
-	export PATH="$HOME/.pyenv/bin:$PATH"
-	command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-	eval "$(pyenv init -)"
-fi
-
 if command -v fzf-share >/dev/null; then
   source "$(fzf-share)/key-bindings.bash"
   source "$(fzf-share)/completion.bash"
