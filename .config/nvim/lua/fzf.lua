@@ -141,6 +141,7 @@ require'fzf-lua'.setup {
       ["ctrl-t"]      = actions.file_tabedit,
       ["alt-q"]       = actions.file_sel_to_qf,
       ["alt-l"]       = actions.file_sel_to_ll,
+      ["ctrl-g"]      = actions.toggle_ignore,
     },
     buffers = {
       -- providers that inherit these actions:
