@@ -162,3 +162,12 @@ function gr
 
 NIX_PROFILE="/home/timon/.nix-profile/etc/profile.d/nix.sh"
 [ -f "$NIX_PROFILE" ] && . "$NIX_PROFILE"
+
+# for using latest neovim release
+export PATH="$PATH:/opt/nvim-linux64/bin"
+
+# Start SSH agent
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+    eval $(ssh-agent -s)
+    ssh-add
+fi
