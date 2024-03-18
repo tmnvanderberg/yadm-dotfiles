@@ -1,87 +1,63 @@
 require('map')
 
--- Switch header/source
-Map(
-	"n",
-	"<C-h>",
-	":ClangdSwitchSourceHeader<CR>",
-	{ silent = true }
-)
-
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+-- Mason handles installation of the language servers for nvim-lsp
 local lspconfig = require('lspconfig')
 require("mason").setup()
 require("mason-lspconfig").setup({
 	automatic_installation = true
 })
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
 local set_buffer_maps = function(client, bufnr)
-	-- Enable completion triggered by <c-x><c-o>
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-	-- Mappings.
-	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
 	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
 	vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
 	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-	vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-	vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-	vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-	vim.keymap.set('n', '<space>wl', function()
-		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, bufopts)
+	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 	vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
 	vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
 	vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 	vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = {
-	'clangd',
-	'pyright',
-	'lua_ls',
-	'bashls',
-	'tsserver',
-	'jsonls',
-	'cmake',
-	'rnix',
-	'rust_analyzer',
-	'html',
-	'ruff_lsp'
-}
+-- local servers = {
+-- 	'clangd',
+-- 	'pyright',
+-- 	'lua_ls',
+-- 	'bashls',
+-- 	'tsserver',
+-- 	'jsonls',
+-- 	'cmake',
+-- 	'rnix',
+-- 	'html',
+-- }
 
-for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup {
-		capabilities = capabilities,
-		on_attach = set_buffer_maps
-	}
-end
+-- for _, lsp in ipairs(servers) do
+-- 	lspconfig[lsp].setup {
+-- 		capabilities = capabilities,
+-- 		on_attach = set_buffer_maps
+-- 	}
+-- end
 
-lspconfig.lua_ls.setup {
-	capabilities = capabilities,
-	on_attach = set_buffer_maps,
-	settings = {
-		Lua = {
-			diagnostics = {
-				globals = {
-					'vim'
-				}
-			}
-		}
-	}
-}
+-- lspconfig.lua_ls.setup {
+-- 	capabilities = capabilities,
+-- 	on_attach = set_buffer_maps,
+-- 	settings = {
+-- 		Lua = {
+-- 			diagnostics = {
+-- 				globals = {
+-- 					'vim'
+-- 				}
+-- 			}
+-- 		}
+-- 	}
+-- }
 
 
--- nvim-cmp setup
 local cmp = require 'cmp'
 cmp.setup {
 	mapping = cmp.mapping.preset.insert({
@@ -112,26 +88,54 @@ cmp.setup {
 	},
 }
 
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
--- Filetype detection overrides
--- require("filetype").setup({
--- 	overrides = {
--- 		literal = {
--- 			["CMakeLists_src.txt"] = "cmake",
--- 			["global-config"] = "bitbake",
--- 		},
--- 		extensions = {
--- 			bbappend = "bitbake",
--- 			bb = "bitbake",
--- 		}
--- 	},
--- })
-
 require('toggle_lsp_diagnostics').init()
+
+-- Define a variable to track if the LSP should be loaded
+LoadLSP = false
+
+-- Function to toggle loading of LSP
+function ToggleLSP()
+  local servers = {
+      'clangd',
+      'pyright',
+      'lua_ls',
+      'bashls',
+      'tsserver',
+      'jsonls',
+      'cmake',
+      'rnix',
+      'html',
+    }
+    LoadLSP = not LoadLSP
+    if LoadLSP then
+        for _, lsp in ipairs(servers) do
+            lspconfig[lsp].setup {
+                capabilities = capabilities,
+                on_attach = set_buffer_maps
+            }
+        end
+        lspconfig.lua_ls.setup {
+            capabilities = capabilities,
+            on_attach = set_buffer_maps,
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = {
+                            'vim'
+                        }
+                    }
+                }
+            }
+        }
+    else
+      LspStop()
+    end
+end
+
+Map(
+  "n",
+  "<Leader>lo",
+  ":lua ToggleLSP()<CR>",
+  { silent = false }
+)
+

@@ -1,81 +1,73 @@
 require('map')
 
--- remove highlight after search
+-- Switch header/source
 Map(
 	"n",
-	"<Leader>u",
-	":nohl<CR>",
+	"<C-h>",
+	":ClangdSwitchSourceHeader<CR>",
 	{ silent = true }
+)
+
+-- remove highlight after search
+Map(
+  "n",
+  "<Leader>u",
+  ":nohl<CR>",
+  { silent = true }
 )
 
 -- only show current split, closing others
 Map(
-	"n",
-	"<Leader>i",
-	":only<CR>",
-	{ silent = true }
-)
-
--- open file browser cwd
-Map(
-	"n",
-	"<Leader>nh",
-	":Fern . -drawer<CR>",
-	{ silent = true }
+  "n",
+  "<Leader>i",
+  ":only<CR>",
+  { silent = true }
 )
 
 -- open file browser cwd with focus on current buffer
 Map(
-	"n",
-	"<Leader>nf",
-	":Fern . -reveal=% -drawer<CR>",
-	{ silent = true }
+  "n",
+  "<Leader>e",
+  ":NvimTreeFindFile<CR>",
+  { silent = true }
 )
 
 -- reveal the config
 Map(
-	"n",
-	"<Leader>ve",
-	":Fern ~/.config/nvim/lua/ <CR>",
-	{ silent = true }
+  "n",
+  "<Leader>ve",
+  ":e ~/.config/nvim/init.vim<CR> :NvimTreeOpen ~/.config/nvim/lua/ <CR>",
+  { silent = true }
 )
 
 -- Copy File path relative to working directory
 Map(
-	"n",
-	"<Leader>cf",
-	":let @+=fnamemodify(expand('%:p'), ':~:.')<CR>",
-	{ silent = false }
+  "n",
+  "<Leader>cf",
+  ":let @+=fnamemodify(expand('%:p'), ':~:.')<CR>",
+  { silent = false }
 )
 
 -- Open a Terminal in the directory of the current file
 Map(
-	"n",
-	"<Leader>to",
-	":silent !konsole --workdir %:p:h --new-tab &<CR><CR>",
-	{ silent = false }
+  "n",
+  "<Leader>k",
+  ":silent !konsole --workdir %:p:h --new-tab &<CR><CR>",
+  { silent = false }
 )
 
 function OpenKonsoleTab()
-    local current_dir = vim.fn.getcwd()
-    local command = 'konsole --new-tab --workdir "' .. current_dir .. '"'
-    local job_id = vim.fn.jobstart(command)
+  local current_dir = vim.fn.getcwd()
+  local command = 'konsole --new-tab --workdir "' .. current_dir .. '"'
+  vim.fn.jobstart(command)
 end
 
 -- Open a Terminal in the current Working directory
 Map(
-	"n",
-	"<Leader>tw",
-	":lua OpenKonsoleTab()<CR>",
-	{ silent = false }
-)
-
--- Disable LSP
-Map(
-	"n",
-	"<Leader>lo",
-	":LspStop<CR>",
-	{ silent = false }
+  "n",
+  "<Leader>tw",
+  ":lua OpenKonsoleTab()<CR>",
+  { silent = false }
 )
 
 function CopyFP()
@@ -87,17 +79,17 @@ function CopyFP()
 end
 
 Map(
-	"n",
-	"<Leader>fp",
-	":lua CopyFP()<CR>",
-	{ silent = false }
+  "n",
+  "<Leader>fp",
+  ":lua CopyFP()<CR>",
+  { silent = false }
 )
 
 Map(
-	"n",
-	"<Leader>l",
-	":set list!<CR>",
-	{ silent = false }
+  "n",
+  "<Leader>l",
+  ":set list!<CR>",
+  { silent = false }
 )
 
 -- use Alt-R as C-R replacement for terminal buffers (copied from FzfLua issue tracker)
