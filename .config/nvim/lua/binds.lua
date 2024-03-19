@@ -32,14 +32,6 @@ Map(
   { silent = true }
 )
 
--- reveal the config
-Map(
-  "n",
-  "<Leader>ve",
-  ":e ~/.config/nvim/init.vim<CR> :NvimTreeOpen ~/.config/nvim/lua/ <CR>",
-  { silent = true }
-)
-
 -- Copy File path relative to working directory
 Map(
   "n",
@@ -92,5 +84,5 @@ Map(
   { silent = false }
 )
 
--- use Alt-R as C-R replacement for terminal buffers (copied from FzfLua issue tracker)
+-- use Alt-R as C-R replacement for terminal buffers
 vim.keymap.set('t', '<M-r>', [['<C-\><C-N>"'.nr2char(getchar()).'pi']], { expr = true })
