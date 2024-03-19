@@ -49,7 +49,6 @@ xterm*|rxvt*)
 esac
 
 # Alias definitions.
-
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -70,41 +69,13 @@ export BASH_IT_THEME='tbe'
 source "$BASH_IT"/bash_it.sh
 
 alias tmux='tmux -2'
-export SRC="~/src"
-export SEC="mnt/sec/src"
 
 if command -v fzf-share >/dev/null; then
   source "$(fzf-share)/key-bindings.bash"
   source "$(fzf-share)/completion.bash"
 fi
 
-set -o vi
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-function cdup
-{
-    amt=$1
-    cmd=""
-    i=0
-    while [ "$i" -lt "$amt" ]
-    do
-            cmd=$cmd"../"
-            let i=$i+1
-    done
-
-    cd $cmd
-}
-
-
-cd_fzf() {
-  local dir
-  dir=$(find . -type d -maxdepth 1 -print 2>/dev/null | fzf +m) # Use fzf to select a directory
-
-  if [[ -n "$dir" ]]; then
-    cd "$dir" || return 1 
-  fi
-}
 
 function uart
 {
@@ -123,43 +94,15 @@ function st
     ls -p --color=auto
 }
 
-alias cpy="xclip -selection clipboard"
-
-function dt
+function sh
 {
     local dir
-    dir=$(find '/home/timon/Documents' -type d -maxdepth 2 -print 2>/dev/null | sed 's/^.\///' | fzf +m) 
+    dir=$(find ~ `readlink -f /src/2` `readlink -f /src/3` -type d -maxdepth 5 -print 2>/dev/null | sed 's/^.\///' | fzf +m) 
     cd "$dir" || return 1 
     ls -p --color=auto
 }
 
-exe() {
-  local directory="/usr/bin"
-  local executables=$(find "$directory" -type f -executable -printf "%f\n" 2>/dev/null)
-  local selected=$(echo "$executables" | fzf --prompt="Search Executables: ")
-
-  if [[ -n "$selected" ]]; then
-    echo "Executing: $selected"
-    "$directory/$selected"
-  else
-    echo "No executable selected."
-  fi
-}
-
-alias stn="st; nvim +\":Fern . -drawer\""
-
-alias ssh-sue="ssh timon@timon-B550M-DS3H.x.suevie"
-
-alias arp-ssh="/home/timon/script/arp-ssh.sh"
-alias ssh-retry="/home/timon/script/ssh-retry.sh"
-
-function gr
-{
-    local dir
-    dir=$(git rev-parse --show-toplevel)
-    cd "$dir"
-}
-
+# load nix profile if it's available
 NIX_PROFILE="/home/timon/.nix-profile/etc/profile.d/nix.sh"
 [ -f "$NIX_PROFILE" ] && . "$NIX_PROFILE"
 
@@ -171,3 +114,6 @@ if [ -z "$SSH_AUTH_SOCK" ] ; then
     eval $(ssh-agent -s)
     ssh-add
 fi
+
+# gpt agent
+export GPG_TTY=$(tty)
