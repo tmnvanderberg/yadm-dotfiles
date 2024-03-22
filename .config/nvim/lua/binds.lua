@@ -5,7 +5,7 @@ Map(
 	"n",
 	"<C-h>",
 	":ClangdSwitchSourceHeader<CR>",
-	{ silent = true }
+	{ silent = true, noremap = true }
 )
 
 -- remove highlight after search
@@ -13,7 +13,7 @@ Map(
   "n",
   "<Leader>u",
   ":nohl<CR>",
-  { silent = true }
+  { silent = true, noremap = true }
 )
 
 -- only show current split, closing others
@@ -21,7 +21,7 @@ Map(
   "n",
   "<Leader>i",
   ":only<CR>",
-  { silent = true }
+  { silent = true, noremap = true }
 )
 
 -- open file browser cwd with focus on current buffer
@@ -29,7 +29,7 @@ Map(
   "n",
   "<Leader>e",
   ":NvimTreeFindFile<CR>",
-  { silent = true }
+  { silent = true, noremap = true }
 )
 
 -- search current word with with spectre
@@ -37,14 +37,14 @@ Map(
   "n",
   "<Leader>w",
   ":lua require('spectre').open_visual({select_word=true})<CR>",
-  { silent = true }
+  { silent = true, noremap = true }
 )
 -- search current selection with spectre
 Map(
   "v",
   "<Leader>s",
   ":lua require('spectre').open_visual()<CR>",
-  { silent = true }
+  { silent = true, noremap = true }
 )
 
 -- Copy File path relative to working directory

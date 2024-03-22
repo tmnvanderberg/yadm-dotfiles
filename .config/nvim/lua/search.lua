@@ -5,5 +5,5 @@ Map(
 	"n",
 	"<C-p>",
 	":FzfLua<CR>",
-	{ silent = true }
+	{ silent = true, noremap = true }
 )
