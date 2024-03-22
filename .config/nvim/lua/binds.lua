@@ -32,6 +32,21 @@ Map(
   { silent = true }
 )
 
+-- search current word with with spectre
+Map(
+  "n",
+  "<Leader>w",
+  ":lua require('spectre').open_visual({select_word=true})<CR>",
+  { silent = true }
+)
+-- search current selection with spectre
+Map(
+  "v",
+  "<Leader>s",
+  ":lua require('spectre').open_visual()<CR>",
+  { silent = true }
+)
+
 -- Copy File path relative to working directory
 Map(
   "n",
@@ -57,7 +72,7 @@ end
 -- Open a Terminal in the current Working directory
 Map(
   "n",
-  "<Leader>tw",
+  "<Leader>tk",
   ":lua OpenKonsoleTab()<CR>",
   { silent = false }
 )
