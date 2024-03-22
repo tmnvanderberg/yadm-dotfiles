@@ -117,3 +117,5 @@ fi
 
 # gpt agent
 export GPG_TTY=$(tty)
+
+alias rg='rg --no-ignore-vcs'
