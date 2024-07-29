@@ -87,7 +87,7 @@ require('fzf-lua').setup {
     -- window, can be set to 'false' to remove all borders or to
     -- 'none', 'single', 'double', 'thicc' or 'rounded' (default)
     border           = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-    fullscreen       = true,           -- start fullscreen?
+    fullscreen       = false,           -- start fullscreen?
     -- highlights should optimally be set by the colorscheme using
     -- FzfLuaXXX highlights. If your colorscheme doesn't set these
     -- or you wish to override its defaults use these:
@@ -118,12 +118,12 @@ require('fzf-lua').setup {
       hidden         = 'nohidden',      -- hidden|nohidden
       vertical       = 'down:45%',      -- up|down:size
       horizontal     = 'right:60%',     -- right|left:size
-      layout         = 'vertical',          -- horizontal|vertical|flex
+      layout         = 'horizontal',          -- horizontal|vertical|flex
       flip_columns   = 120,             -- #cols to switch to horizontal on flex
       -- Only used with the builtin previewer:
       title          = true,            -- preview border title (file/buf)?
       title_align    = "left",          -- left|center|right, title alignment
-      scrollbar      = 'float',         -- `false` or string:'float|border'
+      scrollbar      = 'false',         -- `false` or string:'float|border'
                                         -- float:  in-window floating border
                                         -- border: in-border chars (see below)
       scrolloff      = '-2',            -- float scrollbar offset from right
