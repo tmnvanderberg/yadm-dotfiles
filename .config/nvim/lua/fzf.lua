@@ -1,5 +1,69 @@
 local actions = require "fzf-lua.actions"
-require'fzf-lua'.setup {
+
+local function open_konsole_in_directory()
+
+  local root_dir = "/projects/sue/StreamSDK"
+  local find_cmd = string.format([[
+    find %s -type d -name '.build-*' -print 2>/dev/null | sed 's/^.\///'
+  ]], root_dir)
+
+  print("cmd:", find_cmd)
+
+  fzf.files({
+    cmd = find_cmd,
+    prompt = 'Select Build Directory: ',
+    previewer = 'builtin',
+  })
+
+  -- :on('select', function(selection)
+  --   if selection and selection[1] then
+  --     local cmd = string.format('konsole --new-tab -e bash -c "cd %s && exec bash"', selection[1])
+  --     os.execute(cmd)
+  --   else
+  --     print("No directory selected.")
+  --   end
+  -- end)
+end
+
+-- browse source dirs symlinked in /src/
+local function browse_source_dirs()
+  local fzf = require('fzf-lua')
+  local nvim_tree = require('nvim-tree')
+
+  local find_cmd = [[
+    find $(readlink -f /src/1) $(readlink -f /src/2) $(readlink -f /src/3) -type d -maxdepth 2 -print 2>/dev/null
+    | sed 's/^.\///'
+  ]]
+
+  fzf.files({
+    cmd = find_cmd,
+    prompt = 'Select Directory: ',
+    previewer = 'builtin',
+  })
+end
+
+local function browse_nvim_conf()
+  local fzf = require('fzf-lua')
+  local nvim_tree = require('nvim-tree')
+
+  local find_cmd = [[
+    find ~/.config/nvim/ -maxdepth 3 -print 2>/dev/null
+    | sed 's/^.\///'
+  ]]
+
+  fzf.files({
+    cmd = find_cmd,
+    prompt = 'Select Directory: ',
+    previewer = 'builtin',
+  })
+end
+
+-- Register the function with fzf-lua
+require('fzf-lua').build_dir_open = open_konsole_in_directory
+require('fzf-lua').projects = browse_source_dirs
+require('fzf-lua').nvim_config = browse_nvim_conf
+
+require('fzf-lua').setup {
   -- fzf_bin         = 'sk',            -- use skim instead of fzf?
                                         -- https://github.com/lotabout/skim
   global_resume      = true,            -- enable global `resume`?
@@ -594,4 +658,6 @@ require'fzf-lua'.setup {
   -- uncomment if your terminal/font does not support unicode character
   -- 'EN SPACE' (U+2002), the below sets it to 'NBSP' (U+00A0) instead
   -- nbsp = '\xc2\xa0',
+  --
+
 }
