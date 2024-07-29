@@ -94,14 +94,6 @@ function st
     ls -p --color=auto
 }
 
-function sh
-{
-    local dir
-    dir=$(find ~ `readlink -f /src/2` `readlink -f /src/3` -type d -maxdepth 5 -print 2>/dev/null | sed 's/^.\///' | fzf +m) 
-    cd "$dir" || return 1 
-    ls -p --color=auto
-}
-
 # load nix profile if it's available
 NIX_PROFILE="/home/timon/.nix-profile/etc/profile.d/nix.sh"
 [ -f "$NIX_PROFILE" ] && . "$NIX_PROFILE"
