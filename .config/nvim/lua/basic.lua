@@ -39,6 +39,8 @@ local options = {
   wrap = true,                             -- display lines as one long line
   scrolloff = 8,
   sidescrolloff = 8,
+  foldmethod = "syntax",
+  foldlevelstart = 99
 }
 
 vim.opt.shortmess:append "c"
@@ -63,3 +65,11 @@ end, {})
 
 -- all the whitesp chrs:
 vim.cmd [[set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣]]
+
+-- increase limit for Flog
+vim.g.flog_default_opts = {
+    max_count = 2000000,
+    merges = 100,
+    date = 'short'
+}
+
