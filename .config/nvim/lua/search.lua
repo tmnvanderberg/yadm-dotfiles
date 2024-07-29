@@ -7,3 +7,11 @@ Map(
 	":FzfLua<CR>",
 	{ silent = true, noremap = true }
 )
+
+Map(
+	"n",
+	"<C-l>",
+	":FzfLua buffers<CR>",
+	{ silent = true, noremap = true }
+)
+
