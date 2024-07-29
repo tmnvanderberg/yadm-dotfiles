@@ -16,7 +16,18 @@ vim.opt.rtp:prepend(lazypath)
 plugins = {
 	-- GIT --
 	'tpope/vim-fugitive',       -- killer app of the vim-o-verse
-	'junegunn/gv.vim',          -- performant git tree
+	-- 'junegunn/gv.vim',          -- performant git tree
+  {
+    "rbong/vim-flog",
+    lazy = true,
+    cmd = { "Flog", "Flogsplit", "Floggit" },
+    dependencies = {
+      "tpope/vim-fugitive",
+    },
+  },
+  'sindrets/diffview.nvim',
+  'kyazdani42/nvim-web-devicons',
+
 
 	-- NAV --
 	{
@@ -31,6 +42,24 @@ plugins = {
 		'nvim-tree/nvim-tree.lua',  -- file tree
 		requires = { 'nvim-tree/nvim-web-devicons' }
 	},
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      },
+    },
+  },
 
 	-- LANGUAGE --
 	{ 'williamboman/mason.nvim', run = ":MasonUpdate" }, -- auto-install language servers
@@ -51,6 +80,7 @@ plugins = {
 	'jpalardy/vim-slime',       -- sends text to tmux panes
 	'nvim-lualine/lualine.nvim', -- lightweight status line
 	'vimwiki/vimwiki',
+  'nvim-lua/plenary.nvim',    -- library with async jobs
 
 	-- EDIT -- 
 	'tpope/vim-commentary',     -- comment and uncomment things
