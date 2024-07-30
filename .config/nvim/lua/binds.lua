@@ -32,21 +32,6 @@ Map(
   { silent = true, noremap = true }
 )
 
--- search current word with with spectre
-Map(
-  "n",
-  "<Leader>w",
-  ":lua require('spectre').open_visual({select_word=true})<CR>",
-  { silent = true, noremap = true }
-)
--- search current selection with spectre
-Map(
-  "v",
-  "<Leader>s",
-  ":lua require('spectre').open_visual()<CR>",
-  { silent = true, noremap = true }
-)
-
 -- Copy File path relative to working directory
 Map(
   "n",
