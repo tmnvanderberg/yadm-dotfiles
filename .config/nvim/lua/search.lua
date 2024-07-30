@@ -31,6 +31,7 @@ Map(
 )
 
 require('spectre').setup({
+  open_cmd = 'botright new',
   find_engine = {
     -- rg is map with finder_cmd
     ['rg'] = {
