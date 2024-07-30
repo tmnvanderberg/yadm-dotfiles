@@ -61,6 +61,14 @@ plugins = {
     },
   },
 
+  {
+    'dstein64/nvim-scrollview',
+  },
+
+  { 
+    'RRethy/vim-illuminate'
+  },
+
 	-- LANGUAGE --
 	{ 'williamboman/mason.nvim', run = ":MasonUpdate" }, -- auto-install language servers
 	'williamboman/mason-lspconfig.nvim', -- lspconfig / mason bridge
