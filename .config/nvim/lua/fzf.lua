@@ -83,13 +83,26 @@ local fzf = require('fzf-lua')
   -- Get the current working directory and append the desired subdirectory
   local base_dir = vim.fn.getcwd() .. '/src/modules'
 
+  -- Use find to list only directories at the first level and awk to extract directory names
+  local cmd = 'find ' .. base_dir .. ' -mindepth 1 -maxdepth 1 -type d -exec basename {} \\;'
+
+  -- Create a mapping from directory names to their full paths
+  local dir_map = {}
+  local handle = io.popen(cmd)
+  if handle then
+    for dir in handle:lines() do
+      dir_map[dir] = base_dir .. '/' .. dir
+    end
+    handle:close()
+  end
+
   -- Use fzf to list only directories
-  fzf.fzf_exec('find ' .. base_dir .. ' -type d -maxdepth 1', {
+  fzf.fzf_exec(cmd, {
     prompt = 'Select Directory: ',
     previewer = 'builtin',
     actions = {
       ['default'] = function(selected)
-        local selected_dir = selected[1]
+        local selected_dir = dir_map[selected[1]]
           fzf.files({
             prompt = 'Select Directory: ',
             previewer = 'builtin',
