@@ -59,10 +59,53 @@ local function browse_nvim_conf()
   })
 end
 
+local function get_current_file_dir()
+  local file_path = vim.fn.expand('%:p')
+  local file_dir = vim.fn.fnamemodify(file_path, ':h')
+  return file_dir
+end
+
+local function browse_current_file_dir()
+  local fzf = require('fzf-lua')
+
+  local current_file_dir = get_current_file_dir()
+
+  fzf.files({
+    prompt = 'Select Directory: ',
+    previewer = 'builtin',
+    cwd = current_file_dir,
+  })
+end
+
+local function browse_streamsdk_modules()
+local fzf = require('fzf-lua')
+
+  -- Get the current working directory and append the desired subdirectory
+  local base_dir = vim.fn.getcwd() .. '/src/modules'
+
+  -- Use fzf to list only directories
+  fzf.fzf_exec('find ' .. base_dir .. ' -type d -maxdepth 1', {
+    prompt = 'Select Directory: ',
+    previewer = 'builtin',
+    actions = {
+      ['default'] = function(selected)
+        local selected_dir = selected[1]
+          fzf.files({
+            prompt = 'Select Directory: ',
+            previewer = 'builtin',
+            cwd = selected_dir,
+          })
+      end
+    },
+  })
+end
+
 -- Register the function with fzf-lua
 require('fzf-lua').build_dir_open = open_konsole_in_directory
 require('fzf-lua').projects = browse_source_dirs
 require('fzf-lua').nvim_config = browse_nvim_conf
+require('fzf-lua').current_file_dir = browse_current_file_dir
+require('fzf-lua').modules = browse_streamsdk_modules
 
 require('fzf-lua').setup {
   -- fzf_bin         = 'sk',            -- use skim instead of fzf?
