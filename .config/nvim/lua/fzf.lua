@@ -113,12 +113,57 @@ local fzf = require('fzf-lua')
   })
 end
 
+local function grep_in_directory(dir)
+  local fzf = require('fzf-lua')
+
+  -- If no directory is provided, use the current working directory
+  local base_dir = dir or vim.fn.getcwd()
+
+  -- Use find to list only directories at the first level and extract directory names
+  local cmd = 'find ' .. base_dir .. ' -mindepth 1 -maxdepth 1 -type d -exec basename {} \\;'
+
+  -- Create a mapping from directory names to their full paths
+  local dir_map = {}
+  local handle = io.popen(cmd)
+  if handle then
+    for directory in handle:lines() do
+      dir_map[directory] = base_dir .. '/' .. directory
+    end
+    handle:close()
+  end
+
+  -- Define actions to reuse
+  local actions = {
+    ['default'] = function(selected)
+      local selected_dir = dir_map[selected[1]]
+      -- Recursively call grep_in_directory with the selected directory
+      grep_in_directory(selected_dir)
+    end,
+    ['g'] = function(selected)
+      local selected_dir = dir_map[selected[1]]
+      fzf.grep({
+        prompt = 'Grep in Directory: ',
+        search = '',
+        cwd = selected_dir,
+      })
+    end,
+  }
+
+  -- Use fzf to list only directories
+  fzf.fzf_exec(cmd, {
+    prompt = 'Select Directory: ',
+    previewer = 'builtin',
+    actions = actions,  -- Use the defined actions
+  })
+end
+
 -- Register the function with fzf-lua
 require('fzf-lua').build_dir_open = open_konsole_in_directory
 require('fzf-lua').projects = browse_source_dirs
 require('fzf-lua').nvim_config = browse_nvim_conf
 require('fzf-lua').current_file_dir = browse_current_file_dir
 require('fzf-lua').modules = browse_streamsdk_modules
+require('fzf-lua').magrep = grep_in_directory
 
 require('fzf-lua').setup {
   -- fzf_bin         = 'sk',            -- use skim instead of fzf?
