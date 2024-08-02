@@ -279,3 +279,9 @@ opts = {
 }
 
 require("lazy").setup(plugins, opts)
+
+require("nvim-tree").setup({
+  view = {
+    width = 60,
+  }
+})
