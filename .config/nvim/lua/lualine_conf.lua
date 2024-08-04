@@ -1,6 +1,10 @@
 local function get_git_toplevel_basename()
-  -- Try to get the top-level directory of the git repo
-  local handle = io.popen("git rev-parse --show-toplevel 2>/dev/null")
+  -- Get the directory of the current file
+  local current_file = vim.fn.expand('%:p:h')
+
+  -- Change to the directory of the current file
+  local cmd = "cd " .. current_file .. " && git rev-parse --show-toplevel 2>/dev/null"
+  local handle = io.popen(cmd)
   local result = handle:read("*a")
   handle:close()
 
@@ -37,18 +41,17 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = { 'mode' },
-    lualine_b = { 'hostname', get_git_toplevel_basename, 'branch', 'diagnostics' },
-    lualine_c = { {'filename', path = 3} },
-    -- lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_x = { 'searchcount', 'filetype' },
-    lualine_y = { 'progress' },
-    lualine_z = { 'location' }
+    lualine_b = { 'hostname', get_git_toplevel_basename, 'branch', {'filename', path = 1} },
+    lualine_c = { },
+    lualine_x = { 'searchcount' },
+    lualine_y = { },
+    lualine_z = { }
   },
   inactive_sections = {
     lualine_a = {},
-    lualine_b = {},
-    lualine_c = { 'filename' },
-    lualine_x = { 'location' },
+    lualine_b = { 'hostname', get_git_toplevel_basename, 'branch', {'filename', path = 1} },
+    lualine_c = { },
+    lualine_x = { },
     lualine_y = {},
     lualine_z = {}
   },
