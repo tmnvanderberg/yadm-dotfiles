@@ -1,9 +1,20 @@
 local function get_git_toplevel_basename()
-  local handle = io.popen("basename `git rev-parse --show-toplevel`")
+  -- Try to get the top-level directory of the git repo
+  local handle = io.popen("git rev-parse --show-toplevel 2>/dev/null")
   local result = handle:read("*a")
   handle:close()
-  -- return result
-  return result:match("^%s*(.-)%s*$") -- trim any whitespace
+
+  -- Check if result is empty, indicating an error (not a git repo)
+  if result == "" then
+    return "no git repo"
+  end
+
+  -- Get the basename of the top-level directory
+  local basename_handle = io.popen("basename " .. result)
+  local basename_result = basename_handle:read("*a")
+  basename_handle:close()
+
+  return basename_result:match("^%s*(.-)%s*$") -- trim any whitespace
 end
 
 require('lualine').setup {
