@@ -86,7 +86,7 @@ plugins = {
 
 	-- ADDONS --
 	'jpalardy/vim-slime',       -- sends text to tmux panes
-	'nvim-lualine/lualine.nvim', -- lightweight status line
+  { 'tmnvanderberg/lualine.nvim' },-- lightweight status line
 	'vimwiki/vimwiki',
   'nvim-lua/plenary.nvim',    -- library with async jobs
 
