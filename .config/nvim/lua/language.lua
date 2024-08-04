@@ -91,7 +91,7 @@ cmp.setup {
 require('toggle_lsp_diagnostics').init()
 
 -- Define a variable to track if the LSP should be loaded
-LoadLSP = false
+LoadLSP = true
 
 -- Function to toggle loading of LSP
 function ToggleLSP()
@@ -105,6 +105,7 @@ function ToggleLSP()
       'cmake',
       'rnix',
       'html',
+      'gopls'
     }
     LoadLSP = not LoadLSP
     if LoadLSP then
