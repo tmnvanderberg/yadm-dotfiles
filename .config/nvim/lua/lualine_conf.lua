@@ -41,7 +41,23 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = { 'mode' },
-    lualine_b = { 'hostname', get_git_toplevel_basename, 'branch', {'filename', path = 1} },
+    lualine_b = { 
+                  { 'hostname', 
+                    icon = { '' }
+                  }, 
+                  { 
+                    get_git_toplevel_basename, 
+                    icon = { '' }
+                  }, 
+                  { 
+                    'branch'
+                  },
+                  {
+                    'filename', 
+                    icon = { '' },
+                    path = 1
+                  },
+                },
     lualine_c = { },
     lualine_x = { 'searchcount' },
     lualine_y = { },
