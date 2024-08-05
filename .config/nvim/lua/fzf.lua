@@ -77,6 +77,17 @@ local function browse_current_file_dir()
   })
 end
 
+local function grep_current_file_dir()
+  local fzf = require('fzf-lua')
+
+  local current_file_dir = get_current_file_dir()
+
+  fzf.grep({
+    prompt = '> ',
+    cwd = current_file_dir,
+  })
+end
+
 local function browse_streamsdk_modules()
 local fzf = require('fzf-lua')
 
@@ -120,7 +131,7 @@ local function grep_in_directory(dir)
   local base_dir = dir or vim.fn.getcwd()
 
   -- Use find to list only directories at the first level and extract directory names
-  local cmd = 'find ' .. base_dir .. ' -mindepth 1 -maxdepth 1 -type d -exec basename {} \\;'
+  local cmd = 'find ' .. base_dir .. ' -type d'
 
   -- Create a mapping from directory names to their full paths
   local dir_map = {}
@@ -134,12 +145,12 @@ local function grep_in_directory(dir)
 
   -- Define actions to reuse
   local actions = {
-    ['default'] = function(selected)
+    ['o'] = function(selected)
       local selected_dir = dir_map[selected[1]]
       -- Recursively call grep_in_directory with the selected directory
       grep_in_directory(selected_dir)
     end,
-    ['g'] = function(selected)
+    ['default'] = function(selected)
       local selected_dir = dir_map[selected[1]]
       fzf.grep({
         prompt = 'Grep in Directory: ',
@@ -162,6 +173,7 @@ require('fzf-lua').build_dir_open = open_konsole_in_directory
 require('fzf-lua').projects = browse_source_dirs
 require('fzf-lua').nvim_config = browse_nvim_conf
 require('fzf-lua').current_file_dir = browse_current_file_dir
+require('fzf-lua').grep_current_file_dir =grep_current_file_dir
 require('fzf-lua').modules = browse_streamsdk_modules
 require('fzf-lua').magrep = grep_in_directory
 
