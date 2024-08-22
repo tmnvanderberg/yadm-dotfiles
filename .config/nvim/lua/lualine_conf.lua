@@ -2,6 +2,10 @@ local function get_git_toplevel_basename()
   -- Get the directory of the current file
   local current_file = vim.fn.expand('%:p:h')
 
+  if vim.startswith(current_file, "fugitive:///") then
+    return "fugitive"
+  end
+
   -- Change to the directory of the current file
   local cmd = "cd " .. current_file .. " && git rev-parse --show-toplevel 2>/dev/null"
   local handle = io.popen(cmd)
