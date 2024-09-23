@@ -24,38 +24,39 @@ local set_buffer_maps = function(client, bufnr)
 	vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
--- local servers = {
--- 	'clangd',
--- 	'pyright',
--- 	'lua_ls',
--- 	'bashls',
--- 	'tsserver',
--- 	'jsonls',
--- 	'cmake',
--- 	'rnix',
--- 	'html',
--- }
+local servers = {
+	-- 'clangd',
+  'ccls',
+	'pyright',
+	'lua_ls',
+	'bashls',
+	'tsserver',
+	'jsonls',
+	'cmake',
+	'rnix',
+	'html',
+}
 
--- for _, lsp in ipairs(servers) do
--- 	lspconfig[lsp].setup {
--- 		capabilities = capabilities,
--- 		on_attach = set_buffer_maps
--- 	}
--- end
+for _, lsp in ipairs(servers) do
+	lspconfig[lsp].setup {
+		capabilities = capabilities,
+		on_attach = set_buffer_maps
+	}
+end
 
--- lspconfig.lua_ls.setup {
--- 	capabilities = capabilities,
--- 	on_attach = set_buffer_maps,
--- 	settings = {
--- 		Lua = {
--- 			diagnostics = {
--- 				globals = {
--- 					'vim'
--- 				}
--- 			}
--- 		}
--- 	}
--- }
+lspconfig.lua_ls.setup {
+	capabilities = capabilities,
+	on_attach = set_buffer_maps,
+	settings = {
+		Lua = {
+			diagnostics = {
+				globals = {
+					'vim'
+				}
+			}
+		}
+	}
+}
 
 
 local cmp = require 'cmp'
@@ -96,7 +97,8 @@ LoadLSP = true
 -- Function to toggle loading of LSP
 function ToggleLSP()
   local servers = {
-      'clangd',
+      --'clangd',
+      'ccls',
       'pyright',
       'lua_ls',
       'bashls',
