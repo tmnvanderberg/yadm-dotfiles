@@ -281,7 +281,14 @@ opts = {
 require("lazy").setup(plugins, opts)
 
 require("nvim-tree").setup({
+  update_focused_file = {
+    enable = true,
+    update_cwd = true,
+  },
   view = {
-    width = 60,
-  }
+    width = 40,
+  },
+  renderer = {
+    highlight_opened_files = "name",
+  },
 })
