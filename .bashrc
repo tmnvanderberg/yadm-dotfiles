@@ -107,6 +107,16 @@ if [ -z "$SSH_AUTH_SOCK" ] ; then
     ssh-add
 fi
 
+# Start ssh-agent if not already running
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    eval "$(ssh-agent -s)"
+fi
+
+# Add the SSH key automatically if not already added
+if ! ssh-add -l | grep -q "$(ssh-keygen -lf /home/tbe/.ssh/id_ed25519.pub 2>/dev/null | awk '{print $2}')"; then
+    ssh-add /home/tbe/.ssh/id_ed25519
+fi
+
 # gpt agent
 export GPG_TTY=$(tty)
 
