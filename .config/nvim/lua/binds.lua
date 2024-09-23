@@ -1,13 +1,5 @@
 require('map')
 
--- Switch header/source
-Map(
-	"n",
-	"<C-h>",
-	":ClangdSwitchSourceHeader<CR>",
-	{ silent = true, noremap = true }
-)
-
 -- remove highlight after search
 Map(
   "n",
@@ -16,6 +8,13 @@ Map(
   { silent = true, noremap = true }
 )
 
+-- open vim wiki index
+Map(
+  "n",
+  "<Leader>ow",
+  ":VimwikiIndex<CR>",
+  { silent = true, noremap = true }
+)
 -- only show current split, closing others
 Map(
   "n",
