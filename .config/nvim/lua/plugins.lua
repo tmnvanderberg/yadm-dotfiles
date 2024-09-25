@@ -65,7 +65,7 @@ plugins = {
     'dstein64/nvim-scrollview',
   },
 
-  { 
+  {
     'RRethy/vim-illuminate'
   },
 
@@ -73,9 +73,16 @@ plugins = {
 	{ 'williamboman/mason.nvim', run = ":MasonUpdate" }, -- auto-install language servers
 	'williamboman/mason-lspconfig.nvim', -- lspconfig / mason bridge
 	'neovim/nvim-lspconfig',            -- Collection of configurations for built-in LSP client
-	'hrsh7th/nvim-cmp',                 -- Autocompletion plugin
+	{ 'hrsh7th/nvim-cmp', commit = "b356f2c" },  -- Autocompletion plugin
 	'hrsh7th/cmp-nvim-lsp',             -- LSP source for nvim-cmp
 	'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim',
+  'mhartington/formatter.nvim',       -- code formatting
+
+	{
+		"folke/trouble.nvim",
+		opts = {}, -- for default options, refer to the configuration section for custom setup.
+		cmd = "Trouble",
+	},
 
 	-- SYNTAX -- 
 	'solarnz/thrift.vim',               -- thrift syntax
@@ -95,6 +102,7 @@ plugins = {
 	'tpope/vim-surround',       -- parentheses plugin
 	'tpope/vim-abolish',        -- cool replace
 	'tpope/vim-unimpaired',
+	'tenxsoydev/tabs-vs-spaces.nvim', -- highlight inconsistent usage of tabs and spaces
 
 	-- THEME
 	'sainnhe/gruvbox-material',
@@ -282,8 +290,8 @@ require("lazy").setup(plugins, opts)
 
 require("nvim-tree").setup({
   update_focused_file = {
-    enable = true,
-    update_cwd = true,
+    enable = false,
+    update_cwd = false,
   },
   view = {
     width = 40,
@@ -292,3 +300,32 @@ require("nvim-tree").setup({
     highlight_opened_files = "name",
   },
 })
+
+
+-- Utilities for creating configurations
+local util = require "formatter.util"
+
+-- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
+require("formatter").setup {
+  logging = true,
+  log_level = vim.log.levels.WARN,
+  filetype = {
+		cpp = {
+			exe = "clang-format",
+			args = {
+				"-assume-filename",
+				util.escape_path(util.get_current_buffer_file_name()),
+				"-style=file",
+			},
+			stdin = true,
+			try_node_modules = true,
+		},
+    ["*"] = {
+      -- "formatter.filetypes.any" defines default configurations for any
+      -- filetype
+      require("formatter.filetypes.any").remove_trailing_whitespace
+    }
+  }
+}
+
+
