@@ -14,14 +14,14 @@ require("mason-lspconfig").setup({
 local set_buffer_maps = function(client, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-	vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-	vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-	vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-	vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-	vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+	vim.keymap.set('n', '<space>rd', vim.lsp.buf.definition, { desc = "Go to Definition", buffer = bufopts.buffer })
+	vim.keymap.set('n', '<space>ri', vim.lsp.buf.implementation, { desc = "Go to Implementation", buffer = bufopts.buffer })
+	vim.keymap.set('n', '<space>rr', vim.lsp.buf.references, { desc = "Go to References", buffer = bufopts.buffer })
+	vim.keymap.set('n', '<space>rt', vim.lsp.buf.type_definition, { desc = "Type Definition", buffer = bufopts.buffer })
+	vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, { desc = "Rename", buffer = bufopts.buffer })
+	vim.keymap.set('n', '<space>ra', vim.lsp.buf.code_action, { desc = "Code Action", buffer = bufopts.buffer })
+	vim.keymap.set('n', '<space>rh', vim.lsp.buf.hover, { desc = "Hover", buffer = bufopts.buffer })
+	vim.keymap.set('n', '<space>rf', vim.lsp.buf.format, { desc ="Format", buffer = bufopts.buffer } )
 end
 
 local servers = {
