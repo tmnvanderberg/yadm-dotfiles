@@ -41,7 +41,8 @@ local options = {
   scrolloff = 8,
   sidescrolloff = 8,
   foldmethod = "syntax",
-  foldlevelstart = 99
+  foldlevelstart = 99,
+  linebreak = true
 }
 
 vim.opt.shortmess:append "c"
@@ -51,6 +52,8 @@ for k, v in pairs(options) do
 end
 
 vim.cmd "set whichwrap+=<,>,[,],h,l"
+vim.cmd ":let &wm=&columns>80 ? &columns-80 : 80"
+vim.cmd "set colorcolumn=100"
 
 -- disable diagnostics inline (use <space>e instead)
 vim.diagnostic.config({
