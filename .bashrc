@@ -121,3 +121,5 @@ fi
 export GPG_TTY=$(tty)
 
 alias rg='rg --no-ignore-vcs'
+
+source /home/$USER/machine_specific.sh
