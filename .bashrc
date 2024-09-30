@@ -82,7 +82,7 @@ function uart
     local dev
     dev=$(find /dev/tty* -print 2>/dev/null | sed 's/^.\///' | fzf +m) 
     if [ -n "$dev" ]; then
-	picocom -b 115200 "$dev" || return 1 
+			tio "$dev" || return 1 
     fi
 }
 
@@ -123,3 +123,8 @@ export GPG_TTY=$(tty)
 alias rg='rg --no-ignore-vcs'
 
 source /home/$USER/machine_specific.sh
+
+# fixup with fzf
+gfx='git commit --fixup $(git log $(git merge-base main HEAD)..HEAD --oneline| fzf| cut -d" " -f1)'
+
+export PATH="$HOME/script:$PATH"
