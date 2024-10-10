@@ -30,7 +30,7 @@ local servers = {
 	'pyright',
 	'lua_ls',
 	'bashls',
-	'tsserver',
+	'ts_ls',
 	'jsonls',
 	'cmake',
 	'rnix',
