@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Check if the required shell variable $MACHINE is set
-if [ -z "$MACHINE" ]; then
-  echo "Error: MACHINE environment variable is not set."
-  exit 1
-fi
-
 # Check if the required IP argument is provided
 if [ $# -lt 1 ]; then
   echo "Usage: $0 <target_device_ip>"
@@ -14,24 +8,17 @@ if [ $# -lt 1 ]; then
 fi
 
 # Set variables
-selected_machine=".build-$MACHINE"
-target_device="root@$1"   # Replace 'user' with the actual username
+target_device="root@$1"  # Root user with the provided IP
 
 # Define the target directory on the embedded device
 target_directory="/usr/lib64"
 
-# Check if the machine directory exists
-if [ ! -d "$selected_machine" ]; then
-  echo "Error: Machine directory '$selected_machine' not found."
-  exit 1
-fi
-
-# Get list of .so files in the selected machine's src/modules subfolders
-so_files=($(find "$selected_machine/src/modules/" -name "*.so"))
+# Find all .so files recursively from the current directory
+so_files=($(find "$(pwd)" -name "*.so"))
 
 # Check if any .so files are found
 if [ ${#so_files[@]} -eq 0 ]; then
-  echo "No .so files found in $selected_machine/src/modules/"
+  echo "No .so files found in the current directory."
   exit 1
 fi
 
@@ -49,4 +36,3 @@ if [ -n "$selected_so" ]; then
 else
   echo "No file selected."
 fi
-
