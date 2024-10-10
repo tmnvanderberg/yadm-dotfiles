@@ -52,7 +52,6 @@ for k, v in pairs(options) do
 end
 
 vim.cmd "set whichwrap+=<,>,[,],h,l"
-vim.cmd ":let &wm=&columns>80 ? &columns-80 : 80"
 vim.cmd "set colorcolumn=100"
 
 -- disable diagnostics inline (use <space>e instead)
