@@ -168,6 +168,22 @@ local function grep_in_directory(dir)
   })
 end
 
+-- show commits for the current file directory
+local function dir_commits()
+	local fzf = require('fzf-lua')
+
+  -- Get the directory of the current file
+  local current_file_dir = vim.fn.expand('%:p:h')
+
+  -- Custom git log command for the current directory
+  local git_log_cmd = "git log --pretty=format:'%C(yellow)%h%Creset %Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset' -- " .. current_file_dir
+
+  fzf.git_commits({
+    prompt = "Git Log (" .. current_file_dir .. ")> ",
+    cmd = git_log_cmd,
+  })
+end
+
 -- Register the function with fzf-lua
 require('fzf-lua').build_dir_open = open_konsole_in_directory
 require('fzf-lua').projects = browse_source_dirs
@@ -176,6 +192,7 @@ require('fzf-lua').current_file_dir = browse_current_file_dir
 require('fzf-lua').grep_current_file_dir =grep_current_file_dir
 require('fzf-lua').modules = browse_streamsdk_modules
 require('fzf-lua').magrep = grep_in_directory
+require('fzf-lua').dircommits = dir_commits
 
 require('fzf-lua').setup {
   -- fzf_bin         = 'sk',            -- use skim instead of fzf?
