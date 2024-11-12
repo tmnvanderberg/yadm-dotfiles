@@ -37,7 +37,7 @@ local function browse_source_dirs()
 
   fzf.files({
     cmd = find_cmd,
-    prompt = 'Select Directory: ',
+    prompt = 'Select Project Directory: ',
     previewer = 'builtin',
     cwd = '/',
   })
@@ -54,7 +54,7 @@ local function browse_nvim_conf()
 
   fzf.files({
     cmd = find_cmd,
-    prompt = 'Select Directory: ',
+    prompt = 'Select NVIM config file: ',
     previewer = 'builtin',
   })
 end
@@ -71,7 +71,7 @@ local function browse_current_file_dir()
   local current_file_dir = get_current_file_dir()
 
   fzf.files({
-    prompt = 'Select Directory: ',
+    prompt = 'Select file (' .. current_file_dir .. ': ',
     previewer = 'builtin',
     cwd = current_file_dir,
   })
@@ -83,7 +83,7 @@ local function grep_current_file_dir()
   local current_file_dir = get_current_file_dir()
 
   fzf.grep({
-    prompt = '> ',
+    prompt = 'Grep (' .. current_file_dir .. ')> ',
     cwd = current_file_dir,
   })
 end
@@ -189,7 +189,7 @@ require('fzf-lua').build_dir_open = open_konsole_in_directory
 require('fzf-lua').projects = browse_source_dirs
 require('fzf-lua').nvim_config = browse_nvim_conf
 require('fzf-lua').current_file_dir = browse_current_file_dir
-require('fzf-lua').grep_current_file_dir =grep_current_file_dir
+require('fzf-lua').grep_current_file_dir = grep_current_file_dir
 require('fzf-lua').modules = browse_streamsdk_modules
 require('fzf-lua').magrep = grep_in_directory
 require('fzf-lua').dircommits = dir_commits
