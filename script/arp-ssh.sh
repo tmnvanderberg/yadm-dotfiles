@@ -18,7 +18,7 @@ if [[ -z "$interface" ]]; then
 fi
 
 # Scan the local network interface for devices
-devices="`sudo arp-scan --interface=$interface --localnet | sed '1,2d'`"
+devices="`sudo arp-scan --interface=$interface | sed '1,2d'`"
 selected="`(echo "$devices" | fzf)`"
 
 
@@ -27,7 +27,7 @@ if [[ -z "$selected" ]]; then
 fi
 
 # Get the IP address of the selected device
-ip=$(sudo arp-scan --interface=$interface --localnet | grep "$selected" | awk '{print $1}')
+ip=$(sudo arp-scan --interface=$interface | grep "$selected" | awk '{print $1}')
 
 echo "connecting to $selected" 
 echo -n "user (ENTER for root):"
