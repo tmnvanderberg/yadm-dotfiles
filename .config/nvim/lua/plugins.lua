@@ -60,23 +60,10 @@ plugins = {
       },
     },
   },
-
-  -- {
-  --   'dstein64/nvim-scrollview',
-  -- },
-
-  -- {
-  --   'RRethy/vim-illuminate'
-  -- },
-	--
-	'rcarriga/nvim-notify',
 	{
-			"lukas-reineke/indent-blankline.nvim",
-			main = "ibl",
-			---@module "ibl"
-			---@type ibl.config
-			opts = {},
+		"gelguy/wilder.nvim",
 	},
+	"rcarriga/nvim-notify",
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
@@ -114,20 +101,6 @@ plugins = {
 	},
 	'lewis6991/gitsigns.nvim',
 	{
-		"folke/flash.nvim",
-		event = "VeryLazy",
-		---@type Flash.Config
-		opts = {},
-		-- stylua: ignore
-		keys = {
-			{ "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-			{ "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-			{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-			{ "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-			{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-		},
-	},
-	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {
@@ -163,6 +136,7 @@ plugins = {
 	'hrsh7th/cmp-nvim-lsp',             -- LSP source for nvim-cmp
 	'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim',
   'mhartington/formatter.nvim',       -- code formatting
+	{"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
 
 	{
 		"folke/trouble.nvim",
@@ -198,7 +172,6 @@ plugins = {
 	'rebelot/kanagawa.nvim',
 	'EdenEast/nightfox.nvim',
 }
-
 
 -- lazy options
 opts = {
@@ -416,3 +389,6 @@ require("formatter").setup {
 }
 
 require('gitsigns').setup()
+
+local wilder = require('wilder')
+wilder.setup({modes = {':', '/', '?'}})
