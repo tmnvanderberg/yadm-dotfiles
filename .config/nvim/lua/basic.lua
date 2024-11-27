@@ -76,3 +76,5 @@ vim.g.flog_default_opts = {
     date = 'short'
 }
 
+vim.g.maplocalleader = ','
+
