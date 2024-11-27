@@ -6,6 +6,15 @@ local function get_git_toplevel_basename()
     return "fugitive"
   end
 
+	if vim.bo.buftype ~= "" then
+    -- Special buffer like :checkhealth, :help, etc.
+    return "special buffer"
+  end
+
+  if current_file == "" or vim.fn.isdirectory(current_file) == 0 then
+    return "no file"
+  end
+
   -- Change to the directory of the current file
   local cmd = "cd " .. current_file .. " && git rev-parse --show-toplevel 2>/dev/null"
   local handle = io.popen(cmd)
