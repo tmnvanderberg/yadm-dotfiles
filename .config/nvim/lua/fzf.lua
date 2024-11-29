@@ -1,30 +1,5 @@
 local actions = require "fzf-lua.actions"
 
-local function open_konsole_in_directory()
-
-  local root_dir = "/projects/sue/StreamSDK"
-  local find_cmd = string.format([[
-    find %s -type d -name '.build-*' -print 2>/dev/null | sed 's/^.\///'
-  ]], root_dir)
-
-  print("cmd:", find_cmd)
-
-  fzf.files({
-    cmd = find_cmd,
-    prompt = 'Select Build Directory: ',
-    previewer = 'builtin',
-  })
-
-  -- :on('select', function(selection)
-  --   if selection and selection[1] then
-  --     local cmd = string.format('konsole --new-tab -e bash -c "cd %s && exec bash"', selection[1])
-  --     os.execute(cmd)
-  --   else
-  --     print("No directory selected.")
-  --   end
-  -- end)
-end
-
 -- browse source dirs symlinked in /src/
 local function browse_source_dirs()
   local fzf = require('fzf-lua')
@@ -43,6 +18,7 @@ local function browse_source_dirs()
   })
 end
 
+-- browse nvim configuration files
 local function browse_nvim_conf()
   local fzf = require('fzf-lua')
   local nvim_tree = require('nvim-tree')
@@ -184,8 +160,7 @@ local function dir_commits()
   })
 end
 
--- Register the function with fzf-lua
-require('fzf-lua').build_dir_open = open_konsole_in_directory
+-- Register the functions with fzf-lua
 require('fzf-lua').projects = browse_source_dirs
 require('fzf-lua').nvim_config = browse_nvim_conf
 require('fzf-lua').current_file_dir = browse_current_file_dir
