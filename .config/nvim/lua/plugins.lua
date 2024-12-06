@@ -157,6 +157,13 @@ plugins = {
   { 'tmnvanderberg/lualine.nvim' },-- lightweight status line
 	'vimwiki/vimwiki',
   'nvim-lua/plenary.nvim',    -- library with async jobs
+	{
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
+	},
 
 	-- EDIT -- 
 	'tpope/vim-commentary',     -- comment and uncomment things
