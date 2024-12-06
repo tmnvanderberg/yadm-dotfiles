@@ -4,7 +4,7 @@ require('map')
 Map(
 	"n",
 	"<Leader>G",
-	":G<CR>",
+	":Neogit<CR>",
 	{ silent = true, noremap = true }
 )
 
