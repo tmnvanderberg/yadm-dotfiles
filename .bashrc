@@ -82,6 +82,7 @@ function uart
     local dev
     dev=$(find /dev/tty* -print 2>/dev/null | sed 's/^.\///' | fzf +m) 
     if [ -n "$dev" ]; then
+			echo "connecting: $dev"
 			tio "$dev" || return 1 
     fi
 }
@@ -99,7 +100,7 @@ NIX_PROFILE="/home/timon/.nix-profile/etc/profile.d/nix.sh"
 [ -f "$NIX_PROFILE" ] && . "$NIX_PROFILE"
 
 # for using latest neovim release
-export PATH="$PATH:/opt/nvim-linux64/bin"
+# export PATH="$PATH:/opt/nvim-linux64/bin"
 
 # Start SSH agent
 if [ -z "$SSH_AUTH_SOCK" ] ; then
