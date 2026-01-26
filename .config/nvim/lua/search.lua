@@ -7,16 +7,10 @@ map(
 	{ silent = true }
 )
 
-map(
-  "n",
-  "<Leader>w",
-  ":lua require('grug-far').open({ prefills = { search = vim.fn.expand('<cword>') }})<CR>",
-  { silent = true }
-)
+map("n", "<Leader>w", function()
+  require('grug-far').open({ prefills = { search = vim.fn.expand('<cword>') } })
+end, { silent = true })
 
-map(
-  "v",
-  "<Leader>w",
-  ":lua require('grug-far').with_visual_selection()<CR>",
-  { silent = true }
-)
+map("v", "<Leader>w", function()
+  require('grug-far').with_visual_selection()
+end, { silent = true })

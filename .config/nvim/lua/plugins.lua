@@ -120,16 +120,6 @@ local plugins = {
         -- configuration goes here
     },
 	},
-	{
-		'nvimdev/dashboard-nvim',
-		event = 'VimEnter',
-		config = function()
-			require('dashboard').setup {
-				-- config
-			}
-		end,
-		dependencies = { {'nvim-tree/nvim-web-devicons'}}
-	},
 	'lewis6991/gitsigns.nvim',
 	{
 		"folke/todo-comments.nvim",
@@ -435,9 +425,7 @@ require('gitsigns').setup()
 
 require('wilder').setup({ modes = { ':', '/', '?' } })
 
-local neogit = require("neogit")
-
-neogit.setup {
+require("neogit").setup {
   -- Hides the hints at the top of the status buffer
   disable_hint = false,
   -- Disables changing the buffer highlights based on where the cursor is.
