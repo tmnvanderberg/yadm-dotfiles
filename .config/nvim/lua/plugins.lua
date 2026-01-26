@@ -13,7 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- define lazy plugins
-plugins = {
+local plugins = {
 	{
 		"NeogitOrg/neogit",
 		dependencies = {
@@ -34,17 +34,17 @@ plugins = {
     },
   },
   'sindrets/diffview.nvim',
-  'kyazdani42/nvim-web-devicons',
+  'nvim-tree/nvim-web-devicons',
 
 
 	-- NAV --
 	{
 		'ibhagwan/fzf-lua', -- fzf for everything
-		requires = { 'kyazdani42/nvim-web-devicons' }
+		dependencies = { 'nvim-tree/nvim-web-devicons' }
 	},
 	{
 		'nvim-tree/nvim-tree.lua',  -- file tree
-		requires = { 'nvim-tree/nvim-web-devicons' }
+		dependencies = { 'nvim-tree/nvim-web-devicons' }
 	},
   {
     "folke/which-key.nvim",
@@ -165,7 +165,7 @@ plugins = {
 		}
 	},
 	-- LANGUAGE --
-	{ 'williamboman/mason.nvim', run = ":MasonUpdate" }, -- auto-install language servers
+	{ 'williamboman/mason.nvim', build = ":MasonUpdate" }, -- auto-install language servers
 	'williamboman/mason-lspconfig.nvim', -- lspconfig / mason bridge
 	'neovim/nvim-lspconfig',            -- Collection of configurations for built-in LSP client
 	{ 'hrsh7th/nvim-cmp', commit = "b356f2c" },  -- Autocompletion plugin
@@ -217,7 +217,7 @@ plugins = {
 }
 
 -- lazy options
-opts = {
+local opts = {
   root = vim.fn.stdpath("data") .. "/lazy", -- directory where plugins will be installed
   defaults = {
     lazy = false, -- should plugins be lazy-loaded?
@@ -433,8 +433,7 @@ require("formatter").setup {
 
 require('gitsigns').setup()
 
-local wilder = require('wilder')
-wilder.setup({modes = {':', '/', '?'}})
+require('wilder').setup({ modes = { ':', '/', '?' } })
 
 local neogit = require("neogit")
 
@@ -775,10 +774,10 @@ neogit.setup {
   },
 }
 
-vim.api.nvim_set_keymap('n', '<C-j>', ':Treewalker Down<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-k>', ':Treewalker Up<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-h>', ':Treewalker Left<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-l>', ':Treewalker Right<CR>', { noremap = true })
+vim.keymap.set('n', '<C-j>', ':Treewalker Down<CR>', { noremap = true })
+vim.keymap.set('n', '<C-k>', ':Treewalker Up<CR>', { noremap = true })
+vim.keymap.set('n', '<C-h>', ':Treewalker Left<CR>', { noremap = true })
+vim.keymap.set('n', '<C-l>', ':Treewalker Right<CR>', { noremap = true })
 
 local theme = {
   fill = 'TabLineFill',

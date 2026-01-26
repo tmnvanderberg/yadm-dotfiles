@@ -1,38 +1,38 @@
-require('map')
+local map = require('map')
 
 -- remove highlight after search
-Map(
+map(
   "n",
   "<Leader>u",
   ":nohl<CR>",
-  { silent = true, noremap = true }
+  { silent = true }
 )
 
 -- open vim wiki index
-Map(
+map(
   "n",
   "<Leader>ow",
   ":VimwikiIndex<CR>",
-  { silent = true, noremap = true }
+  { silent = true }
 )
 -- only show current split, closing others
-Map(
+map(
   "n",
   "<Leader>i",
   ":only<CR>",
-  { silent = true, noremap = true }
+  { silent = true }
 )
 
 -- open file browser cwd with focus on current buffer
-Map(
+map(
   "n",
   "<Leader>e",
   ":NvimTreeFindFile<CR>",
-  { silent = true, noremap = true }
+  { silent = true }
 )
 
 -- Copy File path relative to working directory
-Map(
+map(
   "n",
   "<Leader>cf",
   ":let @+=fnamemodify(expand('%:p'), ':~:.')<CR>",
@@ -40,28 +40,23 @@ Map(
 )
 
 -- Open a Terminal in the directory of the current file
-Map(
+map(
   "n",
   "<Leader>k",
   ":silent !konsole --workdir %:p:h --new-tab &<CR><CR>",
   { silent = false }
 )
 
-function OpenKonsoleTab()
+local function open_konsole_tab()
   local current_dir = vim.fn.getcwd()
   local command = 'konsole --new-tab --workdir "' .. current_dir .. '"'
   vim.fn.jobstart(command)
 end
 
 -- Open a Terminal in the current Working directory
-Map(
-  "n",
-  "<Leader>tk",
-  ":lua OpenKonsoleTab()<CR>",
-  { silent = false }
-)
+map("n", "<Leader>tk", open_konsole_tab, { silent = false })
 
-function CopyFP()
+local function copy_fp()
   local linenr = vim.api.nvim_win_get_cursor(0)[1]
   local filepath = vim.api.nvim_buf_get_name(0)
   local line_number_str = string.format("-%d", linenr)
@@ -69,14 +64,9 @@ function CopyFP()
   vim.fn.setreg("+", full_filepath)
 end
 
-Map(
-  "n",
-  "<Leader>fp",
-  ":lua CopyFP()<CR>",
-  { silent = false }
-)
+map("n", "<Leader>fp", copy_fp, { silent = false })
 
-Map(
+map(
   "n",
   "<Leader>l",
   ":set list!<CR>",

@@ -1,9 +1,6 @@
 -- use spacebar as <leader>
 vim.g.mapleader = ' '
 
--- enable autocomplete
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
-
 local options = {
   backup = false,                          -- creates a backup file
   clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
@@ -51,8 +48,8 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
-vim.cmd "set whichwrap+=<,>,[,],h,l"
-vim.cmd "set colorcolumn=100"
+vim.opt.whichwrap:append("<,>,[,],h,l")
+vim.opt.colorcolumn = "100"
 
 -- disable diagnostics inline (use <space>e instead)
 vim.diagnostic.config({
@@ -67,7 +64,14 @@ vim.api.nvim_create_user_command("Cppath", function()
 end, {})
 
 -- all the whitesp chrs:
-vim.cmd [[set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣]]
+vim.opt.listchars = {
+  eol = "¬",
+  tab = ">·",
+  trail = "~",
+  extends = ">",
+  precedes = "<",
+  space = "␣",
+}
 
 -- increase limit for Flog
 vim.g.flog_default_opts = {
@@ -77,4 +81,3 @@ vim.g.flog_default_opts = {
 }
 
 vim.g.maplocalleader = ','
-

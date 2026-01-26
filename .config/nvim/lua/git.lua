@@ -1,17 +1,17 @@
-require('map')
+local map = require('map')
 
 -- main git interface of fugitive
-Map(
+map(
 	"n",
 	"<Leader>G",
 	":Neogit<CR>",
-	{ silent = true, noremap = true }
+	{ silent = true }
 )
 
 -- cherry-pick current word
-Map(
+map(
 	"n",
 	"<Leader>t",
 	":G cherry-pick <C-R><C-W><CR>",
-	{ silent = true, noremap = true }
+	{ silent = true }
 )

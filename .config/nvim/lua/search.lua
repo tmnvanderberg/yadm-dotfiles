@@ -1,22 +1,22 @@
-require('map')
+local map = require('map')
 
-Map(
+map(
 	"n",
 	"<C-p>",
 	":FzfLua<CR>",
-	{ silent = true, noremap = true }
+	{ silent = true }
 )
 
-Map(
+map(
   "n",
   "<Leader>w",
   ":lua require('grug-far').open({ prefills = { search = vim.fn.expand('<cword>') }})<CR>",
-  { silent = true, noremap = true }
+  { silent = true }
 )
 
-Map(
+map(
   "v",
   "<Leader>w",
   ":lua require('grug-far').with_visual_selection()<CR>",
-  { silent = true, noremap = true }
+  { silent = true }
 )

@@ -1,62 +1,70 @@
-require('map')
+local map = require('map')
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Mason handles installation of the language servers for nvim-lsp
-local lspconfig = require('lspconfig')
 require("mason").setup()
 require("mason-lspconfig").setup({
 	automatic_installation = true
 })
 
-local set_buffer_maps = function(client, bufnr)
-  local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-	vim.keymap.set('n', '<space>rd', vim.lsp.buf.definition, { desc = "Go to Definition", buffer = bufopts.buffer })
-	vim.keymap.set('n', '<space>ri', vim.lsp.buf.implementation, { desc = "Go to Implementation", buffer = bufopts.buffer })
-	vim.keymap.set('n', '<space>rr', vim.lsp.buf.references, { desc = "Go to References", buffer = bufopts.buffer })
-	vim.keymap.set('n', '<space>rt', vim.lsp.buf.type_definition, { desc = "Type Definition", buffer = bufopts.buffer })
-	vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, { desc = "Rename", buffer = bufopts.buffer })
-	vim.keymap.set('n', '<space>ra', vim.lsp.buf.code_action, { desc = "Code Action", buffer = bufopts.buffer })
-	vim.keymap.set('n', '<space>rh', vim.lsp.buf.hover, { desc = "Hover", buffer = bufopts.buffer })
-	vim.keymap.set('n', '<space>rf', vim.lsp.buf.format, { desc ="Format", buffer = bufopts.buffer } )
+local set_buffer_maps = function(_, bufnr)
+  vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+	vim.keymap.set('n', '<space>rd', vim.lsp.buf.definition, { desc = "Go to Definition", buffer = bufnr })
+	vim.keymap.set('n', '<space>ri', vim.lsp.buf.implementation, { desc = "Go to Implementation", buffer = bufnr })
+	vim.keymap.set('n', '<space>rr', vim.lsp.buf.references, { desc = "Go to References", buffer = bufnr })
+	vim.keymap.set('n', '<space>rt', vim.lsp.buf.type_definition, { desc = "Type Definition", buffer = bufnr })
+	vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, { desc = "Rename", buffer = bufnr })
+	vim.keymap.set('n', '<space>ra', vim.lsp.buf.code_action, { desc = "Code Action", buffer = bufnr })
+	vim.keymap.set('n', '<space>rh', vim.lsp.buf.hover, { desc = "Hover", buffer = bufnr })
+	vim.keymap.set('n', '<space>rf', vim.lsp.buf.format, { desc ="Format", buffer = bufnr } )
 end
 
 local servers = {
 	-- 'clangd',
   'ccls',
 	'pyright',
-	'lua_ls',
 	'bashls',
-	'ts_ls',
 	'jsonls',
 	'cmake',
 	'rnix',
 	'html',
 }
 
-for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup {
-		capabilities = capabilities,
-		on_attach = set_buffer_maps
-	}
+local function enable_servers(names)
+  vim.lsp.enable(names)
 end
 
-lspconfig.lua_ls.setup {
-	capabilities = capabilities,
-	on_attach = set_buffer_maps,
-	settings = {
-		Lua = {
-			diagnostics = {
-				globals = {
-					'vim'
-				}
-			}
-		}
-	}
-}
+for _, lsp in ipairs(servers) do
+  vim.lsp.config(lsp, {
+    capabilities = capabilities,
+    on_attach = set_buffer_maps,
+  })
+end
+
+vim.lsp.config('lua_ls', {
+  capabilities = capabilities,
+  on_attach = set_buffer_maps,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = {
+          'vim'
+        }
+      }
+    }
+  }
+})
+
+vim.lsp.config('tsserver', {
+  capabilities = capabilities,
+  on_attach = set_buffer_maps,
+})
+
+enable_servers(servers)
+enable_servers({ 'lua_ls', 'tsserver' })
 
 
 local cmp = require 'cmp'
@@ -92,10 +100,10 @@ cmp.setup {
 require('toggle_lsp_diagnostics').init()
 
 -- Define a variable to track if the LSP should be loaded
-LoadLSP = true
+local lsp_enabled = true
 
 -- Function to toggle loading of LSP
-function ToggleLSP()
+local function toggle_lsp()
   local servers = {
       --'clangd',
       'ccls',
@@ -109,38 +117,15 @@ function ToggleLSP()
       'html',
       'gopls'
     }
-    LoadLSP = not LoadLSP
-    if LoadLSP then
-        for _, lsp in ipairs(servers) do
-            lspconfig[lsp].setup {
-                capabilities = capabilities,
-                on_attach = set_buffer_maps
-            }
-        end
-        lspconfig.lua_ls.setup {
-            capabilities = capabilities,
-            on_attach = set_buffer_maps,
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = {
-                            'vim'
-                        }
-                    }
-                }
-            }
-        }
+    lsp_enabled = not lsp_enabled
+    if lsp_enabled then
+        enable_servers(servers)
     else
-      LspStop()
+      vim.lsp.enable(servers, false)
     end
 end
 
-Map(
-  "n",
-  "<Leader>lo",
-  ":lua ToggleLSP()<CR>",
-  { silent = false }
-)
+map("n", "<Leader>lo", toggle_lsp, { silent = false })
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the listed parsers MUST always be installed)

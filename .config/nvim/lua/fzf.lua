@@ -1,13 +1,28 @@
 local actions = require "fzf-lua.actions"
+local fzf = require('fzf-lua')
+
+local file_open_actions = {
+  ['default'] = actions.file_edit,
+  ['ctrl-s'] = actions.file_split,
+  ['ctrl-v'] = actions.file_vsplit,
+  ['ctrl-t'] = actions.file_tabedit,
+}
+
+local function read_lines(cmd, on_line)
+  local handle = io.popen(cmd)
+  if not handle then
+    return
+  end
+  for line in handle:lines() do
+    on_line(line)
+  end
+  handle:close()
+end
 
 -- browse source dirs symlinked in /src/
 local function browse_source_dirs()
-  local fzf = require('fzf-lua')
-  local nvim_tree = require('nvim-tree')
-
   local find_cmd = [[
-    find $(readlink -f /src/1) $(readlink -f /src/2) $(readlink -f /src/3) -type d -maxdepth 2 -print 2>/dev/null
-    | sed 's/^.\///'
+    find -L /src/1 /src/2 /src/3 -type d -maxdepth 2 -print 2>/dev/null
   ]]
 
   fzf.files({
@@ -20,18 +35,13 @@ end
 
 -- browse nvim configuration files
 local function browse_nvim_conf()
-  local fzf = require('fzf-lua')
-  local nvim_tree = require('nvim-tree')
+  local base_dir = vim.fn.expand('~/.config/nvim')
+  local cmd = "find " .. vim.fn.shellescape(base_dir) .. " -maxdepth 3 -type f -print 2>/dev/null"
 
-  local find_cmd = [[
-    find ~/.config/nvim/ -maxdepth 3 -print 2>/dev/null
-    | sed 's/^.\///'
-  ]]
-
-  fzf.files({
-    cmd = find_cmd,
+  fzf.fzf_exec(cmd, {
     prompt = 'Select NVIM config file: ',
     previewer = 'builtin',
+    actions = file_open_actions,
   })
 end
 
@@ -42,8 +52,6 @@ local function get_current_file_dir()
 end
 
 local function browse_current_file_dir()
-  local fzf = require('fzf-lua')
-
   local current_file_dir = get_current_file_dir()
 
   fzf.files({
@@ -54,8 +62,6 @@ local function browse_current_file_dir()
 end
 
 local function grep_current_file_dir()
-  local fzf = require('fzf-lua')
-
   local current_file_dir = get_current_file_dir()
 
   fzf.grep({
@@ -65,23 +71,17 @@ local function grep_current_file_dir()
 end
 
 local function browse_streamsdk_modules()
-local fzf = require('fzf-lua')
-
   -- Get the current working directory and append the desired subdirectory
   local base_dir = vim.fn.getcwd() .. '/src/modules'
 
   -- Use find to list only directories at the first level and awk to extract directory names
-  local cmd = 'find ' .. base_dir .. ' -mindepth 1 -maxdepth 1 -type d -exec basename {} \\;'
+  local cmd = 'find ' .. vim.fn.shellescape(base_dir) .. ' -mindepth 1 -maxdepth 1 -type d -exec basename {} \\;'
 
   -- Create a mapping from directory names to their full paths
   local dir_map = {}
-  local handle = io.popen(cmd)
-  if handle then
-    for dir in handle:lines() do
-      dir_map[dir] = base_dir .. '/' .. dir
-    end
-    handle:close()
-  end
+  read_lines(cmd, function(dir)
+    dir_map[dir] = base_dir .. '/' .. dir
+  end)
 
   -- Use fzf to list only directories
   fzf.fzf_exec(cmd, {
@@ -101,26 +101,20 @@ local fzf = require('fzf-lua')
 end
 
 local function grep_in_directory(dir)
-  local fzf = require('fzf-lua')
-
   -- If no directory is provided, use the current working directory
   local base_dir = dir or vim.fn.getcwd()
 
   -- Use find to list only directories at the first level and extract directory names
-  local cmd = 'find ' .. base_dir .. ' -type d'
+  local cmd = 'find ' .. vim.fn.shellescape(base_dir) .. ' -type d'
 
   -- Create a mapping from directory names to their full paths
   local dir_map = {}
-  local handle = io.popen(cmd)
-  if handle then
-    for directory in handle:lines() do
-      dir_map[directory] = base_dir .. '/' .. directory
-    end
-    handle:close()
-  end
+  read_lines(cmd, function(directory)
+    dir_map[directory] = directory
+  end)
 
   -- Define actions to reuse
-  local actions = {
+  local action_map = {
     ['o'] = function(selected)
       local selected_dir = dir_map[selected[1]]
       -- Recursively call grep_in_directory with the selected directory
@@ -140,14 +134,12 @@ local function grep_in_directory(dir)
   fzf.fzf_exec(cmd, {
     prompt = 'Select Directory: ',
     previewer = 'builtin',
-    actions = actions,  -- Use the defined actions
+    actions = action_map,
   })
 end
 
 -- show commits for the current file directory
 local function dir_commits()
-	local fzf = require('fzf-lua')
-
   -- Get the directory of the current file
   local current_file_dir = vim.fn.expand('%:p:h')
 
@@ -228,7 +220,7 @@ require('fzf-lua').setup {
       flip_columns   = 120,             -- #cols to switch to horizontal on flex
       -- Only used with the builtin previewer:
       title          = true,            -- preview border title (file/buf)?
-      title_align    = "left",          -- left|center|right, title alignment
+      title_pos      = "left",          -- left|center|right, title alignment
       scrollbar      = 'false',         -- `false` or string:'float|border'
                                         -- float:  in-window floating border
                                         -- border: in-border chars (see below)
