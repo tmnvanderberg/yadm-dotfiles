@@ -63,6 +63,23 @@ vim.api.nvim_create_user_command("Cppath", function()
     vim.notify('Copied "' .. path .. '" to the clipboard!')
 end, {})
 
+-- vimwiki (and some plugins) still call this deprecated helper in 0.11+
+if vim.tbl_add_reverse_lookup then
+  vim.tbl_add_reverse_lookup = function(tbl)
+    for k, v in pairs(tbl) do
+      if tbl[v] == nil then
+        tbl[v] = k
+      end
+    end
+    return tbl
+  end
+end
+
+-- compatibility for deprecated vim.tbl_islist
+if vim.tbl_islist then
+  vim.tbl_islist = vim.islist
+end
+
 -- all the whitesp chrs:
 vim.opt.listchars = {
   eol = "¬",
@@ -81,3 +98,6 @@ vim.g.flog_default_opts = {
 }
 
 vim.g.maplocalleader = ','
+
+-- Tell Tree-sitter to treat vimwiki buffers as markdown
+vim.treesitter.language.register("markdown", { "vimwiki", "vimwiki.markdown" })
