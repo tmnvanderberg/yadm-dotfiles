@@ -1,3 +1,7 @@
 WRN 2026-02-13T14:50:51.227 ?.86495    server_start:199: Failed to start server: operation not permitted: /var/folders/vx/q0y0fcnx53jd19g8g6fddr5m0000gn/T/nvim.tsb/u4V6k5/nvim.86495.0
 WRN 2026-02-13T14:51:03.722 ?.86535    server_start:199: Failed to start server: operation not permitted: /var/folders/vx/q0y0fcnx53jd19g8g6fddr5m0000gn/T/nvim.tsb/GFFG8p/nvim.86535.0
 WRN 2026-02-13T14:51:23.930 ?.86599    server_start:199: Failed to start server: operation not permitted: /var/folders/vx/q0y0fcnx53jd19g8g6fddr5m0000gn/T/nvim.tsb/ct31aU/nvim.86599.0
+WRN 2026-02-13T14:56:16.991 ?.88346    server_start:199: Failed to start server: operation not permitted: /var/folders/vx/q0y0fcnx53jd19g8g6fddr5m0000gn/T/nvim.tsb/f7J55E/nvim.88346.0
+WRN 2026-02-13T14:59:23.698 ?.89331    server_start:199: Failed to start server: operation not permitted: /var/folders/vx/q0y0fcnx53jd19g8g6fddr5m0000gn/T/nvim.tsb/aplqu6/nvim.89331.0
+WRN 2026-02-13T16:18:27.803 ?.6239     server_start:199: Failed to start server: operation not permitted: /var/folders/vx/q0y0fcnx53jd19g8g6fddr5m0000gn/T/nvim.tsb/dJ8uoR/nvim.6239.0
+WRN 2026-02-13T16:20:16.333 ?.6857     server_start:199: Failed to start server: operation not permitted: /var/folders/vx/q0y0fcnx53jd19g8g6fddr5m0000gn/T/nvim.tsb/xBpgry/nvim.6857.0

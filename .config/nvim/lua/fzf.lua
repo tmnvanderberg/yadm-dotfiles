@@ -152,6 +152,151 @@ local function dir_commits()
   })
 end
 
+local function get_vimwiki_root()
+  local wiki_path = nil
+  local wiki_list = vim.g.vimwiki_list
+  if type(wiki_list) == "table" and type(wiki_list[1]) == "table" then
+    wiki_path = wiki_list[1].path
+  end
+
+  if type(wiki_path) ~= "string" or wiki_path == "" then
+    wiki_path = "~/vimwiki"
+  end
+
+  return vim.fn.expand(wiki_path)
+end
+
+local function browse_vimwiki_files(opts)
+  opts = opts or {}
+  local wiki_root = get_vimwiki_root()
+  if vim.fn.isdirectory(wiki_root) ~= 1 then
+    vim.notify("Vimwiki directory not found: " .. wiki_root, vim.log.levels.WARN)
+    return
+  end
+
+  fzf.files({
+    cwd = wiki_root,
+    prompt = "Vimwiki Files> ",
+    query = opts.query,
+    previewer = "builtin",
+  })
+end
+
+local function grep_vimwiki(opts)
+  opts = opts or {}
+  local wiki_root = get_vimwiki_root()
+  if vim.fn.isdirectory(wiki_root) ~= 1 then
+    vim.notify("Vimwiki directory not found: " .. wiki_root, vim.log.levels.WARN)
+    return
+  end
+
+  fzf.grep({
+    cwd = wiki_root,
+    prompt = "Vimwiki Grep> ",
+    search = opts.search or "",
+  })
+end
+
+local function insert_text_at_cursor(text)
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  row = row - 1
+  vim.api.nvim_buf_set_text(0, row, col, row, col, { text })
+  vim.api.nvim_win_set_cursor(0, { row + 1, col + #text })
+end
+
+local unicode_symbols = {
+  { symbol = "✓", name = "checkmark", aliases = "check tick done yes success" },
+  { symbol = "✅", name = "done", aliases = "complete finished resolved shipped" },
+  { symbol = "☑", name = "verified done", aliases = "verified checked validated complete" },
+  { symbol = "⏳", name = "in progress", aliases = "progress pending running loading wip hourglass" },
+  { symbol = "🟨", name = "blocked risked", aliases = "blocked risk warning hold" },
+  { symbol = "⛔", name = "blocked hard", aliases = "blocked stop cannot proceed hardblock" },
+  { symbol = "⏸", name = "paused", aliases = "pause on hold waiting suspended" },
+  { symbol = "🧪", name = "in testing", aliases = "testing qa verify test" },
+  { symbol = "🚀", name = "shipped", aliases = "release deployed launched done" },
+  { symbol = "♻", name = "rework refactor", aliases = "rework refactor cleanup rewrite" },
+  { symbol = "❌", name = "canceled", aliases = "cancelled canceled dropped wontfix" },
+  { symbol = "✔", name = "heavy checkmark", aliases = "check tick done yes success" },
+  { symbol = "✗", name = "cross mark", aliases = "x wrong no fail" },
+  { symbol = "✘", name = "heavy cross mark", aliases = "x wrong no fail" },
+  { symbol = "•", name = "bullet", aliases = "dot list" },
+  { symbol = "🔥", name = "urgent", aliases = "urgent asap critical high priority" },
+  { symbol = "⬆", name = "high priority", aliases = "priority high important" },
+  { symbol = "➖", name = "medium priority", aliases = "priority medium normal" },
+  { symbol = "⬇", name = "low priority", aliases = "priority low minor" },
+  { symbol = "📌", name = "pinned", aliases = "pin important sticky bookmark" },
+  { symbol = "🎯", name = "goal", aliases = "goal objective target" },
+  { symbol = "🗺", name = "roadmap item", aliases = "roadmap plan milestone" },
+  { symbol = "🧭", name = "decision needed", aliases = "decision needed direction choose" },
+  { symbol = "🧱", name = "dependency", aliases = "dependency blocker prerequisite" },
+  { symbol = "🔀", name = "tradeoff", aliases = "tradeoff compromise option branch" },
+  { symbol = "🛠", name = "action item", aliases = "todo task action next step" },
+  { symbol = "🗓", name = "scheduled", aliases = "scheduled calendar meeting date" },
+  { symbol = "👥", name = "attendees", aliases = "attendees people stakeholders participants" },
+  { symbol = "📝", name = "notes", aliases = "notes meeting notes memo" },
+  { symbol = "❓", name = "open question", aliases = "question unknown unresolved ask" },
+  { symbol = "💡", name = "idea", aliases = "idea brainstorm concept suggestion" },
+  { symbol = "⚖", name = "decision made", aliases = "decision decided ruling outcome" },
+  { symbol = "➡", name = "next step", aliases = "next step follow-up action" },
+  { symbol = "🙋", name = "owner needed", aliases = "owner needed assign ownership" },
+  { symbol = "🐛", name = "bug", aliases = "bug defect issue error" },
+  { symbol = "🔍", name = "investigation", aliases = "investigate debugging analysis triage" },
+  { symbol = "📈", name = "metric improved", aliases = "metric improved up trend gain" },
+  { symbol = "📉", name = "regression", aliases = "regression metric down degraded" },
+  { symbol = "⚠", name = "warning", aliases = "warning caution risk attention" },
+  { symbol = "🧨", name = "incident", aliases = "incident outage production fire sev" },
+  { symbol = "🩹", name = "hotfix", aliases = "hotfix quick fix patch urgent" },
+  { symbol = "🔒", name = "security", aliases = "security vuln vulnerability auth privacy" },
+  { symbol = "🧬", name = "root cause", aliases = "root cause rca postmortem reason" },
+  { symbol = "📦", name = "release build", aliases = "release build package artifact" },
+  { symbol = "⏱", name = "estimate time spent", aliases = "estimate timing duration effort spent" },
+  { symbol = "📅", name = "due date", aliases = "due date deadline target date" },
+  { symbol = "🔔", name = "reminder", aliases = "reminder notify alert ping" },
+  { symbol = "↩", name = "follow-up", aliases = "follow-up revisit callback return" },
+  { symbol = "🔁", name = "recurring", aliases = "recurring repeat routine cyclic" },
+  { symbol = "📬", name = "waiting on response", aliases = "waiting response pending reply external" },
+  { symbol = "→", name = "right arrow", aliases = "arrow next forward" },
+  { symbol = "←", name = "left arrow", aliases = "arrow back previous" },
+  { symbol = "↑", name = "up arrow", aliases = "arrow" },
+  { symbol = "↓", name = "down arrow", aliases = "arrow" },
+  { symbol = "↔", name = "left right arrow", aliases = "arrow horizontal" },
+  { symbol = "⇒", name = "double right arrow", aliases = "implies" },
+  { symbol = "∞", name = "infinity", aliases = "math endless" },
+  { symbol = "±", name = "plus minus", aliases = "math" },
+  { symbol = "≈", name = "approximately equal", aliases = "math almost equal" },
+  { symbol = "≠", name = "not equal", aliases = "math inequality" },
+  { symbol = "≤", name = "less than or equal", aliases = "math" },
+  { symbol = "≥", name = "greater than or equal", aliases = "math" },
+  { symbol = "°", name = "degree", aliases = "temperature angle" },
+  { symbol = "©", name = "copyright", aliases = "legal" },
+  { symbol = "®", name = "registered", aliases = "legal" },
+  { symbol = "™", name = "trademark", aliases = "legal" },
+}
+
+local function pick_unicode_symbol(opts)
+  opts = opts or {}
+  local entries = {}
+
+  for _, item in ipairs(unicode_symbols) do
+    table.insert(entries, string.format("%s\t%s\t%s", item.symbol, item.name, item.aliases))
+  end
+
+  fzf.fzf_exec(entries, {
+    prompt = "Insert Symbol> ",
+    query = opts.query,
+    previewer = false,
+    actions = {
+      ['default'] = function(selected)
+        local fields = vim.split(selected[1], "\t")
+        local symbol = fields[1]
+        if symbol and symbol ~= "" then
+          insert_text_at_cursor(symbol)
+        end
+      end,
+    },
+  })
+end
+
 -- Register the functions with fzf-lua
 require('fzf-lua').projects = browse_source_dirs
 require('fzf-lua').nvim_config = browse_nvim_conf
@@ -160,6 +305,30 @@ require('fzf-lua').grep_current_file_dir = grep_current_file_dir
 require('fzf-lua').modules = browse_streamsdk_modules
 require('fzf-lua').magrep = grep_in_directory
 require('fzf-lua').dircommits = dir_commits
+require('fzf-lua').vimwiki_files = browse_vimwiki_files
+require('fzf-lua').vimwiki_grep = grep_vimwiki
+require('fzf-lua').symbols = pick_unicode_symbol
+
+vim.api.nvim_create_user_command("Symbols", function(opts)
+  require('fzf-lua').symbols({ query = opts.args })
+end, {
+  nargs = "*",
+  desc = "Fuzzy find a Unicode symbol and insert it at cursor",
+})
+
+vim.api.nvim_create_user_command("VimwikiFiles", function(opts)
+  require('fzf-lua').vimwiki_files({ query = opts.args })
+end, {
+  nargs = "*",
+  desc = "Fuzzy find files in Vimwiki folder",
+})
+
+vim.api.nvim_create_user_command("VimwikiGrep", function(opts)
+  require('fzf-lua').vimwiki_grep({ search = opts.args })
+end, {
+  nargs = "*",
+  desc = "Search text in Vimwiki folder",
+})
 
 require('fzf-lua').setup {
   -- fzf_bin         = 'sk',            -- use skim instead of fzf?
