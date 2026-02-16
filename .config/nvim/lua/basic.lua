@@ -98,6 +98,20 @@ vim.g.flog_default_opts = {
 }
 
 vim.g.maplocalleader = ','
+vim.g.jira_definition_of_done_field = "customfield_10100"
 
 -- Tell Tree-sitter to treat vimwiki buffers as markdown
 vim.treesitter.language.register("markdown", { "vimwiki", "vimwiki.markdown" })
+
+-- Open Vimwiki index on startup when no files were passed on the CLI.
+vim.api.nvim_create_autocmd("VimEnter", {
+  once = true,
+  callback = function()
+    if vim.fn.argc() ~= 0 then
+      return
+    end
+    vim.schedule(function()
+      pcall(vim.cmd, "VimwikiIndex")
+    end)
+  end,
+})
