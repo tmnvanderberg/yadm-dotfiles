@@ -599,6 +599,35 @@ local plugins = {
 	},
 
 	-- SYNTAX -- 
+	{
+		'lervag/vimtex',
+		ft = { "tex", "plaintex", "bib" },
+		init = function()
+			vim.g.tex_flavor = "latex"
+			vim.g.vimtex_compiler_method = "latexmk"
+			vim.g.vimtex_compiler_latexmk = {
+				build_dir = "",
+				callback = 1,
+				continuous = 1,
+				executable = "latexmk",
+				options = {
+					"-pdf",
+					"-interaction=nonstopmode",
+					"-synctex=1",
+					"-file-line-error",
+				},
+			}
+			vim.g.vimtex_quickfix_mode = 0
+
+			if vim.fn.has("macunix") == 1 then
+				vim.g.vimtex_view_method = "skim"
+				vim.g.vimtex_view_skim_sync = 1
+				vim.g.vimtex_view_skim_activate = 1
+			else
+				vim.g.vimtex_view_method = "zathura"
+			end
+		end,
+	},
 	{ 'solarnz/thrift.vim', ft = "thrift" },               -- thrift syntax
 	{ 'MTDL9/vim-log-highlighting', ft = { "log" } },       -- generic log hightighter
 	{ 'kergoth/vim-bitbake', ft = { "bitbake", "bb" } },    -- syntax for bb files

@@ -75,3 +75,51 @@ map(
 
 -- use Alt-R as C-R replacement for terminal buffers
 vim.keymap.set('t', '<M-r>', [['<C-\><C-N>"'.nr2char(getchar()).'pi']], { expr = true })
+
+-- rewrite visual selection using OpenAI
+map("v", "<Leader>ar", ":<C-u>OpenAIRewrite<CR>", { silent = true })
+
+-- LaTeX workflow (vimtex)
+local function ensure_tex_buffer_has_file()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local name = vim.api.nvim_buf_get_name(bufnr)
+  if name ~= "" then
+    return true
+  end
+
+  local preview_dir = vim.fn.stdpath("state") .. "/latex-preview"
+  vim.fn.mkdir(preview_dir, "p")
+  local temp_path = string.format(
+    "%s/buffer-%d-%s.tex",
+    preview_dir,
+    bufnr,
+    os.date("%Y%m%d-%H%M%S")
+  )
+  local ok = pcall(vim.api.nvim_buf_set_name, bufnr, temp_path)
+  if not ok then
+    vim.notify("Could not assign temporary .tex filename to current buffer", vim.log.levels.ERROR)
+    return false
+  end
+  return true
+end
+
+local function vimtex_compile_current_buffer()
+  if not ensure_tex_buffer_has_file() then
+    return
+  end
+  vim.cmd("silent write!")
+  vim.cmd("VimtexCompile")
+end
+
+local function vimtex_view_current_buffer()
+  if not ensure_tex_buffer_has_file() then
+    return
+  end
+  vim.cmd("silent write!")
+  vim.cmd("VimtexView")
+end
+
+map("n", "<Leader>ll", vimtex_compile_current_buffer, { silent = true })
+map("n", "<Leader>lv", vimtex_view_current_buffer, { silent = true })
+map("n", "<Leader>lk", ":VimtexStop<CR>", { silent = true })
+map("n", "<Leader>le", ":VimtexErrors<CR>", { silent = true })
